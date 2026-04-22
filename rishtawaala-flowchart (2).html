@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RishtaWaala.com — System Flowchart v2</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700;900&family=Outfit:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0B0F1A; --bg2:#0F1420; --bg3:#141926;
+  --border:rgba(99,179,237,0.15); --ivory:#EEF2FF; --muted:#6B7BA4;
+  --teal:#2DD4BF; --teal-d:#0D9488;
+  --pink:#F472B6; --pink-d:#BE185D;
+  --violet:#A78BFA; --violet-d:#6D28D9;
+  --amber:#FCD34D; --amber-d:#D97706;
+  --sky:#38BDF8; --sky-d:#0369A1;
+  --rose:#FB7185; --rose-d:#BE123C;
+  --lime:#A3E635; --lime-d:#4D7C0F;
+  --orange:#FB923C;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--ivory);overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;z-index:0;background:
+  radial-gradient(ellipse 60% 40% at 20% 10%,rgba(45,212,191,.06) 0%,transparent 60%),
+  radial-gradient(ellipse 50% 35% at 80% 80%,rgba(167,139,250,.07) 0%,transparent 60%),
+  radial-gradient(ellipse 40% 30% at 60% 40%,rgba(244,114,182,.04) 0%,transparent 50%);
+  pointer-events:none;}
+body>*{position:relative;z-index:1;}
+
+/* HERO */
+.hero{text-align:center;padding:80px 24px 60px;position:relative;border-bottom:1px solid var(--border);overflow:hidden;}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(45,212,191,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(45,212,191,.04) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;}
+.logo-wrap{display:inline-flex;align-items:center;gap:14px;margin-bottom:20px;}
+.logo-ring{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--pink));display:grid;place-items:center;font-size:26px;animation:glow 4s ease-in-out infinite;box-shadow:0 0 24px rgba(45,212,191,.4);}
+@keyframes glow{0%,100%{box-shadow:0 0 24px rgba(45,212,191,.4);}50%{box-shadow:0 0 40px rgba(244,114,182,.5);}}
+.logo-name{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:900;background:linear-gradient(135deg,var(--teal) 0%,var(--violet) 50%,var(--pink) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-1px;}
+.hero-tag{font-size:11px;letter-spacing:5px;text-transform:uppercase;color:var(--teal);opacity:.7;margin-bottom:16px;}
+.hero-p{max-width:600px;margin:0 auto;font-size:15px;color:var(--muted);line-height:1.75;}
+.hero-stats{display:flex;justify-content:center;gap:40px;margin-top:36px;flex-wrap:wrap;}
+.hstat{text-align:center;}
+.hstat-num{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:700;background:linear-gradient(135deg,var(--amber),var(--orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hstat-label{font-size:11px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;}
+
+/* TECH BAR */
+.tech-bar{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;padding:24px;background:var(--bg2);border-bottom:1px solid var(--border);}
+.badge{display:flex;align-items:center;gap:7px;padding:6px 14px;border-radius:999px;font-family:'Fira Code',monospace;font-size:11.5px;border:1px solid transparent;transition:transform .2s,box-shadow .2s;cursor:default;}
+.badge:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,.3);}
+.dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.b-t{background:rgba(45,212,191,.08);border-color:rgba(45,212,191,.35);color:var(--teal);}
+.b-l{background:rgba(163,230,53,.08);border-color:rgba(163,230,53,.35);color:var(--lime);}
+.b-v{background:rgba(167,139,250,.08);border-color:rgba(167,139,250,.35);color:var(--violet);}
+.b-s{background:rgba(56,189,248,.08);border-color:rgba(56,189,248,.35);color:var(--sky);}
+.b-o{background:rgba(251,146,60,.08);border-color:rgba(251,146,60,.35);color:var(--orange);}
+.b-p{background:rgba(244,114,182,.08);border-color:rgba(244,114,182,.35);color:var(--pink);}
+.b-a{background:rgba(252,211,77,.08);border-color:rgba(252,211,77,.35);color:var(--amber);}
+
+/* CANVAS */
+.canvas{max-width:1200px;margin:0 auto;padding:60px 24px 100px;}
+
+/* SECTIONS */
+.flow-section{margin-bottom:80px;opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease;}
+.flow-section.visible{opacity:1;transform:none;}
+.flow-title{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;margin-bottom:32px;display:flex;align-items:center;gap:14px;}
+.flow-title::after{content:'';flex:1;height:1px;background:linear-gradient(to right,currentColor,transparent);opacity:.2;}
+.flow-num{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-size:13px;font-weight:700;font-family:'Fira Code',monospace;flex-shrink:0;}
+.fn-t{background:rgba(45,212,191,.15);color:var(--teal);border:1px solid rgba(45,212,191,.3);}
+.fn-v{background:rgba(167,139,250,.15);color:var(--violet);border:1px solid rgba(167,139,250,.3);}
+.fn-a{background:rgba(252,211,77,.15);color:var(--amber);border:1px solid rgba(252,211,77,.3);}
+.fn-r{background:rgba(251,113,133,.15);color:var(--rose);border:1px solid rgba(251,113,133,.3);}
+.fn-s{background:rgba(56,189,248,.15);color:var(--sky);border:1px solid rgba(56,189,248,.3);}
+.fn-l{background:rgba(163,230,53,.15);color:var(--lime);border:1px solid rgba(163,230,53,.3);}
+.fn-p{background:rgba(244,114,182,.15);color:var(--pink);border:1px solid rgba(244,114,182,.3);}
+.fn-o{background:rgba(251,146,60,.15);color:var(--orange);border:1px solid rgba(251,146,60,.3);}
+
+/* CARDS */
+.nodes-row{display:flex;gap:0;align-items:stretch;flex-wrap:wrap;}
+.arrow-h{display:flex;align-items:center;font-size:18px;padding:0 4px;opacity:.4;flex-shrink:0;color:var(--teal);}
+.node-card{flex:1;min-width:155px;background:rgba(15,20,32,.7);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:20px 18px;transition:border-color .3s,transform .25s,box-shadow .3s;backdrop-filter:blur(4px);}
+.node-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.4);}
+.node-icon{font-size:26px;margin-bottom:10px;display:block;}
+.node-label{font-size:13px;font-weight:600;color:var(--ivory);margin-bottom:6px;}
+.node-desc{font-size:11.5px;color:var(--muted);line-height:1.65;}
+.node-tag{display:inline-block;margin-top:10px;font-family:'Fira Code',monospace;font-size:9.5px;padding:2px 8px;border-radius:4px;opacity:.85;}
+.at{border-top:2px solid;}
+
+/* VFLOW */
+.vflow{display:flex;flex-direction:column;align-items:center;}
+.vnode{width:100%;max-width:660px;background:rgba(15,20,32,.7);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:20px 24px;transition:border-color .3s;backdrop-filter:blur(4px);}
+.vnode:hover{border-color:rgba(255,255,255,.2);}
+.vnode-head{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
+.vnode-icon{font-size:22px;}
+.vnode-title{font-size:15px;font-weight:600;color:var(--ivory);}
+.vnode-body{font-size:12px;color:var(--muted);line-height:1.7;}
+.arrow-v{font-size:22px;opacity:.35;margin:6px 0;color:var(--teal);}
+.decision-node{width:100%;max-width:420px;border:2px solid var(--rose);border-radius:10px;padding:18px 24px;text-align:center;position:relative;background:rgba(251,113,133,.05);}
+.decision-node::before{content:'◆ DECISION';font-family:'Fira Code',monospace;font-size:9px;color:var(--rose);letter-spacing:2px;position:absolute;top:-9px;left:50%;transform:translateX(-50%);background:var(--bg);padding:0 8px;}
+.decision-text{font-size:13px;font-weight:600;color:#FCA5A5;}
+.decision-branches{display:flex;gap:20px;justify-content:center;margin-top:12px;}
+.branch{flex:1;max-width:200px;border-radius:8px;padding:12px 14px;font-size:11.5px;color:var(--muted);}
+.branch-yes{background:rgba(163,230,53,.07);border:1px solid rgba(163,230,53,.25);}
+.branch-no{background:rgba(251,113,133,.07);border:1px solid rgba(251,113,133,.25);}
+.bl-y{font-family:'Fira Code',monospace;font-size:10px;font-weight:600;margin-bottom:5px;color:var(--lime);}
+.bl-n{font-family:'Fira Code',monospace;font-size:10px;font-weight:600;margin-bottom:5px;color:var(--rose);}
+
+/* DATA TABLES */
+.data-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px;}
+.data-table{background:rgba(10,14,24,.8);border:1px solid rgba(255,255,255,.07);border-radius:12px;overflow:hidden;}
+.dth{padding:13px 18px;font-family:'Fira Code',monospace;font-size:12px;font-weight:600;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,.06);}
+.dth-t{background:rgba(45,212,191,.1);color:var(--teal);}
+.dth-v{background:rgba(167,139,250,.1);color:var(--violet);}
+.dth-p{background:rgba(244,114,182,.1);color:var(--pink);}
+.dth-a{background:rgba(252,211,77,.1);color:var(--amber);}
+.dth-s{background:rgba(56,189,248,.1);color:var(--sky);}
+.dth-l{background:rgba(163,230,53,.1);color:var(--lime);}
+.data-table-body{padding:8px 0;}
+.fr{display:flex;align-items:baseline;gap:8px;padding:5px 18px;font-size:11.5px;transition:background .2s;}
+.fr:hover{background:rgba(255,255,255,.03);}
+.fn{font-family:'Fira Code',monospace;color:#94A3B8;flex:1;}
+.fn.pk{color:var(--amber);}
+.fn.fk{color:var(--sky);}
+.ft{font-family:'Fira Code',monospace;font-size:10px;color:#374151;}
+.fb{font-size:9px;padding:1px 5px;border-radius:3px;flex-shrink:0;}
+.fb-pk{background:rgba(252,211,77,.12);color:var(--amber);}
+.fb-fk{background:rgba(56,189,248,.12);color:var(--sky);}
+.fb-idx{background:rgba(163,230,53,.12);color:var(--lime);}
+
+/* ALGO */
+.algo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px;}
+.algo-card{background:rgba(10,14,24,.6);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:18px 16px;transition:border-color .3s,transform .25s;}
+.algo-card:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.18);}
+.ai{font-size:28px;margin-bottom:10px;}
+.at2{font-size:13px;font-weight:600;color:var(--ivory);margin-bottom:7px;}
+.ad{font-size:11.5px;color:var(--muted);line-height:1.65;}
+.as{margin-top:10px;font-family:'Fira Code',monospace;font-size:10px;color:var(--amber);opacity:.8;}
+
+/* ARCH */
+.arch-layers{display:flex;flex-direction:column;gap:14px;}
+.arch-layer{display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+.arch-label{width:88px;flex-shrink:0;font-family:'Fira Code',monospace;font-size:9.5px;letter-spacing:1px;text-transform:uppercase;text-align:right;padding-right:12px;border-right:2px solid rgba(255,255,255,.08);color:var(--muted);}
+.arch-boxes{display:flex;gap:10px;flex-wrap:wrap;flex:1;}
+.arch-box{padding:9px 15px;border-radius:8px;font-size:12px;font-weight:500;border:1px solid transparent;white-space:nowrap;transition:transform .2s;cursor:default;}
+.arch-box:hover{transform:scale(1.04);}
+.ab-s{background:rgba(56,189,248,.08);border-color:rgba(56,189,248,.3);color:var(--sky);}
+.ab-l{background:rgba(163,230,53,.08);border-color:rgba(163,230,53,.3);color:var(--lime);}
+.ab-v{background:rgba(167,139,250,.08);border-color:rgba(167,139,250,.3);color:var(--violet);}
+.ab-t{background:rgba(45,212,191,.08);border-color:rgba(45,212,191,.3);color:var(--teal);}
+.ab-o{background:rgba(251,146,60,.08);border-color:rgba(251,146,60,.3);color:var(--orange);}
+.ab-p{background:rgba(244,114,182,.08);border-color:rgba(244,114,182,.3);color:var(--pink);}
+.ab-a{background:rgba(252,211,77,.08);border-color:rgba(252,211,77,.3);color:var(--amber);}
+
+/* TIMELINE */
+.timeline{display:flex;overflow-x:auto;padding-bottom:12px;}
+.tl-item{flex:1;min-width:140px;position:relative;padding:0 10px 24px;border-top:2px solid rgba(255,255,255,.08);}
+.tl-dot{position:absolute;top:-7px;left:50%;transform:translateX(-50%);width:12px;height:12px;border-radius:50%;border:2px solid var(--bg);}
+.tl-phase{font-family:'Fira Code',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;margin-top:14px;margin-bottom:8px;}
+.tl-tasks{font-size:11.5px;color:var(--muted);line-height:1.75;}
+
+/* PILLS */
+.pill{display:inline-block;padding:2px 9px;border-radius:999px;font-size:10px;font-family:'Fira Code',monospace;font-weight:500;margin-left:7px;vertical-align:middle;}
+.pt{background:rgba(45,212,191,.12);color:var(--teal);border:1px solid rgba(45,212,191,.3);}
+.pa{background:rgba(252,211,77,.12);color:var(--amber);border:1px solid rgba(252,211,77,.3);}
+.pv{background:rgba(167,139,250,.12);color:var(--violet);border:1px solid rgba(167,139,250,.3);}
+.pp{background:rgba(244,114,182,.12);color:var(--pink);border:1px solid rgba(244,114,182,.3);}
+
+/* DIVIDER */
+hr.d{border:none;border-top:1px solid rgba(255,255,255,.05);margin:64px 0 60px;}
+
+/* ═══ CHAT SECTION ═══ */
+.chat-layout{display:grid;grid-template-columns:1fr 1fr;gap:32px;}
+.chat-mockup{background:#080C18;border:1px solid rgba(45,212,191,.2);border-radius:16px;overflow:hidden;box-shadow:0 0 40px rgba(45,212,191,.06);}
+.chat-header{background:rgba(45,212,191,.07);border-bottom:1px solid rgba(45,212,191,.12);padding:14px 18px;display:flex;align-items:center;gap:12px;}
+.chat-avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--pink),var(--violet));display:grid;place-items:center;font-size:18px;flex-shrink:0;}
+.chat-name{font-size:13px;font-weight:600;color:var(--ivory);}
+.chat-status{font-size:10px;color:var(--teal);display:flex;align-items:center;gap:4px;}
+.online-dot{width:6px;height:6px;border-radius:50%;background:var(--teal);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
+.chat-hbtns{margin-left:auto;display:flex;gap:8px;}
+.chb{width:30px;height:30px;border-radius:8px;border:none;cursor:pointer;background:rgba(255,255,255,.06);font-size:14px;transition:background .2s;}
+.chb:hover{background:rgba(255,255,255,.12);}
+.chat-messages{padding:16px;display:flex;flex-direction:column;gap:12px;min-height:260px;}
+.msg{max-width:76%;}
+.msg-r{align-self:flex-start;}
+.msg-s{align-self:flex-end;}
+.bubble{padding:10px 14px;border-radius:14px;font-size:12px;line-height:1.6;}
+.msg-r .bubble{background:rgba(255,255,255,.07);color:var(--ivory);border-bottom-left-radius:4px;}
+.msg-s .bubble{background:linear-gradient(135deg,var(--teal-d),var(--teal));color:#001A18;font-weight:500;border-bottom-right-radius:4px;}
+.mtime{font-size:10px;color:var(--muted);margin-top:4px;}
+.msg-r .mtime{text-align:left;padding-left:4px;}
+.msg-s .mtime{text-align:right;padding-right:4px;}
+.msg-sys{text-align:center;font-size:10.5px;color:var(--muted);background:rgba(255,255,255,.04);border-radius:20px;padding:5px 16px;align-self:center;}
+.chat-bar{border-top:1px solid rgba(255,255,255,.06);padding:12px 16px;display:flex;gap:8px;align-items:center;}
+.chat-input{flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:24px;padding:8px 16px;font-size:12px;color:var(--ivory);font-family:'Outfit',sans-serif;outline:none;resize:none;}
+.send-btn{width:36px;height:36px;border-radius:50%;border:none;cursor:pointer;background:linear-gradient(135deg,var(--teal-d),var(--teal));display:grid;place-items:center;font-size:15px;flex-shrink:0;transition:transform .2s,box-shadow .2s;}
+.send-btn:hover{transform:scale(1.1);box-shadow:0 4px 16px rgba(45,212,191,.4);}
+.emoji-btn{width:32px;height:32px;border-radius:50%;border:none;cursor:pointer;background:rgba(255,255,255,.06);font-size:16px;flex-shrink:0;}
+
+/* Chat feature list */
+.chat-features{display:flex;flex-direction:column;gap:13px;}
+.cf{background:rgba(10,14,24,.8);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:14px 16px;display:flex;gap:13px;align-items:flex-start;transition:border-color .3s,transform .2s;}
+.cf:hover{border-color:rgba(255,255,255,.2);transform:translateX(4px);}
+.cf-ic{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;font-size:17px;flex-shrink:0;}
+.cf-t{font-size:13px;font-weight:600;color:var(--ivory);margin-bottom:4px;}
+.cf-d{font-size:11.5px;color:var(--muted);line-height:1.6;}
+
+/* Socket events */
+.ev-row{display:flex;flex-direction:column;}
+.ev-item{display:flex;gap:14px;align-items:flex-start;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.04);}
+.ev-item:last-child{border-bottom:none;}
+.ev-dc{display:flex;flex-direction:column;align-items:center;flex-shrink:0;padding-top:4px;}
+.ev-dot{width:9px;height:9px;border-radius:50%;}
+.ev-line{width:1px;flex:1;min-height:28px;background:rgba(255,255,255,.06);margin-top:4px;}
+.ev-code{font-family:'Fira Code',monospace;font-size:10px;margin-bottom:3px;}
+.ev-desc{font-size:11px;color:var(--muted);line-height:1.6;}
+
+/* Notifications */
+.notif-stack{display:flex;flex-direction:column;gap:10px;}
+.notif{display:flex;gap:12px;align-items:center;background:rgba(10,14,24,.8);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:12px 16px;transition:border-color .3s;}
+.notif:hover{border-color:rgba(255,255,255,.2);}
+.notif-icon{font-size:20px;flex-shrink:0;}
+.notif-t{font-size:12px;font-weight:600;color:var(--ivory);margin-bottom:2px;}
+.notif-sub{font-size:11px;color:var(--muted);}
+.notif-time{margin-left:auto;font-size:10px;color:var(--muted);white-space:nowrap;flex-shrink:0;}
+.nb{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-left:8px;}
+
+/* Footer */
+.footer{text-align:center;padding:32px 24px;border-top:1px solid rgba(255,255,255,.05);font-size:12px;color:var(--muted);letter-spacing:1px;}
+.fg{background:linear-gradient(135deg,var(--teal),var(--violet));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:700;}
+
+@media(max-width:700px){
+  .nodes-row{flex-direction:column;}
+  .arrow-h{display:none;}
+  .arch-label{display:none;}
+  .chat-layout{grid-template-columns:1fr;}
+  .logo-name{font-size:32px;}
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-grid"></div>
+  <div class="logo-wrap">
+    <div class="logo-ring">💍</div>
+    <span class="logo-name">RishtaWaala.com</span>
+  </div>
+  <div class="hero-tag">Complete System Architecture &amp; Flowchart — v2</div>
+  <p class="hero-p">A modern matrimony platform connecting brides &amp; grooms through intelligent matching, real-time chat, and trust-first design — built on Next.js, Express.js &amp; PostgreSQL.</p>
+  <div class="hero-stats">
+    <div class="hstat"><div class="hstat-num">10</div><div class="hstat-label">Flow Sections</div></div>
+    <div class="hstat"><div class="hstat-num">6+</div><div class="hstat-label">DB Tables</div></div>
+    <div class="hstat"><div class="hstat-num">30+</div><div class="hstat-label">API Routes</div></div>
+    <div class="hstat"><div class="hstat-num">8</div><div class="hstat-label">Chat Features</div></div>
+  </div>
+</div>
+
+<!-- TECH BAR -->
+<div class="tech-bar">
+  <div class="badge b-s"><span class="dot" style="background:var(--sky)"></span>Next.js 14</div>
+  <div class="badge b-l"><span class="dot" style="background:var(--lime)"></span>Express.js</div>
+  <div class="badge b-v"><span class="dot" style="background:var(--violet)"></span>PostgreSQL</div>
+  <div class="badge b-t"><span class="dot" style="background:var(--teal)"></span>Node.js</div>
+  <div class="badge b-o"><span class="dot" style="background:var(--orange)"></span>Socket.io</div>
+  <div class="badge b-p"><span class="dot" style="background:var(--pink)"></span>Cloudinary</div>
+  <div class="badge b-v"><span class="dot" style="background:var(--violet)"></span>JWT + bcrypt</div>
+  <div class="badge b-o"><span class="dot" style="background:#FF6B35"></span>Supervisor</div>
+  <div class="badge b-a"><span class="dot" style="background:var(--amber)"></span>Razorpay</div>
+  <div class="badge b-p"><span class="dot" style="background:var(--rose)"></span>Redis</div>
+</div>
+
+<div class="canvas">
+
+<!-- 01 ONBOARDING -->
+<div class="flow-section">
+  <div class="flow-title" style="color:var(--teal)"><span class="flow-num fn-t">01</span>User Onboarding Journey</div>
+  <div class="nodes-row">
+    <div class="node-card" style="border-top:2px solid var(--teal)">
+      <span class="node-icon">🌐</span><div class="node-label">Landing Page</div>
+      <div class="node-desc">Hero section, featured profiles, success stories. Next.js SSG for max performance.</div>
+      <span class="node-tag" style="background:rgba(56,189,248,.1);color:var(--sky)">Next.js SSG</span>
+    </div>
+    <div class="arrow-h">→</div>
+    <div class="node-card" style="border-top:2px solid var(--rose)">
+      <span class="node-icon">📝</span><div class="node-label">Registration</div>
+      <div class="node-desc">Name, email/phone, gender, DOB, password. OTP verification. JWT issued on success.</div>
+      <span class="node-tag" style="background:rgba(251,113,133,.1);color:var(--rose)">POST /auth/register</span>
+    </div>
+    <div class="arrow-h">→</div>
+    <div class="node-card" style="border-top:2px solid var(--violet)">
+      <span class="node-icon">🪪</span><div class="node-label">ID Verify</div>
+      <div class="node-desc">Aadhaar / Govt ID upload. Admin review queue. Verified badge issued after approval.</div>
+      <span class="node-tag" style="background:rgba(167,139,250,.1);color:var(--violet)">POST /verify/id</span>
+    </div>
+    <div class="arrow-h">→</div>
+    <div class="node-card" style="border-top:2px solid var(--amber)">
+      <span class="node-icon">✍️</span><div class="node-label">Profile Builder</div>
+      <div class="node-desc">Multi-step wizard: personal, family, religious, career, lifestyle, photos, partner prefs.</div>
+      <span class="node-tag" style="background:rgba(252,211,77,.1);color:var(--amber)">Next.js CSR</span>
+    </div>
+    <div class="arrow-h">→</div>
+    <div class="node-card" style="border-top:2px solid var(--lime)">
+      <span class="node-icon">🏠</span><div class="node-label">Dashboard</div>
+      <div class="node-desc">Recommended matches, unread chats, interests received, profile score, notifications.</div>
+      <span class="node-tag" style="background:rgba(163,230,53,.1);color:var(--lime)">Next.js SSR</span>
+    </div>
+  </div>
+</div>
+
+<hr class="d">
+
+<!-- 02 DATABASE -->
+<div class="flow-section">
+  <div class="flow-title" style="color:var(--violet)"><span class="flow-num fn-v">02</span>PostgreSQL Database Schema</div>
+  <div class="data-grid">
+    <div class="data-table">
+      <div class="dth dth-t">👤 &nbsp;users</div>
+      <div class="data-table-body">
+        <div class="fr"><span class="fn pk">id</span><span class="ft">UUID</span><span class="fb fb-pk">PK</span></div>
+        <div class="fr"><span class="fn">full_name</span><span class="ft">VARCHAR</span></div>
+        <div class="fr"><span class="fn">email</span><span class="ft">VARCHAR</span><span class="fb fb-idx">UNIQ</span></div>
+        <div class="fr"><span class="fn">phone</span><span class="ft">VARCHAR</span><span class="fb fb-idx">UNIQ</span></div>
+        <div class="fr"><span class="fn">password_hash</span><span class="ft">TEXT</span></div>
+        <div class="fr"><span class="fn">gender</span><span class="ft">ENUM</span></div>
+        <div class="fr"><span class="fn">date_of_birth</span><span class="ft">DATE</span></div>
+        <div class="fr"><span class="fn">is_verified</span><span class="ft">BOOL</span></div>
+        <div class="fr"><span class="fn">plan_type</span><span class="ft">ENUM</span></div>
+        <div class="fr"><span class="fn">is_online</span><span class="ft">BOOL</span></div>
+        <div class="fr"><span class="fn">last_seen</span><span class="ft">TIMESTAMP</span></div>
+      </div>
+    </div>
+    <div class="data-table">
+      <div class="dth dth-v">📋 &nbsp;profiles</div>
+      <div class="data-table-body">
+        <div class="fr"><span class="fn pk">id</span><span class="ft">UUID</span><span class="fb fb-pk">PK</span></div>
+        <div class="fr"><span class="fn fk">user_id</span><span class="ft">UUID</span><span class="fb fb-fk">FK</span></div>
+        <div class="fr"><span class="fn">height_cm / weight</span><span class="ft">INT</span></div>
+        <div class="fr"><span class="fn">religion / caste</span><span class="ft">VARCHAR</span></div>
+        <div class="fr"><span class="fn">sub_caste / gotra</span><span class="ft">VARCHAR</span></div>
+        <div class="fr"><span class="fn">manglik_status</span><span class="ft">ENUM</span></div>
+        <div class="fr"><span class="fn">city / state / country</span><span class="ft">VARCHAR</span></div>
+        <div class="fr"><span class="fn">mother_tongue</span><span class="ft">VARCHAR</span></div>
+        <div class="fr"><span class="fn">complexion</span><span class="ft">ENUM</span></div>
+        <div class="fr"><span class="fn">about_me</span><span class="ft">TEXT</span></div>
+      </div>
+    </div>
+    <div class="data-table">
+      <div class="dth dth-a">🎓 &nbsp;education_career</div>
+      <div class="data-table-body">
+        <div class="fr"><span class="fn fk">profile_id</span><span class="ft">UUID</span><span class="fb fb-fk">FK</span></div>
+        <div class="fr"><span class="fn">education_level</span><span class="ft">ENUM</span></div>
+        <div class="fr"><span class="fn">degree / college</span><span class="ft">VARCHAR</span></div>
+        <div class="fr"><span class="fn">occupation</span><span class="ft">VARCHAR</span></div>
+        <div class="fr"><span class="fn">employer</span><span class="ft">VARCHAR</span></div>
+        <div class="fr"><span class="fn">annual_income</span><span class="ft">INT</span></div>
+        <div class="fr"><span class="fn">income_currency</span><span class="ft">CHAR(3)</span></div>
+        <div class="fr"><span class="fn">work_location</span><span class="ft">VARCHAR</span></div>
+      </div>
+    </div>
+    <div class="data-table">
+      <div class="dth dth-p">👨‍👩‍👧 &nbsp;family_details</div>
+      <div class="data-table-body">
+        <div class="fr"><span class="fn fk">profile_id</span><span class="ft">UUID</span><span class="fb fb-fk">FK</span></div>
+        <div class="fr"><span class="fn">family_type</span><span class="ft">ENUM</span></div>
+        <div class="fr"><span class="fn">family_status</span><span class="ft">ENUM</span></div>
+        <div class="fr"><span class="fn">father_occupation</span><span class="ft">VARCHAR</span></div>
+        <div class="fr"><span class="fn">mother_occupation</span><span class="ft">VARCHAR</span></div>
+        <div class="fr"><span class="fn">siblings_count</span><span class="ft">INT</span></div>
+        <div class="fr"><span class="fn">native_city</span><span class="ft">VARCHAR</span></div>
+        <div class="fr"><span class="fn">family_values</span><span class="ft">ENUM</span></div>
+        <div class="fr"><span class="fn">settled_abroad</span><span class="ft">BOOL</span></div>
+      </div>
+    </div>
+    <div class="data-table">
+      <div class="dth dth-l">⭐ &nbsp;partner_preferences</div>
+      <div class="data-table-body">
+        <div class="fr"><span class="fn fk">profile_id</span><span class="ft">UUID</span><span class="fb fb-fk">FK</span></div>
+        <div class="fr"><span class="fn">age_min / age_max</span><span class="ft">INT</span></div>
+        <div class="fr"><span class="fn">height_min / max</span><span class="ft">INT</span></div>
+        <div class="fr"><span class="fn">pref_religion</span><span class="ft">TEXT[]</span></div>
+        <div class="fr"><span class="fn">pref_caste</span><span class="ft">TEXT[]</span></div>
+        <div class="fr"><span class="fn">pref_education</span><span class="ft">ENUM</span></div>
+        <div class="fr"><span class="fn">pref_income_min</span><span class="ft">INT</span></div>
+        <div class="fr"><span class="fn">pref_location</span><span class="ft">TEXT[]</span></div>
+        <div class="fr"><span class="fn">open_to_any_caste</span><span class="ft">BOOL</span></div>
+      </div>
+    </div>
+    <div class="data-table">
+      <div class="dth dth-s">💬 &nbsp;messages</div>
+      <div class="data-table-body">
+        <div class="fr"><span class="fn pk">id</span><span class="ft">UUID</span><span class="fb fb-pk">PK</span></div>
+        <div class="fr"><span class="fn fk">thread_id</span><span class="ft">UUID</span><span class="fb fb-fk">FK</span></div>
+        <div class="fr"><span class="fn fk">sender_id</span><span class="ft">UUID</span><span class="fb fb-fk">FK</span></div>
+        <div class="fr"><span class="fn">content</span><span class="ft">TEXT</span></div>
+        <div class="fr"><span class="fn">msg_type</span><span class="ft">ENUM</span></div>
+        <div class="fr"><span class="fn">media_url</span><span class="ft">TEXT</span></div>
+        <div class="fr"><span class="fn">is_read</span><span class="ft">BOOL</span></div>
+        <div class="fr"><span class="fn">read_at</span><span class="ft">TIMESTAMP</span></div>
+        <div class="fr"><span class="fn">is_deleted</span><span class="ft">BOOL</span></div>
+        <div class="fr"><span class="fn">created_at</span><span class="ft">TIMESTAMP</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="d">
+
+<!-- 03 MATCHING ENGINE -->
+<div class="flow-section">
+  <div class="flow-title" style="color:var(--amber)"><span class="flow-num fn-a">03</span>Matching Engine — How Matches Are Made</div>
+  <div class="vflow">
+    <div class="vnode" style="border-top:2px solid var(--amber)">
+      <div class="vnode-head"><span class="vnode-icon">🔍</span><span class="vnode-title">Match Request Triggered</span></div>
+      <div class="vnode-body">User opens "Discover" → Next.js calls <code style="color:var(--sky);font-family:Fira Code;font-size:10px">GET /matches/recommended</code> → Express validates JWT → Query builder assembles filters from partner_preferences table.</div>
+    </div>
+    <div class="arrow-v">↓</div>
+    <div class="vnode" style="border-top:2px solid var(--violet)">
+      <div class="vnode-head"><span class="vnode-icon">🗄️</span><span class="vnode-title">PostgreSQL Candidate Pool</span></div>
+      <div class="vnode-body">GIN index on text arrays (caste[], religion[]), BTREE on age/height. Filters: opposite gender, active account, non-blocked users, within preference bounds. Returns up to 200 candidates.</div>
+    </div>
+    <div class="arrow-v">↓</div>
+    <div class="vnode" style="border-top:2px solid var(--teal)">
+      <div class="vnode-head"><span class="vnode-icon">🧮</span><span class="vnode-title">Score Engine (Node.js Service)</span></div>
+      <div class="vnode-body">Each candidate scored 0–100. Scores cached in Redis (TTL 30 min). Sorted ranked list returned. Premium verified profiles get display boost (not score manipulation).</div>
+    </div>
+    <div class="arrow-v">↓</div>
+  </div>
+  <div class="algo-grid" style="margin-top:24px">
+    <div class="algo-card" style="border-top:2px solid var(--teal)"><div class="ai">🎂</div><div class="at2">Age Compatibility</div><div class="ad">Requested age range vs actual DOB. Linear decay penalty for outliers.</div><div class="as">weight: 20 pts</div></div>
+    <div class="algo-card" style="border-top:2px solid var(--sky)"><div class="ai">📍</div><div class="at2">Location Proximity</div><div class="ad">City → State → Country hierarchy. Same city = full score.</div><div class="as">weight: 15 pts</div></div>
+    <div class="algo-card" style="border-top:2px solid var(--violet)"><div class="ai">🛐</div><div class="at2">Religion &amp; Caste</div><div class="ad">Exact match = full. open_to_any_caste bypasses caste filter.</div><div class="as">weight: 20 pts</div></div>
+    <div class="algo-card" style="border-top:2px solid var(--amber)"><div class="ai">🎓</div><div class="at2">Education Level</div><div class="ad">Enum-ranked comparison. Close rank gap = higher score.</div><div class="as">weight: 15 pts</div></div>
+    <div class="algo-card" style="border-top:2px solid var(--lime)"><div class="ai">💰</div><div class="at2">Income Match</div><div class="ad">Checks annual income meets partner's minimum threshold.</div><div class="as">weight: 10 pts</div></div>
+    <div class="algo-card" style="border-top:2px solid var(--pink)"><div class="ai">👨‍👩‍👧</div><div class="at2">Family Values</div><div class="ad">Traditional / Moderate / Liberal alignment scoring.</div><div class="as">weight: 10 pts</div></div>
+    <div class="algo-card" style="border-top:2px solid var(--orange)"><div class="ai">📏</div><div class="at2">Height Match</div><div class="ad">Validated against height_min / height_max preference range.</div><div class="as">weight: 5 pts</div></div>
+    <div class="algo-card" style="border-top:2px solid var(--rose)"><div class="ai">✅</div><div class="at2">Verified Boost</div><div class="ad">Verified identity +3 pts. Active last 7 days adds +2 pts.</div><div class="as">weight: 5 pts</div></div>
+  </div>
+</div>
+
+<hr class="d">
+
+<!-- 04 INTEREST FLOW -->
+<div class="flow-section">
+  <div class="flow-title" style="color:var(--rose)"><span class="flow-num fn-r">04</span>Interest → Connect → Rishta Flow</div>
+  <div class="vflow">
+    <div class="vnode" style="border-top:2px solid var(--rose)">
+      <div class="vnode-head"><span class="vnode-icon">💌</span><span class="vnode-title">User A Sends Interest</span></div>
+      <div class="vnode-body">POST /interests/send → creates record (status=PENDING). Socket.io event <code style="color:var(--orange);font-family:Fira Code;font-size:10px">interest:received</code> emitted to User B if online. SMS/email fallback if offline.</div>
+    </div>
+    <div class="arrow-v">↓</div>
+    <div class="decision-node">
+      <div class="decision-text">Does User B accept the Interest?</div>
+      <div class="decision-branches">
+        <div class="branch branch-yes"><div class="bl-y">✓ ACCEPTED</div>status → ACCEPTED. Chat thread auto-created. Both users notified. Thread unlocked immediately.</div>
+        <div class="branch branch-no"><div class="bl-n">✗ DECLINED</div>status → DECLINED or expires after 30 days. User A notified. Profile still visible but chat stays locked.</div>
+      </div>
+    </div>
+    <div class="arrow-v">↓</div>
+    <div class="vnode" style="border-top:2px solid var(--teal)">
+      <div class="vnode-head"><span class="vnode-icon">💬</span><span class="vnode-title">Chat Thread Opens (Socket.io Room)</span></div>
+      <div class="vnode-body">Socket.io room <code style="color:var(--teal);font-family:Fira Code;font-size:10px">thread:{uuid}</code> created. Both users auto-joined. Messages persisted to PostgreSQL. Phone numbers remain hidden until mutual consent.</div>
+    </div>
+    <div class="arrow-v">↓</div>
+    <div class="vnode" style="border-top:2px solid var(--amber)">
+      <div class="vnode-head"><span class="vnode-icon">📞</span><span class="vnode-title">Contact Exchange &amp; Meeting</span></div>
+      <div class="vnode-body">Both users must tap "Share Contact" → mutual consent flag stored in DB → phone numbers unlocked. Video call option available (Diamond plan). Families can join via shared profile link.</div>
+    </div>
+    <div class="arrow-v">↓</div>
+    <div class="vnode" style="border-top:2px solid var(--pink)">
+      <div class="vnode-head"><span class="vnode-icon">💍</span><span class="vnode-title">Rishta Fixed — Success!</span></div>
+      <div class="vnode-body">Users mark "Match Found". Profile deactivated. Celebratory email sent. Success story submitted to admin queue for publishing on homepage marketing page.</div>
+    </div>
+  </div>
+</div>
+
+<hr class="d">
+
+<!-- 05 CHAT SYSTEM DEEP DIVE -->
+<div class="flow-section">
+  <div class="flow-title" style="color:var(--teal)"><span class="flow-num fn-t">05</span>Real-Time Chat System — Deep Dive</div>
+
+  <div class="chat-layout">
+    <!-- Chat UI Mockup -->
+    <div>
+      <div style="font-size:10px;color:var(--muted);letter-spacing:3px;text-transform:uppercase;margin-bottom:14px;">💬 Chat Interface Preview</div>
+      <div class="chat-mockup">
+        <div class="chat-header">
+          <div class="chat-avatar">👩</div>
+          <div style="flex:1">
+            <div class="chat-name">Priya Sharma</div>
+            <div class="chat-status"><span class="online-dot"></span>Online now · Mumbai</div>
+          </div>
+          <div class="chat-hbtns">
+            <button class="chb" title="Video Call">📹</button>
+            <button class="chb" title="Voice Call">📞</button>
+            <button class="chb" title="View Profile">👤</button>
+            <button class="chb" title="More Options">⋮</button>
+          </div>
+        </div>
+        <div class="chat-messages">
+          <div class="msg-sys">💍 You and Priya matched — say hello!</div>
+          <div class="msg msg-r">
+            <div class="bubble">Assalamu Alaikum! I saw your profile, looks like we have a lot in common 😊</div>
+            <div class="mtime">10:32 AM</div>
+          </div>
+          <div class="msg msg-s">
+            <div class="bubble">Wa Alaikum Assalam Priya! Yes, both from Hyderabad and same field — great match 🙂</div>
+            <div class="mtime">10:35 AM ✓✓</div>
+          </div>
+          <div class="msg msg-r">
+            <div class="bubble">Would you be open to a video call this weekend so our families can meet? 🌸</div>
+            <div class="mtime">10:37 AM</div>
+          </div>
+          <div class="msg msg-s">
+            <div class="bubble">Absolutely! Saturday evening works perfectly. I'll share my contact 😊</div>
+            <div class="mtime">10:39 AM ✓✓</div>
+          </div>
+          <div class="msg-sys">🔒 Contact details shared — mutual consent confirmed</div>
+          <div style="font-size:10px;color:var(--teal);text-align:center;padding:4px 0;opacity:.6;font-family:Fira Code">Priya is typing...</div>
+        </div>
+        <div class="chat-bar">
+          <button class="emoji-btn">😊</button>
+          <textarea class="chat-input" rows="1" placeholder="Type a message..."></textarea>
+          <button class="chb" title="Attach File">📎</button>
+          <button class="chb" title="Send Photo">🖼️</button>
+          <button class="send-btn">➤</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chat Features -->
+    <div>
+      <div style="font-size:10px;color:var(--muted);letter-spacing:3px;text-transform:uppercase;margin-bottom:14px;">⚡ Chat Features</div>
+      <div class="chat-features">
+        <div class="cf">
+          <div class="cf-ic" style="background:rgba(45,212,191,.12)">⚡</div>
+          <div><div class="cf-t">Real-Time Messaging</div><div class="cf-d">Socket.io WebSocket rooms per match thread. Sub-100ms message delivery. Auto-reconnect on drop.</div></div>
+        </div>
+        <div class="cf">
+          <div class="cf-ic" style="background:rgba(252,211,77,.12)">✓✓</div>
+          <div><div class="cf-t">Read Receipts</div><div class="cf-d">Single tick (sent) → double tick (delivered) → blue tick (read). Stored in messages.is_read + read_at.</div></div>
+        </div>
+        <div class="cf">
+          <div class="cf-ic" style="background:rgba(163,230,53,.12)">✍️</div>
+          <div><div class="cf-t">Typing Indicator</div><div class="cf-d">Socket event <code style="color:var(--orange);font-family:Fira Code;font-size:10px">user:typing</code> broadcast to thread room. Auto-clears after 3s of inactivity.</div></div>
+        </div>
+        <div class="cf">
+          <div class="cf-ic" style="background:rgba(244,114,182,.12)">🖼️</div>
+          <div><div class="cf-t">Photo &amp; File Sharing</div><div class="cf-d">Upload to Cloudinary (max 10MB). msg_type = IMAGE | FILE | AUDIO. Thumbnail previews inline.</div></div>
+        </div>
+        <div class="cf">
+          <div class="cf-ic" style="background:rgba(167,139,250,.12)">🔒</div>
+          <div><div class="cf-t">Contact Lock / Unlock</div><div class="cf-d">Phone numbers hidden until BOTH users tap "Share Contact". Mutual consent flag persisted to DB.</div></div>
+        </div>
+        <div class="cf">
+          <div class="cf-ic" style="background:rgba(251,146,60,.12)">🗑️</div>
+          <div><div class="cf-t">Delete &amp; Block</div><div class="cf-d">Delete for self or both parties. Block closes thread and hides profile. Reports go to admin queue.</div></div>
+        </div>
+        <div class="cf">
+          <div class="cf-ic" style="background:rgba(56,189,248,.12)">📹</div>
+          <div><div class="cf-t">Video Call (Gold+)</div><div class="cf-d">WebRTC peer-to-peer video call from chat header. Gold &amp; Diamond plans only. No recording stored.</div></div>
+        </div>
+        <div class="cf">
+          <div class="cf-ic" style="background:rgba(251,113,133,.12)">🔕</div>
+          <div><div class="cf-t">Mute, Archive &amp; Star</div><div class="cf-d">Mute per thread, archive old chats, star important messages. Unread badge synced via Redis.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Socket Events -->
+  <div style="margin-top:40px;display:grid;grid-template-columns:1fr 1fr;gap:24px">
+    <div>
+      <div style="font-size:11px;font-weight:600;color:var(--sky);margin-bottom:14px;font-family:Fira Code">📤 Client → Server Events</div>
+      <div class="ev-row">
+        <div class="ev-item"><div class="ev-dc"><div class="ev-dot" style="background:var(--teal)"></div><div class="ev-line"></div></div><div><div class="ev-code" style="color:var(--teal)">chat:join</div><div class="ev-desc">Join thread room on open. Marks all messages delivered.</div></div></div>
+        <div class="ev-item"><div class="ev-dc"><div class="ev-dot" style="background:var(--sky)"></div><div class="ev-line"></div></div><div><div class="ev-code" style="color:var(--sky)">chat:send_message</div><div class="ev-desc">Sends {threadId, content, msg_type}. Server saves to PG &amp; broadcasts.</div></div></div>
+        <div class="ev-item"><div class="ev-dc"><div class="ev-dot" style="background:var(--amber)"></div><div class="ev-line"></div></div><div><div class="ev-code" style="color:var(--amber)">chat:typing</div><div class="ev-desc">Fired on keypress. Debounced 500ms. Clears on blur or send.</div></div></div>
+        <div class="ev-item"><div class="ev-dc"><div class="ev-dot" style="background:var(--violet)"></div><div class="ev-line"></div></div><div><div class="ev-code" style="color:var(--violet)">chat:read</div><div class="ev-desc">Marks messages read. Server updates DB &amp; emits receipt to sender.</div></div></div>
+        <div class="ev-item"><div class="ev-dc"><div class="ev-dot" style="background:var(--rose)"></div></div><div><div class="ev-code" style="color:var(--rose)">chat:delete_message</div><div class="ev-desc">Soft delete: is_deleted=true. Receiver sees "Message deleted".</div></div></div>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:11px;font-weight:600;color:var(--orange);margin-bottom:14px;font-family:Fira Code">📥 Server → Client Events</div>
+      <div class="ev-row">
+        <div class="ev-item"><div class="ev-dc"><div class="ev-dot" style="background:var(--orange)"></div><div class="ev-line"></div></div><div><div class="ev-code" style="color:var(--orange)">chat:new_message</div><div class="ev-desc">Broadcast to thread room. Updates UI live. Push notif if user offline.</div></div></div>
+        <div class="ev-item"><div class="ev-dc"><div class="ev-dot" style="background:var(--lime)"></div><div class="ev-line"></div></div><div><div class="ev-code" style="color:var(--lime)">chat:message_read</div><div class="ev-desc">Sent to message sender. Turns double tick blue in UI.</div></div></div>
+        <div class="ev-item"><div class="ev-dc"><div class="ev-dot" style="background:var(--pink)"></div><div class="ev-line"></div></div><div><div class="ev-code" style="color:var(--pink)">interest:received</div><div class="ev-desc">Notifies user B of new interest. Shows banner in dashboard.</div></div></div>
+        <div class="ev-item"><div class="ev-dc"><div class="ev-dot" style="background:var(--teal)"></div><div class="ev-line"></div></div><div><div class="ev-code" style="color:var(--teal)">user:online_status</div><div class="ev-desc">Broadcasts presence. Updates "Online now" / "Last seen X ago".</div></div></div>
+        <div class="ev-item"><div class="ev-dc"><div class="ev-dot" style="background:var(--amber)"></div></div><div><div class="ev-code" style="color:var(--amber)">chat:typing_indicator</div><div class="ev-desc">Shows "X is typing..." bubble. Clears after 3s timeout.</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="d">
+
+<!-- 06 NOTIFICATIONS -->
+<div class="flow-section">
+  <div class="flow-title" style="color:var(--orange)"><span class="flow-num fn-o">06</span>Notification System</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px">
+    <div>
+      <div style="font-size:10px;color:var(--muted);letter-spacing:3px;text-transform:uppercase;margin-bottom:16px;">🔔 Notification Types</div>
+      <div class="notif-stack">
+        <div class="notif" style="border-color:rgba(244,114,182,.25)"><div class="notif-icon">💌</div><div><div class="notif-t">New Interest Received</div><div class="notif-sub">Rahul K. is interested in your profile</div></div><div class="notif-time">2m ago</div><div class="nb" style="background:var(--pink)"></div></div>
+        <div class="notif" style="border-color:rgba(45,212,191,.25)"><div class="notif-icon">✅</div><div><div class="notif-t">Interest Accepted!</div><div class="notif-sub">Priya S. accepted — chat now open</div></div><div class="notif-time">1h ago</div><div class="nb" style="background:var(--teal)"></div></div>
+        <div class="notif" style="border-color:rgba(56,189,248,.25)"><div class="notif-icon">💬</div><div><div class="notif-t">New Message</div><div class="notif-sub">Priya: "Would you be open to a video call..."</div></div><div class="notif-time">3h ago</div><div class="nb" style="background:var(--sky)"></div></div>
+        <div class="notif" style="border-color:rgba(252,211,77,.2)"><div class="notif-icon">👁️</div><div><div class="notif-t">Profile Viewed</div><div class="notif-sub">Someone from Mumbai viewed your profile</div></div><div class="notif-time">5h ago</div><div class="nb" style="background:var(--amber)"></div></div>
+        <div class="notif" style="border-color:rgba(163,230,53,.2)"><div class="notif-icon">🎯</div><div><div class="notif-t">New Daily Matches</div><div class="notif-sub">12 new profiles match your preferences</div></div><div class="notif-time">8h ago</div><div class="nb" style="background:var(--lime)"></div></div>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:10px;color:var(--muted);letter-spacing:3px;text-transform:uppercase;margin-bottom:16px;">📡 Delivery Channels</div>
+      <div class="algo-grid" style="grid-template-columns:1fr 1fr">
+        <div class="algo-card" style="border-top:2px solid var(--orange)"><div class="ai">🔌</div><div class="at2">In-App</div><div class="ad">Socket.io real-time toast banners. Bell badge count via Redis pub/sub.</div></div>
+        <div class="algo-card" style="border-top:2px solid var(--sky)"><div class="ai">📧</div><div class="at2">Email</div><div class="ad">SendGrid HTML templates. Interest alerts, daily digest, security emails.</div></div>
+        <div class="algo-card" style="border-top:2px solid var(--lime)"><div class="ai">📱</div><div class="at2">SMS</div><div class="ad">MSG91 / Twilio. OTP delivery, critical alerts. Hindi Unicode support.</div></div>
+        <div class="algo-card" style="border-top:2px solid var(--violet)"><div class="ai">🔔</div><div class="at2">Push (FCM)</div><div class="ad">Firebase Cloud Messaging. Background + foreground. PWA support.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="d">
+
+<!-- 07 API ROUTES -->
+<div class="flow-section">
+  <div class="flow-title" style="color:var(--sky)"><span class="flow-num fn-s">07</span>Express.js API Routes</div>
+  <div class="nodes-row" style="flex-wrap:wrap;gap:16px">
+    <div class="node-card" style="border-top:2px solid var(--rose);min-width:185px">
+      <span class="node-icon">🔐</span><div class="node-label">Auth Routes</div>
+      <div class="node-desc" style="font-family:'Fira Code',monospace;font-size:10px;line-height:2;color:var(--muted)">POST /auth/register<br>POST /auth/login<br>POST /auth/otp/send<br>POST /auth/otp/verify<br>POST /auth/refresh<br>DELETE /auth/logout</div>
+      <span class="node-tag" style="background:rgba(251,113,133,.1);color:var(--rose)">JWT + bcrypt</span>
+    </div>
+    <div class="node-card" style="border-top:2px solid var(--sky);min-width:185px">
+      <span class="node-icon">👤</span><div class="node-label">Profile Routes</div>
+      <div class="node-desc" style="font-family:'Fira Code',monospace;font-size:10px;line-height:2;color:var(--muted)">GET /profiles/:id<br>PUT /profiles/me<br>POST /profiles/photos<br>DELETE /profiles/photos/:id<br>GET /profiles/me/score</div>
+      <span class="node-tag" style="background:rgba(56,189,248,.1);color:var(--sky)">Cloudinary</span>
+    </div>
+    <div class="node-card" style="border-top:2px solid var(--amber);min-width:185px">
+      <span class="node-icon">💡</span><div class="node-label">Match Routes</div>
+      <div class="node-desc" style="font-family:'Fira Code',monospace;font-size:10px;line-height:2;color:var(--muted)">GET /matches/recommended<br>GET /matches/new-today<br>POST /matches/search<br>GET /matches/:id/score<br>POST /matches/shortlist</div>
+      <span class="node-tag" style="background:rgba(252,211,77,.1);color:var(--amber)">Score Engine</span>
+    </div>
+    <div class="node-card" style="border-top:2px solid var(--pink);min-width:185px">
+      <span class="node-icon">💌</span><div class="node-label">Interest Routes</div>
+      <div class="node-desc" style="font-family:'Fira Code',monospace;font-size:10px;line-height:2;color:var(--muted)">POST /interests/send<br>PUT /interests/:id/accept<br>PUT /interests/:id/decline<br>GET /interests/received<br>GET /interests/sent</div>
+      <span class="node-tag" style="background:rgba(244,114,182,.1);color:var(--pink)">Socket.io</span>
+    </div>
+    <div class="node-card" style="border-top:2px solid var(--teal);min-width:185px">
+      <span class="node-icon">💬</span><div class="node-label">Chat Routes</div>
+      <div class="node-desc" style="font-family:'Fira Code',monospace;font-size:10px;line-height:2;color:var(--muted)">GET /chats<br>GET /chats/:id/messages<br>POST /chats/:id/send<br>PUT /chats/:id/read<br>DELETE /chats/:id/msg/:mid<br>POST /chats/contact-share<br>POST /chats/:id/block<br>GET /chats/:id/media</div>
+      <span class="node-tag" style="background:rgba(45,212,191,.1);color:var(--teal)">Socket.io + PG</span>
+    </div>
+    <div class="node-card" style="border-top:2px solid var(--violet);min-width:185px">
+      <span class="node-icon">💳</span><div class="node-label">Subscription Routes</div>
+      <div class="node-desc" style="font-family:'Fira Code',monospace;font-size:10px;line-height:2;color:var(--muted)">GET /plans<br>POST /plans/subscribe<br>POST /payments/webhook<br>GET /payments/history<br>PUT /subscriptions/cancel</div>
+      <span class="node-tag" style="background:rgba(167,139,250,.1);color:var(--violet)">Razorpay</span>
+    </div>
+  </div>
+</div>
+
+<hr class="d">
+
+<!-- 08 SUBSCRIPTIONS -->
+<div class="flow-section">
+  <div class="flow-title" style="color:var(--lime)"><span class="flow-num fn-l">08</span>Subscription Plans &amp; Chat Access</div>
+  <div class="nodes-row">
+    <div class="node-card" style="border:1px solid rgba(255,255,255,.08);border-top:2px solid #475569">
+      <span class="node-icon">🆓</span><div class="node-label">Free <span class="pill pt">Basic</span></div>
+      <div class="node-desc">✓ Create profile<br>✓ 5 matches/day<br>✓ 3 interests/month<br><span style="color:var(--rose)">✗ No chat</span><br>✗ No contact view<br>✗ No advanced filters</div>
+    </div>
+    <div class="arrow-h" style="color:var(--teal)">→</div>
+    <div class="node-card" style="border-top:2px solid var(--sky)">
+      <span class="node-icon">⭐</span><div class="node-label">Silver <span class="pill pt">₹999/mo</span></div>
+      <div class="node-desc">✓ Unlimited views<br>✓ 30 interests/month<br><span style="color:var(--teal)">✓ Chat (text only)</span><br>✓ Read receipts<br>✓ Advanced filters<br>✗ No contact/video</div>
+    </div>
+    <div class="arrow-h" style="color:var(--teal)">→</div>
+    <div class="node-card" style="border-top:2px solid var(--amber)">
+      <span class="node-icon">👑</span><div class="node-label">Gold <span class="pill pa">₹1999/mo</span></div>
+      <div class="node-desc">✓ Everything in Silver<br><span style="color:var(--amber)">✓ Chat + photo share</span><br>✓ Contact unlock<br>✓ Unlimited interests<br>✓ Priority matches<br>✓ Verified badge</div>
+    </div>
+    <div class="arrow-h" style="color:var(--teal)">→</div>
+    <div class="node-card" style="border-top:2px solid var(--violet)">
+      <span class="node-icon">💎</span><div class="node-label">Diamond <span class="pill pv">₹3999/mo</span></div>
+      <div class="node-desc">✓ Everything in Gold<br><span style="color:var(--violet)">✓ Video calls (WebRTC)</span><br>✓ Human matchmaker<br>✓ Video profile<br>✓ Elite match pool<br>✓ Horoscope matching</div>
+    </div>
+  </div>
+</div>
+
+<hr class="d">
+
+<!-- 09 BACKEND ARCH -->
+<div class="flow-section">
+  <div class="flow-title" style="color:var(--violet)"><span class="flow-num fn-v">09</span>Backend Architecture</div>
+  <div class="arch-layers">
+    <div class="arch-layer"><div class="arch-label">Client</div><div class="arch-boxes"><div class="arch-box ab-s">Next.js Browser</div><div class="arch-box ab-s">PWA / Mobile</div><div class="arch-box ab-o">Admin Dashboard</div></div></div>
+    <div style="padding-left:102px;color:var(--muted);font-size:18px;opacity:.3">↕ HTTPS / WSS</div>
+    <div class="arch-layer"><div class="arch-label">Gateway</div><div class="arch-boxes"><div class="arch-box ab-a">Nginx Proxy</div><div class="arch-box ab-a">SSL/TLS</div><div class="arch-box ab-a">Rate Limiting</div></div></div>
+    <div style="padding-left:102px;color:var(--muted);font-size:18px;opacity:.3">↕</div>
+    <div class="arch-layer"><div class="arch-label">API</div><div class="arch-boxes"><div class="arch-box ab-l">Express.js REST</div><div class="arch-box ab-o">Socket.io Server</div><div class="arch-box ab-l">JWT Middleware</div><div class="arch-box ab-l">CORS Handler</div></div></div>
+    <div style="padding-left:102px;color:var(--muted);font-size:18px;opacity:.3">↕</div>
+    <div class="arch-layer"><div class="arch-label">Services</div><div class="arch-boxes"><div class="arch-box ab-t">Match Engine</div><div class="arch-box ab-t">Auth Service</div><div class="arch-box ab-t">Chat Service</div><div class="arch-box ab-t">Notif Service</div><div class="arch-box ab-t">Media Service</div></div></div>
+    <div style="padding-left:102px;color:var(--muted);font-size:18px;opacity:.3">↕</div>
+    <div class="arch-layer"><div class="arch-label">Data</div><div class="arch-boxes"><div class="arch-box ab-v">PostgreSQL Primary</div><div class="arch-box ab-v">PG Read Replica</div><div class="arch-box ab-a">Redis Cache/PubSub</div><div class="arch-box ab-p">Cloudinary</div></div></div>
+    <div style="padding-left:102px;color:var(--muted);font-size:18px;opacity:.3">↕</div>
+    <div class="arch-layer"><div class="arch-label">Process</div><div class="arch-boxes"><div class="arch-box ab-o">Supervisor (Mgr)</div><div class="arch-box ab-a">PM2 / Systemd</div><div class="arch-box ab-l">Health Cron</div></div></div>
+    <div style="padding-left:102px;color:var(--muted);font-size:18px;opacity:.3">↕</div>
+    <div class="arch-layer"><div class="arch-label">External</div><div class="arch-boxes"><div class="arch-box ab-p">Twilio / MSG91</div><div class="arch-box ab-a">Razorpay</div><div class="arch-box ab-p">SendGrid</div><div class="arch-box ab-t">Firebase FCM</div></div></div>
+  </div>
+</div>
+
+<hr class="d">
+
+<!-- 10 BUILD PHASES -->
+<div class="flow-section">
+  <div class="flow-title" style="color:var(--pink)"><span class="flow-num fn-p">10</span>Recommended Build Phases</div>
+  <div class="timeline">
+    <div class="tl-item"><div class="tl-dot" style="background:var(--teal)"></div><div class="tl-phase" style="color:var(--teal)">Phase 1 — MVP</div><div class="tl-tasks">Auth + OTP<br>Profile builder<br>Match listing<br>Interest flow<br>PG schema</div></div>
+    <div class="tl-item"><div class="tl-dot" style="background:var(--sky)"></div><div class="tl-phase" style="color:var(--sky)">Phase 2 — Chat</div><div class="tl-tasks">Socket.io chat<br>Read receipts<br>Typing indicator<br>Photo sharing<br>Notifications</div></div>
+    <div class="tl-item"><div class="tl-dot" style="background:var(--amber)"></div><div class="tl-phase" style="color:var(--amber)">Phase 3 — Growth</div><div class="tl-tasks">Subscriptions<br>Razorpay payments<br>Admin panel<br>SMS OTP<br>Supervisor config</div></div>
+    <div class="tl-item"><div class="tl-dot" style="background:var(--violet)"></div><div class="tl-phase" style="color:var(--violet)">Phase 4 — Scale</div><div class="tl-tasks">Redis caching<br>PG replicas<br>Push (FCM)<br>Horoscope API<br>Analytics</div></div>
+    <div class="tl-item"><div class="tl-dot" style="background:var(--pink)"></div><div class="tl-phase" style="color:var(--pink)">Phase 5 — Premium</div><div class="tl-tasks">WebRTC video calls<br>Human matchmakers<br>AI suggestions<br>Mobile app (RN)<br>Verified badge</div></div>
+  </div>
+</div>
+
+</div>
+
+<div class="footer">
+  <span class="fg">RishtaWaala.com</span> &nbsp;—&nbsp; System Architecture Flowchart v2 &nbsp;|&nbsp; Next.js · Express.js · PostgreSQL · Socket.io · Supervisor &nbsp;|&nbsp; Built with 💍
+</div>
+
+<script>
+const obs = new IntersectionObserver(e => e.forEach(x => x.isIntersecting && x.target.classList.add('visible')), {threshold:.06});
+document.querySelectorAll('.flow-section').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
