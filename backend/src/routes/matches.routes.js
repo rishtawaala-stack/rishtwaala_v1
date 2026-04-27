@@ -55,7 +55,13 @@ router.get("/", authMiddleware, async (req, res, next) => {
         image: p.profile_photo_url,
         profession: p.occupation_detail || p.education_level || "Professional",
         religion: p.religion,
+        caste: p.caste,
         income: p.annual_income_range,
+        height_cm: p.height_cm,
+        education_level: p.education_level || p.education_field,
+        family_type: p.family_type,
+        interests: p.interests || [],
+        hobbies: p.hobbies || [],
         compatibility: score,
         profile_complete_pct: p.profile_complete_pct
       };

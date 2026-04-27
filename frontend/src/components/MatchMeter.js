@@ -174,7 +174,7 @@ export default function MatchMeter({ score: initialScore, size = "md", animate =
               {isCalculating ? '--' : score}
             </motion.div>
           </AnimatePresence>
-          <div className="text-[8px] font-black uppercase text-white/40 tracking-widest -mt-1">COM%</div>
+          <div className="text-[8px] font-black uppercase text-white/40 tracking-widest -mt-1">MATCH%</div>
         </div>
 
       </div>

@@ -156,16 +156,16 @@ export default function ViewProfilePage({ params }) {
 
                <div className="p-8 space-y-6">
                   <div className="flex gap-4">
-                     <button 
-                       onClick={() => status === 'shortlisted' ? handleRemove() : handleAction('shortlist')}
-                       className={`p-6 rounded-[2.5rem] border-4 transition-all duration-500 hover:scale-110 active:scale-95 shadow-xl ${
-                         status === 'shortlisted' || status === 'connected'
-                          ? 'bg-rw-rose border-rw-rose text-white shadow-rw-rose/30'
-                          : 'glass-inner border-white/60 text-rw-text-soft/30 hover:border-rw-rose/40 hover:text-rw-rose bg-white/50'
-                       }`}
-                     >
-                        <Heart className={`w-8 h-8 ${(status === 'shortlisted' || status === 'connected') ? 'fill-current' : ''}`} />
-                     </button>
+                      <button 
+                        onClick={() => status === 'shortlisted' ? handleRemove() : handleAction('shortlist')}
+                        className={`p-6 rounded-[2.5rem] border-4 transition-all duration-500 hover:scale-110 active:scale-95 shadow-xl ${
+                          status === 'shortlisted' || status === 'connected'
+                           ? 'bg-rw-rose border-rw-rose text-white shadow-rw-rose/30'
+                           : 'glass-inner border-rw-rose/30 text-rw-rose hover:border-rw-rose hover:bg-rw-rose/10 bg-white/50 shadow-rw-rose/5'
+                        }`}
+                      >
+                         <Heart className={`w-8 h-8 ${(status === 'shortlisted' || status === 'connected') ? 'fill-current' : 'fill-none'}`} strokeWidth={3} />
+                      </button>
 
                      <button 
                        onClick={() => {
@@ -197,15 +197,15 @@ export default function ViewProfilePage({ params }) {
                </div>
             </motion.div>
 
-            <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.2 }} className="glass-outer p-10 bg-slate-900 border-white/20 rounded-[4rem] text-center shadow-2xl relative overflow-hidden group">
-               <div className="absolute inset-0 bg-gradient-to-br from-rw-rose/10 to-transparent" />
-               <h3 className="text-[10px] font-black uppercase tracking-[0.5em] text-white/30 mb-8 relative z-10">Matrometer Engine</h3>
+            <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.2 }} className="glass-outer p-10 bg-slate-900 border-rw-rose/20 rounded-[4rem] text-center shadow-2xl relative overflow-hidden group">
+               <div className="absolute inset-0 bg-gradient-to-br from-rw-rose/20 to-transparent" />
+               <h3 className="text-[10px] font-black uppercase tracking-[0.5em] text-rw-rose mb-8 relative z-10">Matrometer Engine</h3>
                
                <button 
                  onClick={() => setShowMatrometer(true)}
                  className="flex flex-col items-center gap-6 w-full p-8 rounded-[3rem] hover:bg-white/5 transition-all duration-700 relative z-10"
                >
-                  <div className="w-24 h-24 rounded-full bg-slate-800 flex items-center justify-center border-8 border-white/10 group-hover:scale-110 group-hover:border-rw-rose/40 transition-all duration-700 shadow-[0_0_50px_rgba(255,31,113,0.3)]">
+                  <div className="w-24 h-24 rounded-full bg-slate-800 flex items-center justify-center border-8 border-rw-rose/20 group-hover:scale-110 group-hover:border-rw-rose/40 transition-all duration-700 shadow-[0_0_50px_rgba(255,31,113,0.3)]">
                      <Zap className="w-10 h-10 text-rw-rose animate-pulse" />
                   </div>
                   <span className="block text-lg font-black uppercase tracking-widest text-white">View Compatibility</span>
@@ -234,15 +234,41 @@ export default function ViewProfilePage({ params }) {
                    <Row l="Status" v={profile.marital_status?.replace('_', ' ')} />
                    <Row l="Height" v={profile.height_cm ? `${profile.height_cm} cm` : null} />
                 </Box>
-                <Box title="Professional vector">
-                   <Row l="Education" v={profile.education_level} />
-                   <Row l="Profession" v={profile.occupation_detail} />
-                   <Row l="Income" v={profile.annual_income_range} />
-                </Box>
-             </div>
+                 <Box title="Professional vector">
+                    <Row l="Education" v={profile.education_level} />
+                    <Row l="Profession" v={profile.occupation_detail} />
+                    <Row l="Income" v={profile.annual_income_range} />
+                 </Box>
+
+                 <div className="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <Box title="Selected Interests">
+                       <div className="flex flex-wrap gap-2 pt-2">
+                          {profile.interests && profile.interests.length > 0 ? (
+                            profile.interests.map(i => (
+                              <span key={i} className="px-5 py-2.5 bg-rw-rose/5 text-rw-rose text-[10px] font-black uppercase tracking-widest rounded-2xl border border-rw-rose/10 shadow-sm">{i}</span>
+                            ))
+                          ) : (
+                            <p className="text-rw-text-soft/40 text-[10px] font-black uppercase tracking-widest italic py-4">No interests specifically highlighted</p>
+                          )}
+                       </div>
+                    </Box>
+
+                    <Box title="Focus Areas">
+                       <div className="flex flex-wrap gap-2 pt-2">
+                          {profile.hobbies && profile.hobbies.length > 0 ? (
+                            profile.hobbies.map(h => (
+                               <span key={h} className="px-5 py-2.5 bg-rw-purple/5 text-rw-purple text-[10px] font-black uppercase tracking-widest rounded-2xl border border-rw-purple/10 shadow-sm">{h}</span>
+                            ))
+                          ) : (
+                            <p className="text-rw-text-soft/40 text-[10px] font-black uppercase tracking-widest italic py-4">No focus areas specified</p>
+                          )}
+                       </div>
+                    </Box>
+                 </div>
+              </div>
+            </div>
           </div>
-        </div>
-      </main>
+        </main>
 
       <AnimatePresence>
         {showMatrometer && (
@@ -266,17 +292,17 @@ export default function ViewProfilePage({ params }) {
 
 function Insight({ l, v }) {
   return (
-    <motion.div className="glass-inner p-6 rounded-3xl border-white/60 bg-white/40 shadow-xl border-2">
-       <p className="text-[9px] font-black uppercase tracking-widest text-rw-text-soft/40 mb-2">{l}</p>
-       <p className="text-sm font-black text-rw-text-deep truncate">{v || 'Private'}</p>
+    <motion.div className="glass-inner p-6 rounded-3xl border-rw-rose/20 bg-white/40 shadow-xl border-2">
+       <p className="text-[9px] font-black uppercase tracking-widest text-rw-rose mb-2">{l}</p>
+       <p className="text-sm font-black text-black truncate">{v || 'Private'}</p>
     </motion.div>
   );
 }
 
 function Box({ title, children }) {
   return (
-    <div className="glass-outer p-12 bg-white/30 border-white/60 rounded-[3.5rem] shadow-xl">
-       <h3 className="text-[10px] font-black uppercase tracking-[0.5em] text-rw-text-soft/30 mb-8">{title}</h3>
+    <div className="glass-outer p-12 bg-white/30 border-rw-rose/20 rounded-[3.5rem] shadow-xl">
+       <h3 className="text-[10px] font-black uppercase tracking-[0.5em] text-rw-rose mb-8">{title}</h3>
        <div className="space-y-6">{children}</div>
     </div>
   );
@@ -284,9 +310,9 @@ function Box({ title, children }) {
 
 function Row({ l, v }) {
   return (
-    <div className="flex justify-between items-center py-4 border-b border-white/20 last:border-0 grow">
-       <span className="text-[10px] font-black uppercase tracking-widest text-rw-text-soft/40">{l}</span>
-       <span className="text-[11px] font-black uppercase tracking-tight text-rw-text-deep font-black uppercase">{v || "Shared"}</span>
+    <div className="flex justify-between items-center py-4 border-b border-rw-rose/10 last:border-0 grow">
+       <span className="text-[10px] font-black uppercase tracking-widest text-black/60">{l}</span>
+       <span className="text-[11px] font-black uppercase tracking-tight text-black font-black uppercase">{v || "Shared"}</span>
     </div>
   );
 }

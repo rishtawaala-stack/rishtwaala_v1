@@ -53,6 +53,14 @@ router.put("/me", authMiddleware, async (req, res, next) => {
        console.error("Family Update DB Error:", result.error);
        return next(new ApiError(500, "SERVER_ERROR", "Failed to update family details"));
     }
+
+    // Recalculate completeness
+    const { data: updatedProfile } = await supabase.from("user_information").select("*").eq("user_id", req.auth.userId).single();
+    if (updatedProfile) {
+       const { calculateProfileCompletion } = require("../utils/completeness");
+       const pct = calculateProfileCompletion(updatedProfile);
+       await supabase.from("user_information").update({ profile_complete_pct: pct }).eq("user_id", req.auth.userId);
+    }
     
     return sendSuccess(res, { family: result.data });
   } catch(err) {

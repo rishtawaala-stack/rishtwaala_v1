@@ -288,33 +288,51 @@ router.post("/:bondId/respond-contact-share", authMiddleware, async (req, res, n
     if (resInfoB.error) console.error("[CONTACT_SHARE] Error fetching profile B:", resInfoB.error);
 
     const [resUserA, resUserB] = await Promise.all([
-      resInfoA.data?.user_id ? supabase.from("users").select("phone").eq("id", resInfoA.data.user_id).single() : Promise.resolve({ data: null }),
-      resInfoB.data?.user_id ? supabase.from("users").select("phone").eq("id", resInfoB.data.user_id).single() : Promise.resolve({ data: null })
+      resInfoA.data?.user_id ? supabase.from("users").select("phone").eq("id", resInfoA.data.user_id).maybeSingle() : Promise.resolve({ data: null }),
+      resInfoB.data?.user_id ? supabase.from("users").select("phone").eq("id", resInfoB.data.user_id).maybeSingle() : Promise.resolve({ data: null })
     ]);
 
-    if (resUserA.error) console.error("[CONTACT_SHARE] Error fetching user A:", resUserA.error);
-    if (resUserB.error) console.error("[CONTACT_SHARE] Error fetching user B:", resUserB.error);
+    let phoneA = resUserA.data?.phone;
+    let phoneB = resUserB.data?.phone;
 
-    const phoneA = resUserA.data?.phone;
-    const phoneB = resUserB.data?.phone;
+    // Deep identification log
+    console.log(`[CONTACT_SHARE] Profiles: A=${bond.profile_a}, B=${bond.profile_b}`);
+
+    // Fallback Logic A
+    if (!phoneA && resInfoA.data?.user_id) {
+        const { data: wrapA } = await supabase.auth.admin.getUserById(resInfoA.data.user_id);
+        const u = wrapA?.user;
+        phoneA = u?.phone || u?.user_metadata?.phone || u?.user_metadata?.mobile || u?.user_metadata?.phone_number || u?.user_metadata?.phoneNumber;
+    }
+    
+    // Fallback Logic B
+    if (!phoneB && resInfoB.data?.user_id) {
+        const { data: wrapB } = await supabase.auth.admin.getUserById(resInfoB.data.user_id);
+        const u = wrapB?.user;
+        phoneB = u?.phone || u?.user_metadata?.phone || u?.user_metadata?.mobile || u?.user_metadata?.phone_number || u?.user_metadata?.phoneNumber;
+    }
+
     const nameA = resInfoA.data?.full_name || "User A";
     const nameB = resInfoB.data?.full_name || "User B";
 
-    console.log(`[CONTACT_SHARE] Details: ${nameA} (${phoneA}), ${nameB} (${phoneB})`);
+    // Final Sanity Check - ensure we don't send "undefined" or null
+    const finalPhoneA = phoneA || "Contact admin for details";
+    const finalPhoneB = phoneB || "Contact admin for details";
+
+    console.log(`[CONTACT_SHARE] Result: ${nameA}=${finalPhoneA}, ${nameB}=${finalPhoneB}`);
 
     // 2. Send messages to both
-    // We send two messages so they appear in the chat stream
     await supabase.from("bond_messages").insert([
       {
         bond_id: bondId,
         sender_id: userId,
-        content: `Contact Details Exchanged\n\n${nameA}'s phone: ${phoneA || 'Not available'}`,
+        content: `Contact Details Exchanged\n\n${nameA}'s phone: ${finalPhoneA}`,
         is_read: false
       },
       {
         bond_id: bondId,
         sender_id: userId,
-        content: `Contact Details Exchanged\n\n${nameB}'s phone: ${phoneB || 'Not available'}`,
+        content: `Contact Details Exchanged\n\n${nameB}'s phone: ${finalPhoneB}`,
         is_read: false
       }
     ]);

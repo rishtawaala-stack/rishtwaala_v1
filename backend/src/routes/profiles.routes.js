@@ -71,12 +71,13 @@ router.patch("/me", authMiddleware, async (req, res, next) => {
     const updates = req.body;
 
     const validColumns = [
-      "full_name", "dob", "age", "gender", "religion", 
+      "religion", 
       "caste", "mother_tongue", "marital_status", "current_city", "current_state", 
       "current_country", "education_level", "education_field", "institution", 
       "occupation_type", "occupation_detail", "employer", "annual_income_range", 
       "diet", "smoking", "drinking", "bio", "height_cm", 
-      "weight_kg", "complexion", "profile_photo_url", "profile_complete_pct"
+      "weight_kg", "complexion", "profile_photo_url", "profile_complete_pct",
+      "interests", "hobbies"
     ];
 
     const sanitizedPayload = {};

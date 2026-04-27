@@ -562,7 +562,7 @@ create trigger trg_profiles_updated_at
 before update on public.profiles
 for each row execute function public.set_updated_at();
 
-<<<<<<< HEAD
+
 -- RLS Policies for Interests
 alter table if exists public.interests enable row level security;
 create policy "Users can insert their own interests" on public.interests for insert with check (true);
@@ -579,8 +579,7 @@ alter table if exists public.user_information enable row level security;
 create policy "Allow all authenticated for now" on public.user_information for all using (true) with check (true);
 
 -- Trigger for updated_at in interests
-=======
->>>>>>> 549676388e320add1edf0a91752e90f28fdc56d4
+
 create trigger trg_interests_updated_at
 before update on public.interests
 for each row execute function public.set_updated_at();
