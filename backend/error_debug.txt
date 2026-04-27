@@ -1,0 +1,2 @@
+[2026-04-24T15:49:53.928Z] Interest Error: {"code":"PGRST204","details":null,"hint":null,"message":"Could not find the 'status' column of 'interests' in the schema cache"}
+[2026-04-24T15:49:53.932Z] Route Catch Error: Could not find the 'status' column of 'interests' in the schema cache
