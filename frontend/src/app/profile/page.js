@@ -3,11 +3,12 @@
 import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 const Navigation = dynamic(() => import("@/components/Navigation"), { ssr: false });
-import { Briefcase, GraduationCap, MapPin, Edit3, Settings, Star, AlertCircle, Camera, Save, User, Heart, Building, IndianRupee, Utensils, Dumbbell } from "lucide-react";
+import { Briefcase, GraduationCap, MapPin, Edit3, Settings, Star, AlertCircle, Camera, Save, User, Heart, Building, IndianRupee, Utensils, Dumbbell, Lock } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import api from "@/lib/axios";
 import toast from "react-hot-toast";
 import useAuthStore from "@/store/useAuthStore";
+import { CASTE_LIST } from "@/lib/constants";
 
 export default function ProfilePage() {
   const [activeTab, setActiveTab] = useState("about");
@@ -56,6 +57,11 @@ export default function ProfilePage() {
         setEditData(profile?.family || {});
       } else if (activeTab === "preferences") {
         setEditData(profile?.preferences || {});
+      } else if (activeTab === "interests") {
+        setEditData({ 
+          interests: profile?.interests || [], 
+          hobbies: profile?.hobbies || [] 
+        });
       } else {
         setEditData(profile || {});
       }
@@ -70,7 +76,7 @@ export default function ProfilePage() {
   const handleSave = async () => {
     setSaving(true);
     try {
-      if (activeTab === "about" || activeTab === "education") {
+      if (activeTab === "about" || activeTab === "education" || activeTab === "interests") {
         await api.patch('/profiles/me', editData);
       } else if (activeTab === "family") {
         await api.put('/family/me', editData);
@@ -91,6 +97,11 @@ export default function ProfilePage() {
   const handlePhotoUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
+
+    // Strict face photo warning
+    const isRealPhoto = window.confirm("⚠️ QUALITY CHECK: You must only upload a REAL, CLEAR photo of your actual face. AI-generated images, celebrities, or landscape photos are strictly prohibited and will result in your profile being BANNED. \n\nDo you confirm this is a real photo of your face?");
+    if (!isRealPhoto) return;
+
     try {
       const formData = new FormData();
       formData.append('file', file);
@@ -115,7 +126,8 @@ export default function ProfilePage() {
     { id: "about", label: "About" },
     { id: "education", label: "Education & Career" },
     { id: "family", label: "Family" },
-    { id: "preferences", label: "Preferences" }
+    { id: "preferences", label: "Preferences" },
+    { id: "interests", label: "My Interests" }
   ];
 
   if (loading) {
@@ -136,6 +148,21 @@ export default function ProfilePage() {
       <main className="flex-1 pb-20 md:pb-8">
         {/* Profile Header */}
         <div className="h-64 md:h-80 relative bg-gradient-to-br from-secondary/5 via-primary/5 to-transparent border-b border-gray-100">
+          {editing && (
+            <div className="absolute top-4 inset-x-0 mx-auto max-w-2xl px-5 z-20">
+              <div className="bg-primary/10 backdrop-blur-md border border-primary/20 p-4 rounded-2xl flex items-center gap-4 shadow-lg animate-pulse-soft">
+                <div className="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center shrink-0">
+                  <AlertCircle className="w-6 h-6 text-primary" />
+                </div>
+                <div>
+                  <h4 className="text-xs font-black text-primary uppercase tracking-widest mb-0.5">Strict Photo Intelligence Policy</h4>
+                  <p className="text-[11px] font-bold text-dark leading-tight">
+                    Only <span className="text-primary underline">ACTUAL FACE PHOTOS</span> are permitted. AI-generated, filtered, or placeholder images are flagged by our system and will result in <span className="text-primary">IMMEDIATE ACCOUNT BAN</span>.
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
           <div className="max-w-4xl mx-auto px-5 h-full flex items-end pb-12 relative z-10">
             <div className="flex flex-col md:flex-row items-center md:items-end gap-6 w-full translate-y-20 md:translate-y-1/4">
               {/* Profile Photo */}
@@ -166,6 +193,20 @@ export default function ProfilePage() {
                   </svg>
                   <span className="absolute text-[11px] font-black text-primary">{profile?.profile_complete_pct || 0}%</span>
                 </div>
+
+                {editing && (
+                  <div className="absolute top-0 -left-64 w-60 hidden lg:block animate-float">
+                    <div className="bg-rw-rose-pale p-4 rounded-2xl border border-primary/20 shadow-xl shadow-primary/5">
+                      <div className="flex items-center gap-2 mb-2">
+                        <AlertCircle className="w-4 h-4 text-primary" />
+                        <span className="text-[10px] font-black uppercase tracking-widest text-primary">Photo Policy</span>
+                      </div>
+                      <p className="text-[11px] font-bold text-dark leading-relaxed">
+                        Only <span className="text-primary underline">Real Human Face</span> photos are allowed. AI-generated, filtered, or stock photos will be permanently rejected.
+                      </p>
+                    </div>
+                  </div>
+                )}
               </div>
               
               <div className="flex-1 text-center md:text-left mb-4 md:mb-0">
@@ -173,7 +214,7 @@ export default function ProfilePage() {
                   {profile?.full_name || profile?.name || "Complete Profile"}
                   {profile?.is_premium && <Star className="w-6 h-6 text-yellow-500 fill-yellow-500" />}
                 </h1>
-                <p className="text-gray-400 text-sm md:text-base flex items-center justify-center md:justify-start gap-2 mb-4 font-bold uppercase tracking-widest opacity-80">
+                <p className="text-black/60 text-sm md:text-base flex items-center justify-center md:justify-start gap-2 mb-4 font-black uppercase tracking-widest">
                   <MapPin className="w-4 h-4 text-primary" /> {profile?.current_city !== "Not specified" ? `${profile?.current_city}, ${profile?.current_state}` : "Location not set"}
                 </p>
                 <div className="flex flex-wrap justify-center md:justify-start gap-3">
@@ -230,27 +271,32 @@ export default function ProfilePage() {
                   {editing ? (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
-                        <label className="text-[10px] font-black text-rw-text-soft/60 uppercase tracking-widest mb-2 block">Full Name</label>
-                        <input className="input-glass text-sm" value={editData.full_name || profile?.full_name || profile?.name || editData.name || ""} onChange={e => setEditData({...editData, full_name: e.target.value})} />
+                        <label className="text-[10px] font-black text-black/40 uppercase tracking-widest mb-2 block flex items-center gap-2">Full Name <Lock className="w-3 h-3" /></label>
+                        <input className="input-glass text-sm bg-gray-50/50 cursor-not-allowed text-gray-500" value={profile?.full_name || profile?.name || ""} disabled />
                       </div>
                       <div>
-                        <label className="text-[10px] font-black text-rw-text-soft/60 uppercase tracking-widest mb-2 block">Date of Birth</label>
-                        <input type="date" className="input-glass text-sm" value={editData.dob || profile?.dob || ""} onChange={e => setEditData({...editData, dob: e.target.value})} />
+                        <label className="text-[10px] font-black text-black/40 uppercase tracking-widest mb-2 block flex items-center gap-2">Date of Birth <Lock className="w-3 h-3" /></label>
+                        <input 
+                          type="date" 
+                          className="input-glass text-sm bg-gray-50/50 cursor-not-allowed text-gray-500" 
+                          value={profile?.dob || ""} 
+                          disabled
+                        />
                       </div>
                       <div>
-                        <label className="text-[10px] font-black text-rw-text-soft/60 uppercase tracking-widest mb-2 block">Age (Years)</label>
-                        <input type="number" className="input-glass text-sm" value={editData.age || profile?.age || ""} onChange={e => setEditData({...editData, age: parseInt(e.target.value)})} />
+                        <label className="text-[10px] font-black text-black/40 uppercase tracking-widest mb-2 block flex items-center gap-2">Age (Years) <Lock className="w-3 h-3" /></label>
+                        <input type="number" className="input-glass text-sm bg-gray-50/50 cursor-not-allowed text-gray-500" value={profile?.age || ""} disabled />
                       </div>
                       <div>
-                        <label className="text-[10px] font-black text-rw-text-soft/60 uppercase tracking-widest mb-2 block">Current City</label>
+                        <label className="text-[10px] font-black text-black uppercase tracking-widest mb-2 block">Current City</label>
                         <input className="input-glass text-sm" value={editData.current_city || profile?.current_city || ""} onChange={e => setEditData({...editData, current_city: e.target.value})} placeholder="e.g. Mumbai, Delhi" />
                       </div>
                       <div>
-                        <label className="text-[10px] font-black text-rw-text-soft/60 uppercase tracking-widest mb-2 block">Height (cm)</label>
+                        <label className="text-[10px] font-black text-black uppercase tracking-widest mb-2 block">Height (cm)</label>
                         <input type="number" className="input-glass text-sm" value={editData.height_cm || ""} onChange={e => setEditData({...editData, height_cm: parseInt(e.target.value)})} />
                       </div>
                       <div>
-                        <label className="text-[10px] font-black text-rw-text-soft/60 uppercase tracking-widest mb-2 block">Marital Status</label>
+                        <label className="text-[10px] font-black text-black uppercase tracking-widest mb-2 block">Marital Status</label>
                         <select className="input-glass text-sm" value={editData.marital_status || ""} onChange={e => setEditData({...editData, marital_status: e.target.value})}>
                           <option value="">Select</option>
                           <option value="never_married">Never Married</option>
@@ -260,7 +306,7 @@ export default function ProfilePage() {
                         </select>
                       </div>
                       <div>
-                        <label className="text-[10px] font-black text-rw-text-soft/60 uppercase tracking-widest mb-2 block">Religion</label>
+                        <label className="text-[10px] font-black text-black uppercase tracking-widest mb-2 block">Religion</label>
                         <select className="input-glass text-sm" value={["Hindu","Muslim","Christian","Sikh","Buddhist","Jain","Parsi","Jewish","Bahai",""].includes(editData.religion || "") ? (editData.religion || "") : "Other"} onChange={e => setEditData({...editData, religion: e.target.value === "Other" ? "Other" : e.target.value})}>
                           <option value="">Select Religion</option>
                           <option value="Hindu">Hindu</option>
@@ -279,15 +325,34 @@ export default function ProfilePage() {
                         )}
                       </div>
                       <div>
-                        <label className="text-[10px] font-black text-rw-text-soft/60 uppercase tracking-widest mb-2 block">Caste</label>
-                        <input className="input-glass text-sm" value={editData.caste || ""} onChange={e => setEditData({...editData, caste: e.target.value})} />
+                        <label className="text-[10px] font-black text-black uppercase tracking-widest mb-2 block">Caste</label>
+                        <select 
+                          className="input-glass text-sm" 
+                          value={([...CASTE_LIST, ""].includes(editData.caste)) ? editData.caste : "Other"} 
+                          onChange={e => setEditData({...editData, caste: e.target.value === "Other" ? "Other" : e.target.value})}
+                        >
+                          <option value="">Select Caste</option>
+                          {CASTE_LIST.filter(c => c !== "Other").map(c => (
+                            <option key={c} value={c}>{c}</option>
+                          ))}
+                          <option value="Other">Other</option>
+                        </select>
+                        {(editData.caste === "Other" || (editData.caste && !CASTE_LIST.includes(editData.caste))) && (
+                           <input 
+                             className="input-glass text-sm mt-3 border-rw-rose/30 bg-rw-rose/5" 
+                             placeholder="Type your caste here" 
+                             value={editData.caste === "Other" ? "" : editData.caste} 
+                             onChange={e => setEditData({...editData, caste: e.target.value})} 
+                             autoFocus 
+                           />
+                        )}
                       </div>
                       <div>
-                        <label className="text-[10px] font-black text-rw-text-soft/60 uppercase tracking-widest mb-2 block">Mother Tongue</label>
+                        <label className="text-[10px] font-black text-black uppercase tracking-widest mb-2 block">Mother Tongue</label>
                         <input className="input-glass text-sm" value={editData.mother_tongue || ""} onChange={e => setEditData({...editData, mother_tongue: e.target.value})} />
                       </div>
                       <div>
-                        <label className="text-[10px] font-black text-rw-text-soft/60 uppercase tracking-widest mb-2 block">Diet</label>
+                        <label className="text-[10px] font-black text-black uppercase tracking-widest mb-2 block">Diet</label>
                         <select className="input-glass text-sm" value={editData.diet || ""} onChange={e => setEditData({...editData, diet: e.target.value})}>
                           <option value="">Select</option>
                           <option value="veg">Vegetarian</option>
@@ -297,7 +362,7 @@ export default function ProfilePage() {
                         </select>
                       </div>
                       <div>
-                        <label className="text-[10px] font-black text-rw-text-soft/60 uppercase tracking-widest mb-2 block">Profile Photo</label>
+                        <label className="text-[10px] font-black text-black uppercase tracking-widest mb-2 block">Profile Photo</label>
                         <div className="flex gap-4 items-center">
                           {(editData.profile_photo_url || profile?.profile_photo_url) ? (
                             <img src={editData.profile_photo_url || profile?.profile_photo_url} className="w-12 h-12 rounded-xl object-cover bg-white/20 border border-white/40 shadow-sm" />
@@ -478,9 +543,16 @@ export default function ProfilePage() {
 
               {activeTab === 'preferences' && (
                 <div className="space-y-10">
-                  <h3 className="text-xl font-extrabold uppercase tracking-tight text-primary border-b-2 border-primary/10 pb-4 mb-8 flex items-center gap-4">
-                    <Heart className="w-7 h-7 text-primary" /> Partner Preferences
-                  </h3>
+                  <div className="flex justify-between items-center border-b-2 border-primary/10 pb-4 mb-8">
+                    <h3 className="text-xl font-extrabold uppercase tracking-tight text-primary flex items-center gap-4">
+                      <Heart className="w-7 h-7 text-primary" /> Partner Preferences
+                    </h3>
+                    {profile?.preferences && Object.keys(profile.preferences).length > 3 && (
+                      <span className="px-4 py-1.5 bg-green-500/10 text-green-600 text-[10px] font-black uppercase tracking-widest rounded-full border border-green-500/20 flex items-center gap-2">
+                        <Star className="w-3 h-3 fill-green-600" /> 100% Match Ready
+                      </span>
+                    )}
+                  </div>
 
                   {editing ? (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -525,6 +597,81 @@ export default function ProfilePage() {
                   )}
                 </div>
               )}
+
+              {activeTab === 'interests' && (
+                <div className="space-y-10">
+                  <h3 className="text-xl font-extrabold uppercase tracking-tight text-primary border-b-2 border-primary/10 pb-4 mb-8 flex items-center gap-4">
+                    <Utensils className="w-7 h-7 text-primary" /> My Interests & Hobbies
+                  </h3>
+
+                  {editing ? (
+                    <div className="space-y-8">
+                      <div>
+                        <label className="text-[10px] font-black text-black uppercase tracking-widest mb-4 block">Select your Hobbies & Interests</label>
+                        <div className="flex flex-wrap gap-2">
+                          {["Cooking", "Gaming", "Traveling", "Reading", "Music", "Photography", "Painting", "Dancing", "Gardening", "Trekking", "Movies", "Yoga", "Gym", "Cycling", "Swimming", "Coding", "Writing", "Singing", "Acting", "Shopping"].map(option => (
+                            <button
+                              key={option}
+                              onClick={() => {
+                                const current = editData.interests || [];
+                                const next = current.includes(option) ? current.filter(i => i !== option) : [...current, option];
+                                setEditData({ ...editData, interests: next });
+                              }}
+                              className={`px-4 py-2 rounded-full text-xs font-bold transition-all ${editData.interests?.includes(option) ? 'bg-primary text-white shadow-md' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'}`}
+                            >
+                              {option}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="text-[10px] font-black text-black uppercase tracking-widest mb-4 block">Work Related Interests</label>
+                        <div className="flex flex-wrap gap-2">
+                          {["Entrepreneurship", "Technology", "Finance", "Arts", "Civil Services", "Marketing", "Management", "Science"].map(option => (
+                            <button
+                              key={option}
+                              onClick={() => {
+                                const current = editData.hobbies || [];
+                                const next = current.includes(option) ? current.filter(i => i !== option) : [...current, option];
+                                setEditData({ ...editData, hobbies: next });
+                              }}
+                              className={`px-4 py-2 rounded-full text-xs font-bold transition-all ${editData.hobbies?.includes(option) ? 'bg-secondary text-white shadow-md' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'}`}
+                            >
+                              {option}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="flex justify-end pt-4">
+                        <button onClick={handleSave} disabled={saving} className="btn-premium py-3 px-10 text-sm flex items-center gap-2 transform transition-all active:scale-95">
+                          {saving ? <div className="w-5 h-5 border-2 border-white/50 border-t-white rounded-full animate-spin" /> : <><Save className="w-5 h-5" /> Save My Interests</>}
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="space-y-10">
+                      <div>
+                        <p className="text-[10px] font-black text-black/40 uppercase tracking-widest mb-4">Interests</p>
+                        <div className="flex flex-wrap gap-2">
+                          {profile?.interests?.length > 0 ? profile.interests.map(i => (
+                            <span key={i} className="px-4 py-2 bg-primary/5 text-primary text-xs font-bold rounded-lg border border-primary/10">{i}</span>
+                          )) : <p className="text-gray-400 text-sm italic">No interests selected yet.</p>}
+                        </div>
+                      </div>
+                      <div>
+                        <p className="text-[10px] font-black text-black/40 uppercase tracking-widest mb-4">Focus Areas</p>
+                        <div className="flex flex-wrap gap-2">
+                          {profile?.hobbies?.length > 0 ? profile.hobbies.map(h => (
+                            <span key={h} className="px-4 py-2 bg-secondary/5 text-secondary text-xs font-bold rounded-lg border border-secondary/10">{h}</span>
+                          )) : <p className="text-gray-400 text-sm italic">No work interests selected yet.</p>}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
             </motion.div>
           </AnimatePresence>
         </div>
@@ -537,8 +684,8 @@ function InfoItem({ label, value }) {
   const isSet = value && value !== "Not set" && value !== "null" && value !== "undefined";
   return (
     <div className="group transition-all duration-300">
-      <p className="text-gray-400 text-[10px] mb-2 font-bold uppercase tracking-widest leading-none">{label}</p>
-      <p className={`font-extrabold text-sm uppercase tracking-tight transition-colors duration-300 ${isSet ? 'text-dark group-hover:text-primary' : 'text-gray-300'}`}>
+      <p className="text-black/60 text-[10px] mb-2 font-black uppercase tracking-widest leading-none">{label}</p>
+      <p className={`font-extrabold text-sm uppercase tracking-tight transition-colors duration-300 ${isSet ? 'text-black group-hover:text-primary' : 'text-gray-400'}`}>
         {value}
       </p>
       <div className="w-6 h-1 bg-primary/10 mt-3 transition-all duration-300 group-hover:w-full group-hover:bg-primary/50 rounded-full"></div>

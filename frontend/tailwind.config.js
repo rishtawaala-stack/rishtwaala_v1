@@ -15,11 +15,16 @@ module.exports = {
         light: "#F5F5F7",
         rw: {
           pink: "#FF3B5C",
+          rose: "#FF3B5C",
           purple: "#7B2FF7",
           orange: "#FF6A4D",
           dark: "#1C1C1E",
           glass: "rgba(255, 255, 255, 0.15)",
           glassInner: "rgba(255, 255, 255, 0.25)",
+          text: {
+            soft: "#4B4B4F",
+            deep: "#1C1C1E",
+          }
         }
       },
       backgroundImage: {

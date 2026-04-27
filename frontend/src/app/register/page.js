@@ -87,7 +87,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-dark flex items-center justify-center p-4 relative overflow-hidden">
+    <div className="min-h-screen bg-[#FDFCFD] flex items-center justify-center p-4 relative overflow-hidden">
       {/* Background Decor */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-[-20%] right-[-10%] w-[500px] h-[500px] bg-primary/10 rounded-full blur-[180px]"></div>
@@ -97,17 +97,17 @@ export default function RegisterPage() {
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        className="glass-panel w-full max-w-lg p-7 md:p-10 relative z-10"
+        className="bg-white rounded-[2rem] shadow-2xl border border-gray-100 w-full max-w-lg p-7 md:p-10 relative z-10"
       >
         <div className="flex justify-center mb-6">
           <div className="flex items-center gap-3">
             <Heart className="w-8 h-8 text-primary animate-heart-pulse" fill="currentColor" />
-            <span className="text-2xl font-extrabold text-white tracking-tighter">Rishtawaala</span>
+            <span className="text-2xl font-extrabold text-dark tracking-tighter">Rishtawaala</span>
           </div>
         </div>
 
-        <h1 className="text-2xl font-extrabold text-center mb-2 text-white">Join the Community</h1>
-        <p className="text-gray-400 text-center text-xs mb-8 font-medium">Find your resonance through professional connections.</p>
+        <h1 className="text-2xl font-extrabold text-center mb-2 text-dark">Join the Community</h1>
+        <p className="text-gray-500 text-center text-xs mb-8 font-medium">Find your resonance through professional connections.</p>
 
         {/* Step Indicators */}
         <div className="flex items-center gap-2 justify-center mb-8">
@@ -123,76 +123,103 @@ export default function RegisterPage() {
 
         <AnimatePresence mode="wait">
           {step === 1 && (
-            <motion.form key="step1" initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 30 }} onSubmit={handleStep1} className="space-y-3.5">
-              <div className="relative">
-                <User className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-                <input type="text" placeholder="Full Name" value={form.name} onChange={e => update('name', e.target.value)} className="input-premium-dark pl-14 text-xs" required id="register-name" />
+            <motion.form key="step1" initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 30 }} onSubmit={handleStep1} className="space-y-4">
+              <div className="relative group">
+                <User className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-primary transition-colors" />
+                <input type="text" placeholder="Full Name" value={form.name} onChange={e => update('name', e.target.value)} className="input-premium pl-14" required id="register-name" />
               </div>
-              <div className="relative">
-                <Mail className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-                <input type="email" placeholder="Email Address" value={form.email} onChange={e => update('email', e.target.value)} className="input-premium-dark pl-14 text-xs" required id="register-email" />
+              <div className="relative group">
+                <Mail className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-primary transition-colors" />
+                <input type="email" placeholder="Email Address" value={form.email} onChange={e => update('email', e.target.value)} className="input-premium pl-14" required id="register-email" />
               </div>
-              <div className="relative">
-                <PhoneIcon className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-                <input type="tel" placeholder="Phone Number (optional)" value={form.phone} onChange={e => update('phone', e.target.value)} className="input-premium-dark pl-14 text-xs" id="register-phone" />
+              <div className="relative group">
+                <PhoneIcon className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-primary transition-colors" />
+                <input type="tel" placeholder="Phone Number (optional)" value={form.phone} onChange={e => update('phone', e.target.value)} className="input-premium pl-14" id="register-phone" />
               </div>
-              <div className="relative">
-                <Lock className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-                <input type={showPassword ? "text" : "password"} placeholder="Password (min 6 chars)" value={form.password} onChange={e => update('password', e.target.value)} className="input-premium-dark pl-14 pr-14 text-xs" required minLength={6} id="register-password" />
-                <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-5 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition-colors">
+              <div className="relative group">
+                <Lock className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-primary transition-colors" />
+                <input type={showPassword ? "text" : "password"} placeholder="Password (min 6 chars)" value={form.password} onChange={e => update('password', e.target.value)} className="input-premium pl-14 pr-14" required minLength={6} id="register-password" />
+                <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-dark transition-colors">
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
               </div>
-              <button type="submit" className="w-full btn-premium py-4 text-xs font-bold flex justify-center items-center gap-2 rounded-xl">Continue <ArrowRight className="w-4 h-4" /></button>
+              <button type="submit" className="w-full btn-premium py-4.5 text-xs font-bold gap-2">Continue <ArrowRight className="w-4 h-4" /></button>
             </motion.form>
           )}
-
+          
           {step === 2 && (
-            <motion.form key="step2" initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 30 }} onSubmit={handleStep2} className="space-y-3.5">
+            <motion.form key="step2" initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 30 }} onSubmit={handleStep2} className="space-y-6">
               <div>
-                <label className="text-[10px] font-bold text-gray-500 uppercase mb-1 block">Date of Birth</label>
-                <div className="relative">
-                  <Calendar className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-                  <input type="date" value={form.dob} onChange={e => update('dob', e.target.value)} className="input-premium-dark pl-14 text-xs" required id="register-dob" />
+                <label className="text-[10px] font-black text-gray-400 uppercase mb-3 block ml-1 tracking-[0.2em]">Date of Birth</label>
+                <div className="relative group">
+                  <Calendar className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-primary transition-colors" />
+                  <input 
+                    type="date" 
+                    value={form.dob} 
+                    onChange={e => update('dob', e.target.value)} 
+                    className="input-premium pl-14" 
+                    required 
+                    id="register-dob" 
+                    max={form.gender ? (
+                      new Date(new Date().setFullYear(new Date().getFullYear() - (form.gender === 'male' ? 22 : 18))).toISOString().split('T')[0]
+                    ) : new Date().toISOString().split('T')[0]}
+                  />
                 </div>
+                {form.gender && (
+                   <p className="text-[10px] text-primary/70 mt-3 ml-1 font-bold italic tracking-wide">
+                     Minimum age required for {form.gender}: {form.gender === 'male' ? '22' : '18'} years.
+                   </p>
+                )}
               </div>
+
               <div>
-                <label className="text-[10px] font-bold text-gray-500 uppercase mb-1 block">Gender</label>
-                <div className="grid grid-cols-2 gap-3">
+                <label className="text-[10px] font-black text-gray-400 uppercase mb-3 block ml-1 tracking-[0.2em]">Select Gender</label>
+                <div className="grid grid-cols-2 gap-4">
                   {['male', 'female'].map(g => (
                     <button
                       key={g}
                       type="button"
                       onClick={() => update('gender', g)}
-                      className={`py-4 rounded-xl text-xs capitalize font-bold transition-all border ${form.gender === g ? 'bg-primary text-white border-primary shadow-lg shadow-primary/20' : 'bg-white/5 text-gray-400 border-white/10 hover:border-primary/30'}`}
+                      className={`py-5 rounded-2xl text-xs capitalize font-black transition-all border-2 ${form.gender === g ? 'bg-primary text-white border-primary shadow-xl shadow-primary/20 scale-[1.02]' : 'bg-white text-gray-400 border-gray-100 hover:border-primary/20'}`}
                     >
                       {g === 'male' ? '👨 Male' : '👩 Female'}
                     </button>
                   ))}
                 </div>
               </div>
-              <div className="flex gap-3 pt-4">
-                <button type="button" onClick={() => setStep(1)} className="flex-1 bg-white/5 text-gray-400 py-3.5 rounded-xl font-bold text-xs hover:bg-white/10 transition-all">Back</button>
-                <button type="submit" className="flex-1 btn-premium py-3.5 rounded-xl text-xs font-bold flex justify-center items-center gap-2">Continue <ArrowRight className="w-4 h-4" /></button>
+
+              <div className="flex gap-4 pt-4">
+                <button type="button" onClick={() => setStep(1)} className="flex-1 bg-gray-50 text-gray-500 py-4.5 rounded-2xl font-black text-xs hover:bg-gray-100 transition-all border border-gray-100 uppercase tracking-widest">Back</button>
+                <button type="submit" className="flex-1 btn-premium py-4.5 rounded-2xl text-xs font-black gap-2">Continue <ArrowRight className="w-4 h-4" /></button>
               </div>
             </motion.form>
           )}
 
           {step === 3 && (
-            <motion.form key="step3" initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 30 }} onSubmit={handleRegister} className="space-y-4">
-              <div className="text-center">
-                <Shield className="w-10 h-10 text-primary mx-auto mb-4" />
-                <h3 className="font-extrabold text-base mb-1 text-white">Trust Check</h3>
-                <p className="text-gray-400 text-[10px] font-medium">Verify your identity to proceed.</p>
+            <motion.form key="step3" initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 30 }} onSubmit={handleRegister} className="space-y-6">
+              <div className="text-center bg-primary/5 rounded-[2rem] p-8 border border-primary/10">
+                <Shield className="w-12 h-12 text-primary mx-auto mb-4" />
+                <h3 className="font-black text-lg mb-1 text-dark tracking-tight">Trust Verification</h3>
+                <p className="text-gray-500 text-xs font-bold leading-relaxed">Enter the high-security code sent to your credentials.</p>
               </div>
-              <div className="flex gap-2 items-center">
-                <input type="text" placeholder="Enter OTP" value={otp} onChange={e => setOtp(e.target.value)} className="input-neon text-sm flex-1" id="register-otp" />
-                <button type="button" onClick={handleSendOtp} className="btn-outline py-3.5 px-4 text-xs shrink-0">Send OTP</button>
+
+              <div className="flex gap-3 items-center">
+                <div className="relative flex-1 group">
+                   <Lock className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-primary transition-colors" />
+                   <input type="text" placeholder="OTP Code" value={otp} onChange={e => setOtp(e.target.value)} className="input-premium pl-14 font-black tracking-[0.5em] text-center" id="register-otp" />
+                </div>
+                <button type="button" onClick={handleSendOtp} className="px-6 py-4 rounded-2xl border-2 border-primary/20 text-primary font-black text-[10px] uppercase tracking-widest hover:bg-primary/5 transition-all">Resend</button>
               </div>
-              {devOtp && <p className="text-xs text-green-400 text-center font-bold">DEV OTP: {devOtp}</p>}
-              <div className="flex gap-3">
-                <button type="button" onClick={() => setStep(2)} className="flex-1 bg-white/5 text-gray-400 py-4 rounded-xl font-bold text-xs hover:bg-white/10 transition-all">Back</button>
-                <button type="submit" disabled={submitting} className="flex-1 btn-premium py-4 rounded-xl text-xs font-bold flex justify-center items-center gap-2">
+
+              {devOtp && (
+                <div className="bg-green-50 border border-green-100 p-4 rounded-2xl text-center">
+                   <p className="text-[10px] text-green-600 font-black tracking-[0.2em]">DEV ACCESS KEY: <span className="text-lg ml-2">{devOtp}</span></p>
+                </div>
+              )}
+
+              <div className="flex gap-4">
+                <button type="button" onClick={() => setStep(2)} className="flex-1 bg-gray-50 text-gray-500 py-4.5 rounded-2xl font-black text-xs hover:bg-gray-100 transition-all border border-gray-100 uppercase tracking-widest">Back</button>
+                <button type="submit" disabled={submitting} className="flex-1 btn-premium py-4.5 rounded-2xl text-xs font-black gap-2">
                   {submitting ? <Loader className="w-4 h-4 animate-spin" /> : <><Heart className="w-4 h-4" /> Create Heart</>}
                 </button>
               </div>

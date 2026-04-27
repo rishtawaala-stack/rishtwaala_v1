@@ -57,7 +57,7 @@ function NavContent() {
               <Link 
                 key={item.href} 
                 href={item.href}
-                className={`flex items-center gap-3 px-4 py-3 rounded-2xl transition-all relative text-sm font-bold ${isActive ? 'text-dark bg-primary/5' : 'text-gray-500 hover:text-primary hover:bg-gray-50'}`}
+                className={`flex items-center gap-3 px-4 py-3 rounded-2xl transition-all relative text-sm font-black ${isActive ? 'text-black bg-primary/5' : 'text-black/60 hover:text-primary hover:bg-gray-50'}`}
               >
                 {isActive && (
                   <motion.div 
@@ -66,7 +66,7 @@ function NavContent() {
                     transition={{ type: "spring", stiffness: 300, damping: 30 }}
                   />
                 )}
-                <Icon className={`w-5 h-5 relative z-10 transition-colors ${isActive ? 'text-primary' : 'text-gray-400'}`} />
+                <Icon className={`w-5 h-5 relative z-10 transition-colors ${isActive ? 'text-primary' : 'text-black/40'}`} />
                 <span className="relative z-10">{item.name}</span>
                 {item.badge > 0 && (
                   <span className="relative z-10 ml-auto bg-primary text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center shadow-lg shadow-primary/20">{item.badge > 9 ? '9+' : item.badge}</span>
@@ -76,7 +76,7 @@ function NavContent() {
           })}
         </nav>
 
-        <button onClick={logout} className="flex items-center gap-3 px-4 py-3 text-gray-500 hover:text-primary hover:bg-primary/5 rounded-2xl transition-all text-sm font-bold mt-auto">
+        <button onClick={logout} className="flex items-center gap-3 px-4 py-3 text-black/60 hover:text-primary hover:bg-primary/5 rounded-2xl transition-all text-sm font-black mt-auto">
           <LogOut className="w-5 h-4" />
           <span>Logout</span>
         </button>

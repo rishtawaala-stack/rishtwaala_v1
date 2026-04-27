@@ -25,9 +25,15 @@ export default function MatchesPage() {
   const [filters, setFilters] = useState({
     ageRange: [18, 60],
     religion: "",
+    caste: "",
     profession: "",
     place: "",
-    lookingFor: "Bride"
+    lookingFor: "Bride",
+    heightRange: [140, 210],
+    education: "",
+    income: "",
+    familyType: "",
+    interest: ""
   });
 
   useEffect(() => {
@@ -92,13 +98,22 @@ export default function MatchesPage() {
       const matchAge = match.age || 25;
       const matchesAge = matchAge >= filters.ageRange[0] && matchAge <= filters.ageRange[1];
       const matchesReligion = !filters.religion || match.religion?.toLowerCase() === filters.religion.toLowerCase();
+      const matchesCaste = !filters.caste || match.caste?.toLowerCase() === filters.caste.toLowerCase();
       const matchesProfession = !filters.profession || match.profession?.toLowerCase().includes(filters.profession.toLowerCase());
       const matchesPlace = !filters.place || match.location?.toLowerCase().includes(filters.place.toLowerCase());
       
-      // Filter by Looking For (Gender)
-      const matchesLookingFor = true; // For now, backend might handle this or we can add gender to match object if available
+      const matchHeight = match.height_cm || 165;
+      const matchesHeight = matchHeight >= (filters.heightRange?.[0] || 140) && matchHeight <= (filters.heightRange?.[1] || 210);
+      
+      const matchesEducation = !filters.education || match.education_level?.toLowerCase() === filters.education.toLowerCase();
+      const matchesIncome = !filters.income || match.income?.toLowerCase() === filters.income.toLowerCase();
+      const matchesFamily = !filters.familyType || match.family_type?.toLowerCase() === filters.familyType.toLowerCase();
+      const matchesInterest = !filters.interest || (match.interests || []).includes(filters.interest) || (match.hobbies || []).includes(filters.interest);
 
-      return matchesSearch && matchesAge && matchesReligion && matchesProfession && matchesPlace;
+      // Filter by Looking For (Gender)
+      const matchesLookingFor = true; 
+
+      return matchesSearch && matchesAge && matchesReligion && matchesCaste && matchesProfession && matchesPlace && matchesHeight && matchesEducation && matchesIncome && matchesFamily && matchesInterest;
     });
   }, [matches, searchQuery, filters]);
 
@@ -129,7 +144,7 @@ export default function MatchesPage() {
             <header className="flex flex-col lg:flex-row lg:items-center justify-between mb-10 gap-6">
               <div>
                 <h1 className="text-4xl font-extrabold mb-1 text-dark tracking-tighter">Discover Matches</h1>
-                <p className="text-gray-400 font-bold text-[11px] uppercase tracking-widest flex items-center gap-2">
+                <p className="text-black/60 font-black text-[11px] uppercase tracking-widest flex items-center gap-2">
                   <span className="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse"></span>
                   Verified Professional Profiles
                 </p>
@@ -165,10 +180,10 @@ export default function MatchesPage() {
                   <div className="w-20 h-20 bg-white/30 rounded-full flex items-center justify-center mx-auto mb-6">
                     <Search className="w-8 h-8 text-rw-text-soft/30" />
                   </div>
-                  <h3 className="text-2xl font-black text-rw-text-deep mb-2 uppercase tracking-tighter">No Matches Found</h3>
-                  <p className="text-rw-text-soft text-sm font-bold mb-8 opacity-60">We couldn't find any profiles matching your current filters. Try broadening your criteria!</p>
+                  <h3 className="text-2xl font-black text-black mb-2 uppercase tracking-tighter">No Matches Found</h3>
+                  <p className="text-black/60 text-sm font-bold mb-8">We couldn't find any profiles matching your current filters. Try broadening your criteria!</p>
                   <button 
-                    onClick={() => setSearchQuery("") || setFilters({ ageRange: [18, 60], religion: "", profession: "", place: "", lookingFor: "Bride" })}
+                    onClick={() => setSearchQuery("") || setFilters({ ageRange: [18, 60], religion: "", caste: "", profession: "", place: "", lookingFor: "Bride", heightRange: [140, 210], education: "", income: "", familyType: "", interest: "" })}
                     className="btn-premium px-10 py-4"
                   >
                     Clear All Filters
@@ -222,10 +237,10 @@ export default function MatchesPage() {
                       {/* Bottom: Details Section */}
                       <div className="bg-white p-5 flex justify-between items-center h-20">
                         <div className="flex flex-col gap-1 overflow-hidden">
-                            <div className="flex items-center gap-2 text-[10px] font-bold text-gray-500 uppercase tracking-tighter truncate">
+                            <div className="flex items-center gap-2 text-[10px] font-black text-black/60 uppercase tracking-tighter truncate">
                               <Briefcase className="w-3 h-3 text-secondary" /> {match.profession || "Professional"}
                             </div>
-                            <div className="flex items-center gap-2 text-[10px] font-bold text-gray-500 uppercase tracking-tighter truncate">
+                            <div className="flex items-center gap-2 text-[10px] font-black text-black/60 uppercase tracking-tighter truncate">
                               <Heart className="w-3 h-3 text-primary" /> {match.religion || "Hindu"}
                             </div>
                         </div>

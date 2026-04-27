@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Messages - EternalTie</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline-variant": "#e5bdbe",
+                        "tertiary-fixed": "#ffdad3",
+                        "tertiary": "#ab2e17",
+                        "tertiary-container": "#cd462d",
+                        "secondary": "#6a09e6",
+                        "error-container": "#ffdad6",
+                        "on-secondary-container": "#f6edff",
+                        "inverse-primary": "#ffb3b6",
+                        "surface-container": "#f0edef",
+                        "tertiary-fixed-dim": "#ffb4a5",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed": "#3e0400",
+                        "secondary-fixed": "#eaddff",
+                        "on-tertiary-container": "#fffbff",
+                        "surface-dim": "#dcd9dc",
+                        "on-tertiary": "#ffffff",
+                        "on-surface": "#1b1b1d",
+                        "on-surface-variant": "#5c3f41",
+                        "on-secondary-fixed-variant": "#5900c6",
+                        "surface-variant": "#e4e2e4",
+                        "secondary-fixed-dim": "#d2bbff",
+                        "surface-container-highest": "#e4e2e4",
+                        "on-primary": "#ffffff",
+                        "inverse-on-surface": "#f3f0f2",
+                        "surface": "#fcf8fb",
+                        "on-secondary-fixed": "#25005a",
+                        "primary-container": "#e12149",
+                        "surface-tint": "#be0037",
+                        "on-primary-container": "#fffbff",
+                        "surface-container-lowest": "#ffffff",
+                        "background": "#fcf8fb",
+                        "on-tertiary-fixed-variant": "#8c1703",
+                        "on-primary-fixed-variant": "#920028",
+                        "on-secondary": "#ffffff",
+                        "surface-container-high": "#eae7ea",
+                        "primary-fixed": "#ffdada",
+                        "error": "#ba1a1a",
+                        "primary-fixed-dim": "#ffb3b6",
+                        "outline": "#906f70",
+                        "on-error": "#ffffff",
+                        "secondary-container": "#833cff",
+                        "primary": "#ba0035",
+                        "surface-bright": "#fcf8fb",
+                        "surface-container-low": "#f6f3f5",
+                        "on-background": "#1b1b1d",
+                        "on-primary-fixed": "#40000c",
+                        "inverse-surface": "#303032"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "48px",
+                        "sm": "8px",
+                        "md": "16px",
+                        "xs": "4px",
+                        "unit": "4px",
+                        "lg": "24px",
+                        "gutter": "24px",
+                        "container-max": "1200px"
+                    },
+                    "fontFamily": {},
+                    "fontSize": {
+                        "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "h2": ["32px", {"lineHeight": "1.25", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "h1": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "caption": ["12px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                        "h3": ["24px", {"lineHeight": "1.3", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-surface-container-low min-h-screen flex flex-col font-body-md text-body-md text-on-background selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+<header class="bg-white/90 dark:bg-slate-950/90 backdrop-blur-md docked full-width top-0 sticky z-50 border-b border-slate-200 dark:border-slate-800 shadow-[0_4px_20px_rgba(90,30,219,0.05)] hidden md:block">
+<div class="flex justify-between items-center h-16 w-full px-6 max-w-7xl mx-auto font-manrope antialiased">
+<div class="flex items-center gap-8">
+<div class="text-2xl font-black bg-gradient-to-r from-[#FF3B5C] via-[#7B2FF7] to-[#9D50BB] bg-clip-text text-transparent">EternalTie</div>
+<nav class="hidden lg:flex items-center gap-6">
+<a class="text-slate-600 dark:text-slate-400 font-medium hover:text-rose-500 dark:hover:text-rose-300 transition-colors active:scale-95 duration-200" href="#">Discover</a>
+<a class="text-slate-600 dark:text-slate-400 font-medium hover:text-rose-500 dark:hover:text-rose-300 transition-colors active:scale-95 duration-200" href="#">Matches</a>
+<a class="text-rose-600 dark:text-rose-400 font-bold border-b-2 border-rose-500 pb-1 hover:text-rose-500 dark:hover:text-rose-300 transition-colors active:scale-95 duration-200" href="#">Messages</a>
+<a class="text-slate-600 dark:text-slate-400 font-medium hover:text-rose-500 dark:hover:text-rose-300 transition-colors active:scale-95 duration-200" href="#">Plans</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-slate-600 dark:text-slate-400 hover:text-rose-500 dark:hover:text-rose-300 transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">notifications</span>
+</button>
+<button class="text-slate-600 dark:text-slate-400 hover:text-rose-500 dark:hover:text-rose-300 transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">favorite</span>
+</button>
+<button class="bg-rose-500 text-white px-4 py-1.5 rounded-full font-semibold hover:bg-rose-600 transition-colors active:scale-95 duration-200 text-sm ml-2">Upgrade</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-slate-200 ml-2">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="Portrait of a young smiling woman with natural makeup in soft lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMUQaHLJAuG5B9oVNmOycW2VaHfZZ865863UOX1__jmSO15_DAjTjoyxoFHjWtP9Jrqvu474ybHzGL8r-liP4lyO9AQlPr4pTKsZGe48n9R4sIYkBmdkPFMsnf-BuKGRgtBYuVAIL1hhv_gl-ZwtZZE7iEa8QT9HmYp1QS2Q5npylLUeg48jUNf9v4z4Q4wQCe9-5Ez0ZrKuzoeYc6zYf5rdDvwOPWqKQThPSlw4LDIYuzv3kS7ciIhHsRm5815_RZpMQJm1p2bQY"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Chat Interface -->
+<main class="flex-1 flex overflow-hidden w-full max-w-container-max mx-auto md:p-md lg:p-lg gap-md md:h-[calc(100vh-64px)] pb-24 md:pb-lg">
+<!-- Sidebar: Conversations List -->
+<aside class="w-full md:w-[360px] bg-surface-container-lowest flex flex-col md:rounded-xl shadow-[0_4px_20px_rgba(90,30,219,0.05)] border border-outline-variant flex-shrink-0 overflow-hidden h-full">
+<!-- Header & Search -->
+<div class="p-md border-b border-outline-variant bg-surface-container-lowest z-10">
+<div class="flex justify-between items-center mb-md">
+<h2 class="font-h3 text-h3 text-on-surface">Messages</h2>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">edit_square</span>
+</button>
+</div>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+<input class="w-full bg-surface-container-low border border-outline-variant text-on-surface placeholder:text-on-surface-variant font-body-md text-body-md rounded-full py-2 pl-10 pr-4 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all" placeholder="Search matches..." type="text"/>
+</div>
+</div>
+<!-- List -->
+<div class="flex-1 overflow-y-auto hide-scrollbar bg-surface-container-lowest">
+<!-- Active Conversation Item -->
+<div class="flex items-center gap-sm p-md bg-surface-container-high border-l-4 border-primary cursor-pointer hover:bg-surface-container transition-colors">
+<div class="relative w-14 h-14 rounded-full overflow-hidden flex-shrink-0">
+<img alt="Arjun K." class="w-full h-full object-cover" data-alt="Portrait of a handsome south asian man smiling casually outdoors" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkR0t896QBzTN-cgCuqVqBGqRdSrbALPjoSpLn25XnhEczf9lWuN3-RGMZCUzUQ5bC6zljNxUb7w4iebMwFfmMnBc9cGL2l9-loidQ4kG_hKuZvo7xnPyQLaznodrE_N1md6Pk2Wjs4GFaEvrc6K1dko5GXWgryEvYo63Ys8XVkk6VyJA8XrRgs5OH0GEfWfPabkbONC2dd_7GAcjXhD1FRtBrpXgHYlU5eG1TYtuIGNs7IotmwaDRxManM-MAMfebfNGy7llU7UU"/>
+<div class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-green-500 border-2 border-surface-container-lowest rounded-full"></div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline mb-xs">
+<span class="font-label-md text-label-md text-on-surface truncate">Arjun K.</span>
+<span class="font-caption text-caption text-on-surface-variant flex-shrink-0 ml-2">10:42 AM</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-primary" style="font-variation-settings: 'FILL' 1;">done_all</span>
+<p class="font-body-md text-[14px] text-on-surface-variant truncate">I'd love to hear more about your recent trip!</p>
+</div>
+</div>
+</div>
+<!-- Unread Conversation Item -->
+<div class="flex items-center gap-sm p-md border-l-4 border-transparent cursor-pointer hover:bg-surface-container transition-colors border-b border-surface-variant">
+<div class="relative w-14 h-14 rounded-full overflow-hidden flex-shrink-0">
+<img alt="Priya S." class="w-full h-full object-cover" data-alt="Portrait of a beautiful south asian woman with long hair smiling gently" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlrF6oRCG07WhgkKsTiWuKEe64_k3Ac0MXs3uoYZ8oMuBi-Btix3CExs71Ghk3uiM5Z1_UGR-pqC9mL_1imDSdc0vgXanIwbjUV6RsEOWEwTE6YxdzvtpI0nhyaNFJNmD93dUf1hT58dD5EdPLFcK_BBShETqVwhLwOubQdHhan-wOC04lc2M-PSVMTLZ0hSVIcXpebVkCF9nBdnT9uKlzWL11Hk-q_gbLmUgsBDFyKaRCtSZ3rHgYPJBiV5UmbEAnLBHhqanmv4s"/>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline mb-xs">
+<span class="font-label-md text-label-md text-on-surface font-bold truncate">Priya S.</span>
+<span class="font-caption text-caption text-primary font-bold flex-shrink-0 ml-2">Yesterday</span>
+</div>
+<div class="flex justify-between items-center gap-2">
+<p class="font-body-md text-[14px] text-on-surface font-semibold truncate">Are we still on for coffee this weekend?</p>
+<span class="bg-primary text-on-primary text-[10px] font-bold px-2 py-0.5 rounded-full flex-shrink-0">2</span>
+</div>
+</div>
+</div>
+<!-- Regular Conversation Item -->
+<div class="flex items-center gap-sm p-md border-l-4 border-transparent cursor-pointer hover:bg-surface-container transition-colors border-b border-surface-variant">
+<div class="relative w-14 h-14 rounded-full overflow-hidden flex-shrink-0">
+<img alt="Vikram R." class="w-full h-full object-cover" data-alt="Portrait of a well dressed south asian man in a business casual setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfExere_ElOZya8owGEJNyw64K87a2xFJzr-NtqhLcdc6wm_TzRNJJueD4kKEBTcAJIlq9bSnzU6I0n9H1Mr5wMlpoUoRLxJyD4ARAOn8czQbWCebVp-8-hWxYag6UD7oHQM-7o3ql88DpywI5hTtNfhnPEvjenIUhrY8doKSC3VExM_KRhc5F-HK4R3FEbF1wlVZjh6NedSr1ON9X8TC5orKniRWwRS9lzUgPIviy4kEtC-jXa62hqIY28j79nxNftgvtLSj8v_s"/>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline mb-xs">
+<span class="font-label-md text-label-md text-on-surface truncate">Vikram R.</span>
+<span class="font-caption text-caption text-on-surface-variant flex-shrink-0 ml-2">Tuesday</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-on-surface-variant" style="font-variation-settings: 'FILL' 1;">done_all</span>
+<p class="font-body-md text-[14px] text-on-surface-variant truncate">Thanks for sharing that recipe.</p>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<!-- Active Chat Canvas -->
+<section class="hidden md:flex flex-1 flex-col bg-surface-container-lowest md:rounded-xl shadow-[0_4px_20px_rgba(90,30,219,0.05)] border border-outline-variant overflow-hidden h-full relative">
+<!-- Chat Header -->
+<div class="flex justify-between items-center p-md border-b border-outline-variant bg-surface/95 backdrop-blur-md z-10">
+<div class="flex items-center gap-sm">
+<button class="md:hidden text-on-surface-variant hover:text-primary mr-2">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<div class="relative w-10 h-10 rounded-full overflow-hidden">
+<img alt="Arjun K." class="w-full h-full object-cover" data-alt="Portrait of a handsome south asian man smiling casually outdoors" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDUcyFn-GHAzVaZokNJG58ciW9X61LjNBpPpRSVvcbDNd3wsIEFUAEIZq2a-irmlnIVgPE138V_-aLBY9cVWIJlYWAnUhx6yLbiFWsLCrVopj6yNKsTcDN8fxenszQdMaif3gM7vIctgNDH9A0ZwRVhZcURGTuIIsPw-1gQzdYds1YQWqNjPermOQwJq93UnmbmcqA6e_c8m01RZzWvnXYUrmsL5b57gS-z7HEs6NeooQwcpQtY-O0GW7Aa_xKcPyCiRPoD-uaxq8"/>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-on-surface">Arjun K.</h3>
+<p class="font-caption text-caption text-on-surface-variant flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-green-500 inline-block"></span> Online
+                        </p>
+</div>
+</div>
+<div class="flex items-center gap-4 text-on-surface-variant">
+<button class="hover:text-primary transition-colors hover:bg-surface-container p-2 rounded-full"><span class="material-symbols-outlined">videocam</span></button>
+<button class="hover:text-primary transition-colors hover:bg-surface-container p-2 rounded-full"><span class="material-symbols-outlined">call</span></button>
+<button class="hover:text-primary transition-colors hover:bg-surface-container p-2 rounded-full"><span class="material-symbols-outlined">more_vert</span></button>
+</div>
+</div>
+<!-- Messages Area -->
+<div class="flex-1 overflow-y-auto p-md space-y-6 bg-[url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23f0edef\' fill-opacity=\'0.6\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] bg-surface-container-lowest">
+<!-- Date Divider -->
+<div class="flex justify-center">
+<span class="bg-surface-container px-3 py-1 rounded-full font-caption text-caption text-on-surface-variant shadow-sm border border-outline-variant">Today</span>
+</div>
+<!-- Received Message -->
+<div class="flex items-end gap-2 max-w-[80%]">
+<img alt="Arjun K." class="w-6 h-6 rounded-full flex-shrink-0 object-cover mb-1" data-alt="Portrait of a handsome south asian man smiling casually outdoors" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDE5-RbR_FT-_PUMn5uAfa9NaxELYvZb4NhxLaP3gncc4eXNljpzbI6b9YbDr1rAuEH3bdRXbzhqCJThvYERGKN06Eh0n6EWCP2sZ8pA6NFW1P9BtBFITx6mB_Mt7-9emGtjXhw7DozwnuMJNtYMK_wj_a4DqMgNehBFPjrMqnpEBGAXKN-sdOnt7oO3Yp47W3_71eVM2G9zo6koTCLWcZZRA5T9cobSScxpfS3B_5FPbguqIWZvGyonA-pou9eQ8-3wYxv4PCzwJU"/>
+<div class="flex flex-col gap-1">
+<div class="bg-surface-variant text-on-surface-variant p-3 rounded-2xl rounded-bl-sm shadow-sm relative group">
+<p class="font-body-md text-body-md">Hi! It was great matching with you. Your profile really stood out, especially the part about loving mountain hikes.</p>
+</div>
+<span class="font-caption text-[11px] text-on-surface-variant ml-1">10:30 AM</span>
+</div>
+</div>
+<!-- Sent Message -->
+<div class="flex items-end justify-end gap-2 max-w-[80%] ml-auto">
+<div class="flex flex-col items-end gap-1">
+<div class="bg-primary text-on-primary p-3 rounded-2xl rounded-br-sm shadow-[0_4px_15px_rgba(186,0,53,0.2)]">
+<p class="font-body-md text-body-md">Thank you! I'm a big fan of the outdoors. The Himalayas trip last year was unforgettable.</p>
+</div>
+<div class="flex items-center gap-1 mr-1">
+<span class="font-caption text-[11px] text-on-surface-variant">10:35 AM</span>
+<span class="material-symbols-outlined text-[14px] text-primary" style="font-variation-settings: 'FILL' 1;">done_all</span>
+</div>
+</div>
+</div>
+<!-- Received Message -->
+<div class="flex items-end gap-2 max-w-[80%]">
+<img alt="Arjun K." class="w-6 h-6 rounded-full flex-shrink-0 object-cover mb-1" data-alt="Portrait of a handsome south asian man smiling casually outdoors" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgR4y-Ib6ndbk21LUcV4gHa3jn7559fXtb6dhClrfBPsN8kI1a0r-gadjJY-Ft0zUf-fsA1b1VvD2riRJTav3TpKRnp77oac6zqT85VuvL9QF1N1SY7rRlAmJvoWHzXgw4wVe1J8ztuqOXeZSsZsIRX-RKnUSdxFhVR2BqrDzp36nVyQfpoYqoZe64MBklxL9JdujdCXk52-9YfLU9XBv_BdMG7lgEcwbQ9OoMJqXNG3chCtLvRfPLk9XCt1qjOOi8bH00qNeTgj4"/>
+<div class="flex flex-col gap-1">
+<div class="bg-surface-variant text-on-surface-variant p-3 rounded-2xl rounded-bl-sm shadow-sm">
+<p class="font-body-md text-body-md">That sounds amazing. I've always wanted to go there. I'd love to hear more about your recent trip!</p>
+</div>
+<span class="font-caption text-[11px] text-on-surface-variant ml-1">10:42 AM</span>
+</div>
+</div>
+</div>
+<!-- Input Area -->
+<div class="p-md bg-surface border-t border-outline-variant z-10">
+<div class="flex items-end gap-2 bg-surface-container-lowest rounded-2xl border border-outline-variant p-2 shadow-sm focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-all">
+<button class="p-2 text-on-surface-variant hover:text-primary rounded-full transition-colors self-end mb-0.5">
+<span class="material-symbols-outlined">add_circle</span>
+</button>
+<textarea class="flex-1 max-h-32 min-h-[40px] bg-transparent border-none focus:ring-0 resize-none font-body-md text-body-md py-2.5 px-2 text-on-surface placeholder:text-on-surface-variant hide-scrollbar" placeholder="Type a message..." rows="1"></textarea>
+<button class="p-2 text-on-surface-variant hover:text-primary rounded-full transition-colors self-end mb-0.5 mr-1">
+<span class="material-symbols-outlined">mood</span>
+</button>
+<button class="bg-gradient-to-r from-primary to-secondary text-on-primary p-2.5 rounded-full shadow-md hover:shadow-lg transition-all active:scale-95 self-end flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">send</span>
+</button>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="bg-white/95 dark:bg-slate-900/95 backdrop-blur-lg fixed bottom-0 left-0 w-full z-50 rounded-t-2xl border-t border-slate-100 dark:border-slate-800 shadow-[0_-4px_20px_rgba(0,0,0,0.05)] flex justify-around items-center h-20 px-2 pb-safe md:hidden">
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 font-manrope text-[11px] font-semibold active:bg-slate-50 active:scale-90 transition-transform w-16" href="#">
+<span class="material-symbols-outlined mb-1">home</span>
+            Home
+        </a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 font-manrope text-[11px] font-semibold active:bg-slate-50 active:scale-90 transition-transform w-16" href="#">
+<span class="material-symbols-outlined mb-1">favorite</span>
+            Matches
+        </a>
+<a class="flex flex-col items-center justify-center text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-900/30 rounded-xl px-4 py-1.5 font-manrope text-[11px] font-semibold active:bg-slate-50 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">chat_bubble</span>
+            Chat
+        </a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 font-manrope text-[11px] font-semibold active:bg-slate-50 active:scale-90 transition-transform w-16" href="#">
+<span class="material-symbols-outlined mb-1">account_circle</span>
+            Profile
+        </a>
+</nav>
+</body></html>

@@ -7,12 +7,11 @@ export default function FloatingHearts() {
   const [hearts, setHearts] = useState([]);
 
   useEffect(() => {
-    // Increase count for more "small hearts" everywhere
     const newHearts = Array.from({ length: 40 }).map((_, i) => ({
       id: i,
       left: Math.random() * 100,
       top: Math.random() * 100,
-      size: Math.random() * 12 + 6, // Smaller hearts
+      size: Math.random() * 12 + 6,
       duration: Math.random() * 8 + 4,
       delay: Math.random() * 10,
       opacity: Math.random() * 0.3 + 0.1,
@@ -26,7 +25,7 @@ export default function FloatingHearts() {
         <motion.div
           key={heart.id}
           initial={{ scale: 0, opacity: 0 }}
-          animate={{ 
+          animate={{
             scale: [0, 1.2, 1, 1, 0],
             opacity: [0, heart.opacity, heart.opacity, 0],
             y: [0, -40, -80]
@@ -38,10 +37,10 @@ export default function FloatingHearts() {
             ease: "easeInOut"
           }}
           className="absolute"
-          style={{ 
+          style={{
             left: `${heart.left}%`,
             top: `${heart.top}%`,
-            color: 'rgba(176, 56, 120, 0.4)' 
+            color: 'rgba(176, 56, 120, 0.4)'
           }}
         >
           <Heart size={heart.size} fill="currentColor" />

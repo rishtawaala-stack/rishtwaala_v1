@@ -15,6 +15,20 @@ router.post("/register", async (req, res, next) => {
       return next(new ApiError(400, "VALIDATION_ERROR", "Name, email, and password are required."));
     }
 
+    // Age Validation
+    if (dob) {
+      const birthDate = new Date(dob);
+      const today = new Date();
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const m = today.getMonth() - birthDate.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) age--;
+      
+      const minAge = (gender || "").toLowerCase() === 'male' ? 22 : 18;
+      if (age < minAge) {
+        return next(new ApiError(400, "VALIDATION_ERROR", `Minimum age for ${gender} is ${minAge} years.`));
+      }
+    }
+
     // Create user in Supabase Auth
     const { data: authData, error: authError } = await supabase.auth.admin.createUser({
       email,
@@ -253,8 +267,8 @@ router.get("/me", authMiddleware, async (req, res, next) => {
         diet: userInfo.diet || "",
         smoking: userInfo.smoking || "",
         drinking: userInfo.drinking || "",
-        hobbies: [],
-        interests: [],
+        hobbies: userInfo.hobbies || [],
+        interests: userInfo.interests || [],
         bio: userInfo.bio || "",
         profile_photo_url: userInfo.profile_photo_url || null,
         profile_complete_pct: userInfo.profile_complete_pct || 0,

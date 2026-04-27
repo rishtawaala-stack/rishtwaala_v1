@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, Suspense } from "react";
+import { useState, useEffect, useRef, Suspense, useMemo } from "react";
 import dynamic from "next/dynamic";
 const Navigation = dynamic(() => import("@/components/Navigation"), { ssr: false });
 import { Send, Phone, Video, MoreVertical, Search, Smile, ArrowLeft, Heart, Lock, User, ExternalLink, Rocket, Sparkles, MapPin, ShieldCheck, Plus, CheckCheck } from "lucide-react";
@@ -19,6 +19,7 @@ function BondsContent() {
   const [loading, setLoading] = useState(true);
   const [isUnlocked, setIsUnlocked] = useState(false);
   const [isShared, setIsShared] = useState(false);
+  const [chatSearch, setChatSearch] = useState("");
   const endOfMessagesRef = useRef(null);
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -69,6 +70,10 @@ function BondsContent() {
     };
     initPage();
   }, [router, searchParams]);
+
+  const filteredChats = useMemo(() => {
+    return chats.filter(c => c.name?.toLowerCase().includes(chatSearch.toLowerCase()));
+  }, [chats, chatSearch]);
 
   useEffect(() => {
     if (activeChat) {
@@ -162,6 +167,7 @@ function BondsContent() {
   return (
     <div className="min-h-screen pl-0 md:pl-56 bg-light text-dark h-[100dvh] flex flex-col relative overflow-hidden">
       <FloatingHearts opacity={0.1} />
+      <Navigation />
 
       <div className="flex-1 flex overflow-hidden relative z-10 border-l border-gray-100 bg-white">
         {/* Bonds Sidebar */}
@@ -174,21 +180,29 @@ function BondsContent() {
 
             <div className="relative group">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-300 group-focus-within:text-primary transition-colors" />
-              <input type="text" placeholder="Search bonds..." className="input-premium pl-12 py-3.5 text-xs bg-gray-50/50 border-transparent focus:bg-white shadow-none" />
+              <input 
+                type="text" 
+                placeholder="Search bonds..." 
+                className="input-premium pl-12 py-3.5 text-xs bg-gray-50/50 border-transparent focus:bg-white shadow-none" 
+                value={chatSearch}
+                onChange={(e) => setChatSearch(e.target.value)}
+              />
             </div>
           </div>
 
           <div className="flex-1 overflow-y-auto custom-scrollbar px-4 space-y-2 pb-10">
-            {chats.length === 0 ? (
+            {filteredChats.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-20 text-center px-8">
                 <div className="w-20 h-20 bg-primary/5 rounded-[30px] flex items-center justify-center mb-6">
                   <Heart className="w-8 h-8 text-primary/20" />
                 </div>
-                <h3 className="text-lg font-black text-dark tracking-tight mb-2">The Bonds are Quiet</h3>
-                <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest leading-relaxed">No active connections yet. Start exploring matches to build your bonds.</p>
+                <h3 className="text-lg font-black text-dark tracking-tight mb-2">No {chatSearch ? 'Matching' : ''} Bonds Found</h3>
+                <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest leading-relaxed">
+                  {chatSearch ? `We couldn't find any bond named "${chatSearch}"` : 'No active connections yet.'}
+                </p>
               </div>
             ) : (
-              chats.map((chat) => (
+              filteredChats.map((chat) => (
                 <button
                   key={chat.id}
                   onClick={() => setActiveChat(chat)}
