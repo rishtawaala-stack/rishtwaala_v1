@@ -197,7 +197,7 @@ export default function Home() {
 
           <div className="relative">
             <div className="absolute -inset-8 -z-10 rounded-[42px] bg-gradient-to-br from-[#ff8d93]/15 via-[#9e4fff]/10 to-transparent blur-[40px]" />
-            <div className="overflow-hidden rounded-[36px] border border-white/20 bg-[#43251f]/20 shadow-[0_24px_70px_rgba(0,0,0,0.18)] backdrop-blur-2xl">
+            <div className="overflow-hidden rounded-[36px] border border-white/12 bg-[rgba(88,54,49,0.56)] shadow-[0_24px_70px_rgba(0,0,0,0.18)] backdrop-blur-2xl">
               <div className="relative min-h-[500px] p-4 md:p-6">
                 <div className="relative z-10 flex items-center justify-between text-white">
                   <div>
@@ -222,7 +222,7 @@ export default function Home() {
                   ].map((profile) => (
                     <div
                       key={profile.id}
-                      className="group relative rounded-[24px] border border-transparent bg-[rgba(84,49,42,0.42)] p-3.5 text-white shadow-[0_14px_32px_rgba(0,0,0,0.1)] transition duration-300 hover:-translate-y-1 hover:bg-[rgba(97,58,48,0.5)]"
+                      className="group relative rounded-[24px] border border-transparent bg-[rgba(84,49,42,0.30)] p-3.5 text-white shadow-[0_14px_32px_rgba(0,0,0,0.1)] transition duration-300 hover:-translate-y-1 hover:bg-[rgba(97,58,48,0.40)]"
                     >
                       <div className="absolute right-4 top-4 rounded-full border border-[#ffb1aa]/40 px-3 py-1 text-center text-[11px] leading-none text-[#ffb1aa]">
                         <div className="text-sm font-semibold">{profile.match}</div>
