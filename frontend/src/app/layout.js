@@ -5,8 +5,9 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"], variable: '--font-inter' });
 
 export const metadata = {
-  title: "RishtaWaala | Find Your Perfect Rishta ❤️",
-  description: "A premium matchmaking platform for authentic connections. Find your partner securely and intuitively.",
+  title: "Rishtawaala | Find your forever",
+  description:
+    "A privacy-first matchmaking platform for serious, verified connections. Find someone you'd actually marry, calmly and confidently.",
 };
 
 export default function RootLayout({ children }) {

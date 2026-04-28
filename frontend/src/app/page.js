@@ -1,330 +1,466 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useMemo, useState } from "react";
+import { motion } from "framer-motion";
 import Link from "next/link";
-import { Heart, Activity, ShieldCheck, Check, Sparkles, MessageCircle, Star, Diamond, Target, Quote, CheckCircle2, Search, User } from "lucide-react";
-import api from "@/lib/axios";
-
-const FloatingHeart = ({ delay, scale, x, y }) => (
-  <motion.div
-    initial={{ opacity: 0, scale: 0 }}
-    animate={{ 
-      opacity: [0, 0.6, 0], 
-      scale: [0, scale, 0],
-      y: [0, -100],
-      x: [0, x]
-    }}
-    transition={{ 
-      duration: 3, 
-      repeat: Infinity, 
-      delay,
-      ease: "easeOut"
-    }}
-    className="absolute pointer-events-none"
-    style={{ left: `calc(50% + ${y}px)`, top: `calc(50% + ${x}px)` }}
-  >
-    <Heart className="text-primary fill-primary w-4 h-4 opacity-40" />
-  </motion.div>
-);
+import {
+  BadgeCheck,
+  ArrowRight,
+  Heart,
+  Lock,
+  MapPin,
+  ShieldCheck,
+  Sparkles,
+  Users,
+} from "lucide-react";
 
 export default function Home() {
-  const [recentJoined, setRecentJoined] = useState([]);
-  const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const [isAuthed, setIsAuthed] = useState(false);
 
   useEffect(() => {
-    const fetchUsers = () => {
-      setRecentJoined([
-         { id: 1, name: "Priya S.", image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200", profession: "Data Analyst", location: "Mumbai" },
-         { id: 2, name: "Rahul M.", image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=200", profession: "Entrepreneur", location: "Delhi" },
-         { id: 3, name: "Sneha K.", image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200", profession: "Architect", location: "Bangalore" },
-         { id: 4, name: "Vikram P.", image: "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?q=80&w=200", profession: "Doctor", location: "Pune" }
-      ]);
-    };
-    fetchUsers();
+    setIsAuthed(Boolean(localStorage.getItem("token")));
   }, []);
 
-  const testimonials = [
-    { quote: "We met our soulmates here. The matching engine understood our family values perfectly.", names: "Anjali & Rohan", img: "https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=400" },
-    { quote: "It’s so much more than a swiping app. It’s a genuine community for serious commitments.", names: "Priya & Amit", img: "https://images.unsplash.com/photo-1583939000140-5e7e17cd2bca?q=80&w=400" }
-  ];
+  const joinHref = isAuthed ? "/dashboard" : "/register";
+
+  const featuredProfiles = useMemo(
+    () => [
+      {
+        id: 1,
+        name: "Priya S.",
+        image:
+          "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&auto=format&fit=crop",
+        profession: "Data Analyst",
+        location: "Mumbai",
+      },
+      {
+        id: 2,
+        name: "Rahul M.",
+        image:
+          "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=200&auto=format&fit=crop",
+        profession: "Entrepreneur",
+        location: "Delhi",
+      },
+      {
+        id: 3,
+        name: "Sneha K.",
+        image:
+          "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop",
+        profession: "Architect",
+        location: "Bengaluru",
+      },
+      {
+        id: 4,
+        name: "Vikram P.",
+        image:
+          "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?q=80&w=200&auto=format&fit=crop",
+        profession: "Doctor",
+        location: "Pune",
+      },
+    ],
+    []
+  );
 
   return (
-    <main className="min-h-screen bg-light text-dark flex flex-col font-sans overflow-hidden">
-      
-      {/* SECTION 1: HERO (With Thumping Heartbeat & Floating Hearts) */}
-      <section className="relative w-full min-h-screen flex flex-col items-center justify-center pt-24 pb-20 overflow-hidden">
-        
-        {/* Floating Gradient Blobs */}
-        <div className="absolute top-[10%] left-[10%] w-[30vh] h-[30vh] md:w-[50vh] md:h-[50vh] bg-primary/10 rounded-full blur-[100px] animate-blob z-0"></div>
-        <div className="absolute bottom-[10%] right-[10%] w-[30vh] h-[30vh] md:w-[60vh] md:h-[60vh] bg-secondary/10 rounded-full blur-[120px] animate-blob z-0" style={{ animationDelay: '2s' }}></div>
+    <main className="relative isolate min-h-screen text-dark font-sans overflow-hidden">
+      <div aria-hidden className="fixed inset-0 z-0 bg-[#120b0a]">
+        <img
+          src="/background.png"
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover object-[center_28%] opacity-92 scale-[0.94]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/55 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/20" />
+        <div className="absolute -top-24 left-1/2 h-[520px] w-[520px] -translate-x-1/2 rounded-full bg-gradient-to-br from-primary/15 via-secondary/10 to-transparent blur-[80px]" />
+        <div className="absolute -bottom-24 right-[-120px] h-[520px] w-[520px] rounded-full bg-gradient-to-br from-secondary/15 via-primary/10 to-transparent blur-[90px]" />
+      </div>
 
-        {/* Real-time Rhythmic Heartbeat */}
-        <div className="absolute inset-0 z-0 flex items-center justify-center opacity-20 pointer-events-none">
-           <motion.div
-             animate={{ 
-               scale: [1, 1.15, 1.08, 1.25, 1],
-               filter: ["brightness(1)", "brightness(1.2)", "brightness(1.1)", "brightness(1.3)", "brightness(1)"]
-             }}
-             transition={{ 
-               duration: 1.8, 
-               repeat: Infinity, 
-               times: [0, 0.15, 0.25, 0.35, 1],
-               ease: "easeInOut"
-             }}
-             className="relative"
-           >
-             <Heart className="w-[75vh] h-[75vh] text-primary fill-primary drop-shadow-[0_0_50px_rgba(255,59,92,0.3)]" />
-             
-             {/* Dynamic Pulsing Glow */}
-             <motion.div 
-               animate={{ opacity: [0, 0.4, 0] }}
-               transition={{ duration: 1.8, repeat: Infinity, times: [0.2, 0.3, 0.5] }}
-               className="absolute inset-0 bg-primary blur-[100px] rounded-full scale-110"
-             />
-           </motion.div>
-        </div>
-
-        {/* Floating Small Hearts Around Main Pulse */}
-        <FloatingHeart delay={0} scale={1.2} x={200} y={150} />
-        <FloatingHeart delay={0.5} scale={0.8} x={-250} y={-100} />
-        <FloatingHeart delay={1.2} scale={1} x={300} y={-200} />
-        <FloatingHeart delay={1.8} scale={1.5} x={-150} y={250} />
-
-        {/* ECG Line Animation */}
-        <div className="absolute bottom-[20%] left-0 w-full h-[150px] z-0 opacity-20 pointer-events-none overflow-hidden flex items-center flex-nowrap shrink-0">
-            <div className="animate-ecg flex w-[300%] shrink-0">
-               <svg className="h-[150px] w-full stroke-primary stroke-[4px] fill-none drop-shadow-[0_0_20px_rgba(255,59,92,0.4)]" viewBox="0 0 1000 150" preserveAspectRatio="none">
-                  <path d="M0,75 L100,75 L110,10 L130,140 L150,30 L160,75 L300,75 L310,10 L330,140 L350,30 L360,75 L500,75 L510,10 L530,140 L550,30 L560,75 L700,75 L710,10 L730,140 L750,30 L760,75 L1000,75" />
-                  <path d="M1000,75 L1100,75 L1110,10 L1130,140 L1150,30 L1160,75 L1300,75 L1310,10 L1330,140 L1350,30 L1360,75 L1500,75 L1510,10 L1530,140 L1550,30 L1560,75 L1700,75 L1710,10 L1730,140 L1750,30 L1760,75 L2000,75" />
-                  <path d="M2000,75 L2100,75 L2110,10 L2130,140 L2150,30 L2160,75 L2300,75 L2310,10 L2330,140 L2350,30 L2360,75 L2500,75 L2510,10 L2530,140 L2550,30 L2560,75 L2700,75 L2710,10 L2730,140 L2750,30 L2760,75 L3000,75" />
-               </svg>
-            </div>
-         </div>
-
-        {/* Navigation */}
-        <nav className="absolute top-0 w-full p-6 z-50 flex justify-between items-center bg-white/20 backdrop-blur-xl border-b border-white/40">
-          <div className="flex items-center gap-3">
-            <motion.img 
-               animate={{ scale: [1, 1.05, 1], filter: ["drop-shadow(0 0 5px rgba(255,59,92,0.2))", "drop-shadow(0 0 15px rgba(255,59,92,0.4))", "drop-shadow(0 0 5px rgba(255,59,92,0.2))"] }} 
-               transition={{ duration: 2, repeat: Infinity }} 
-               src="/logo.jpg" alt="Logo" className="w-[50px] h-[50px] object-cover rounded-full border-2 border-primary shadow-lg" 
-            />
-            <div className="text-2xl font-extrabold text-dark tracking-tighter">Rishtawaala</div>
-          </div>
-          <div className="hidden md:flex gap-10 text-xs font-bold uppercase tracking-widest text-gray-400">
-            <Link href="#how-it-works" className="hover:text-primary transition-colors">Principles</Link>
-            <Link href="#stats" className="hover:text-primary transition-colors">Success</Link>
-            <Link href="#plans" className="hover:text-primary transition-colors">Tiers</Link>
-          </div>
-          <div className="flex gap-4">
-            {typeof window !== 'undefined' && localStorage.getItem('token') ? (
-              <>
-                <Link href="/dashboard" className="btn-premium hidden sm:flex items-center py-2.5 px-8">Dashboard</Link>
-              </>
-            ) : (
-              <>
-                <Link href="/login" className="btn-premium hidden sm:flex items-center py-2.5 px-8 bg-white/20 text-dark border-primary/20">Sign In</Link>
-                <Link href="/register" className="btn-premium py-2.5 px-8">Join Now</Link>
-              </>
-            )}
-          </div>
-        </nav>
-
-        {/* Center Content - UPDATED with Grounded Indian Context */}
-        <div className="relative z-10 text-center max-w-5xl mx-auto px-6 mt-16">
-          <motion.h1 
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1 }}
-            className="text-5xl md:text-[5.5rem] font-extrabold leading-[1.1] mb-8 text-dark tracking-tighter"
-          >
-            Find Your Resonance <br/> <span className="text-primary drop-shadow-xl">Pavitra Rishta</span> ❤️
-          </motion.h1>
-          
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-xl md:text-2xl text-gray-500 mb-12 font-bold max-w-4xl mx-auto leading-relaxed"
-          >
-            Fusing tradition with professional analytics to find your life partner. <br/>
-            <span className="text-secondary font-black">A sacred union built on trust and professional resonance.</span>
-          </motion.div>
-          
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.6 }}
-            className="flex flex-col sm:flex-row gap-6 justify-center items-center"
-          >
-            <Link href={typeof window !== 'undefined' && localStorage.getItem('token') ? "/dashboard" : "/register"} className="btn-premium w-full sm:w-auto text-xl py-5 px-12 shadow-[0_0_30px_rgba(255,59,92,0.2)] rounded-2xl">
-              {typeof window !== 'undefined' && localStorage.getItem('token') ? "Open Dashboard" : "Begin Your Journey"}
+      <div className="relative z-10">
+        <header className="sticky top-0 z-30 border-b border-white/10 bg-black/20 backdrop-blur-xl">
+          <div className="rw-container flex h-16 items-center justify-between">
+            <Link href="/" className="flex items-center gap-3">
+              <img
+                src="/logo.jpg"
+                alt="Rishtawaala"
+                className="h-9 w-9 rounded-xl object-cover ring-1 ring-white/20"
+              />
+              <span className="text-sm font-extrabold tracking-tight text-white">
+                Rishtawaala
+              </span>
             </Link>
-            <Link href="#profiles" className="btn-premium w-full sm:w-auto text-xl py-5 px-12 bg-white text-dark border-gray-100 shadow-xl font-bold rounded-2xl">Explore Matches</Link>
-          </motion.div>
+
+            <nav className="hidden items-center gap-10 text-sm font-semibold text-white/70 md:flex">
+              <Link href="#how" className="hover:text-white">
+                How it works
+              </Link>
+              <Link href="#profiles" className="hover:text-white">
+                Profiles
+              </Link>
+              <Link href="#join" className="hover:text-white">
+                Join
+              </Link>
+            </nav>
+
+            <div className="flex items-center gap-3">
+              {!isAuthed ? (
+                <Link href="/login" className="hidden md:inline-flex text-sm font-semibold text-white/85 hover:text-white">
+                  Sign in
+                </Link>
+              ) : (
+                <Link href="/dashboard" className="hidden md:inline-flex text-sm font-semibold text-white/85 hover:text-white">
+                  Dashboard
+                </Link>
+              )}
+              <Link href={joinHref} className="rounded-full bg-gradient-to-r from-[#ff6a76] to-[#a94bff] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_12px_28px_rgba(255,106,118,0.28)] transition hover:scale-[1.02]">
+                {isAuthed ? "Continue" : "Join free"}
+              </Link>
+            </div>
+          </div>
+        </header>
+
+      <section className="rw-container pb-10 pt-16 md:pt-20">
+        <div className="grid grid-cols-1 items-center gap-12 md:grid-cols-[0.92fr_1.08fr]">
+          <div className="max-w-xl text-white">
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="flex flex-wrap items-center gap-3 text-[12px] font-medium text-white/80"
+            >
+              <span className="inline-flex items-center gap-2">
+                <BadgeCheck className="h-4 w-4 text-[#ff8d93]" />
+                Aadhar verified profiles.
+              </span>
+              <span>Serious intentions.</span>
+              <span>Real connections.</span>
+            </motion.div>
+
+            <motion.h1
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.05 }}
+              className="mt-6 font-serif text-5xl font-semibold leading-[0.95] tracking-[-0.04em] text-[#fff8f5] md:text-[5.75rem]"
+            >
+              Find the one
+              <span className="block">you&apos;ll actually</span>
+              <span className="block text-[#ff9b94]">marry.</span>
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.12 }}
+              className="mt-5 max-w-lg text-base leading-8 text-white/78 md:text-lg"
+            >
+              We match you with people who value respect, family and lifelong
+              commitment. No games. Just meaningful connections.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.18 }}
+              className="mt-8 flex flex-col gap-3 sm:flex-row"
+            >
+              <Link
+                href={joinHref}
+                className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#ff6a76] to-[#9e4fff] px-7 py-4 text-sm font-semibold text-white shadow-[0_16px_35px_rgba(255,106,118,0.3)] transition hover:scale-[1.02]"
+              >
+                {isAuthed ? "Open dashboard" : "Join free"}
+              </Link>
+              <Link
+                href="#how"
+                className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/5 px-7 py-4 text-sm font-semibold text-white/90 backdrop-blur transition hover:bg-white/10"
+              >
+                See how it works
+              </Link>
+            </motion.div>
+
+            <div className="mt-10 flex items-center gap-4 text-white/75">
+              <div className="flex -space-x-3">
+                {featuredProfiles.slice(0, 3).map((profile) => (
+                  <img
+                    key={profile.id}
+                    src={profile.image}
+                    alt={profile.name}
+                    className="h-11 w-11 rounded-full border-2 border-black/25 object-cover shadow-lg"
+                  />
+                ))}
+              </div>
+              <div className="text-sm leading-6 text-white/78">
+                <span className="font-semibold text-white">50,000+</span>{" "}
+                people found meaningful connections
+              </div>
+              <Heart className="h-5 w-5 fill-[#ff8d93] text-[#ff8d93]" />
+            </div>
+          </div>
+
+          <div className="relative">
+            <div className="absolute -inset-8 -z-10 rounded-[42px] bg-gradient-to-br from-[#ff8d93]/15 via-[#9e4fff]/10 to-transparent blur-[40px]" />
+            <div className="overflow-hidden rounded-[36px] border border-white/20 bg-[#43251f]/28 shadow-[0_24px_70px_rgba(0,0,0,0.18)] backdrop-blur-2xl">
+              <div className="relative min-h-[500px] p-4 md:p-6">
+                <div className="relative z-10 flex items-center justify-between text-white">
+                  <div>
+                    <div className="text-[11px] font-semibold uppercase tracking-[0.28em] text-white/70">
+                      Today&apos;s best match
+                    </div>
+                    <div className="mt-2 text-lg font-semibold tracking-tight text-white/95">
+                      Top matches for your vibe
+                    </div>
+                  </div>
+                  <div className="text-sm font-semibold text-[#ff9b94]">
+                    View all
+                  </div>
+                </div>
+
+                <div className="relative z-10 mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                  {[
+                    { ...featuredProfiles[0], age: "28", match: "89%" },
+                    { ...featuredProfiles[1], age: "30", match: "86%" },
+                    { ...featuredProfiles[2], age: "27", match: "87%" },
+                    { ...featuredProfiles[3], age: "29", match: "85%" },
+                  ].map((profile) => (
+                    <div
+                      key={profile.id}
+                      className="group relative rounded-[24px] border border-transparent bg-[rgba(84,49,42,0.42)] p-3.5 text-white shadow-[0_14px_32px_rgba(0,0,0,0.1)] transition duration-300 hover:-translate-y-1 hover:bg-[rgba(97,58,48,0.5)]"
+                    >
+                      <div className="absolute right-4 top-4 rounded-full border border-[#ffb1aa]/40 px-3 py-1 text-center text-[11px] leading-none text-[#ffb1aa]">
+                        <div className="text-sm font-semibold">{profile.match}</div>
+                        <div className="mt-1 text-[10px] text-white/60">match</div>
+                      </div>
+                      <div className="flex items-start gap-4 pr-16">
+                        <img src={profile.image} alt={profile.name} className="h-12 w-12 rounded-full object-cover" />
+                        <div className="min-w-0 flex-1">
+                          <div className="text-lg font-extrabold tracking-tight">
+                            {profile.name}
+                          </div>
+                          <div className="mt-1 text-xs text-white/72">
+                            {profile.age} - {profile.profession}
+                          </div>
+                          <div className="mt-2 flex items-center gap-2 text-xs text-white/65">
+                            <MapPin className="h-4 w-4" />
+                            {profile.location}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="mt-8 flex items-center justify-between">
+                        <Heart className="h-5 w-5 text-[#ff8d93]" />
+                        <span className="text-xs font-medium text-white/55">
+                          Ready to connect
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="relative z-10 mt-5">
+                  <Link
+                    href="/matches"
+                    className="flex items-center justify-center gap-2 rounded-full border border-transparent bg-white/10 px-5 py-3 text-sm font-semibold text-white/90 backdrop-blur transition hover:bg-white/15"
+                  >
+                    <Users className="h-4 w-4" />
+                    Browse more matches
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* SECTION 2: How It Works */}
-      <section id="how-it-works" className="py-24 relative z-10">
-         <div className="max-w-6xl mx-auto px-6">
-             <div className="text-center mb-20">
-                <h2 className="text-4xl md:text-6xl font-extrabold mb-4 text-dark tracking-tighter">OUR <span className="text-primary italic">DNA</span></h2>
-                <p className="text-gray-400 font-bold uppercase text-[10px] tracking-[0.3em]">Scientific precision meets sacred tradition.</p>
-             </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-                {[
-                  { step: '01', title: "Profile Analysis", icon: <Target className="w-8 h-8 text-primary" />, desc: "AI-powered cultural and professional depth check." },
-                  { step: '02', title: "Compatibility", icon: <Search className="w-8 h-8 text-secondary" />, desc: "Matrometer scans for 90%+ profile resonance." },
-                  { step: '03', title: "Pulse Sync", icon: <User className="w-8 h-8 text-secondary" />, desc: "Securely express interest via Heartbeats." },
-                  { step: '04', title: "Bonding", icon: <Heart className="w-8 h-8 text-primary" />, desc: "Lock your profile and begin your life together." },
-               ].map((wk, i) => (
-                  <motion.div 
-                     initial={{ opacity: 0, y: 30 }}
-                     whileInView={{ opacity: 1, y: 0 }}
-                     viewport={{ once: true }}
-                     transition={{ delay: i * 0.1 }}
-                     key={i} className="glass-outer p-10 relative flex flex-col items-center text-center group hover:bg-white transition-all border-gray-100 bg-white shadow-xl rounded-[2.5rem]"
+      <section id="how" className="relative py-16 md:py-24">
+        <div className="rw-container">
+          <div className="relative overflow-hidden rounded-[44px] border border-transparent bg-[rgba(10,7,6,0.58)] px-5 py-8 shadow-[0_30px_90px_rgba(0,0,0,0.32)] backdrop-blur-2xl md:px-8 md:py-10">
+            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+
+            <div className="max-w-3xl text-white">
+              <h2 className="font-serif text-4xl font-semibold tracking-[-0.04em] text-[#fff8f5] md:text-5xl">
+                A calmer way to find your forever.
+              </h2>
+              <p className="mt-4 max-w-2xl text-base leading-8 text-white/74 md:text-lg">
+                Designed for Gen Z and millennials who want commitment without
+                the noise.
+              </p>
+            </div>
+
+            <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">
+              {[
+                {
+                  title: "Build a real profile",
+                  desc: "Show values, goals, and the life you want - beyond photos.",
+                  icon: <Users className="h-5 w-5 text-white" />,
+                  tone: "from-[#a95dff] via-[#8d46f5] to-[#7042ff]",
+                },
+                {
+                  title: "Get curated compatibility",
+                  desc: "Less scrolling, more quality. Intent-led suggestions.",
+                  icon: <Sparkles className="h-5 w-5 text-white" />,
+                  tone: "from-[#d37a63] via-[#c76656] to-[#b24945]",
+                },
+                {
+                  title: "Talk with confidence",
+                  desc: "Verified identity, privacy controls, and respectful interactions.",
+                  icon: <ShieldCheck className="h-5 w-5 text-white" />,
+                  tone: "from-[#ff5f92] via-[#ff4476] to-[#d92c68]",
+                },
+              ].map((item) => (
+                <div
+                  key={item.title}
+                  className="rounded-[28px] border border-transparent bg-[rgba(30,19,17,0.55)] p-5 text-white shadow-[0_16px_36px_rgba(0,0,0,0.2)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:bg-[rgba(38,24,21,0.68)]"
+                >
+                  <div className="flex items-start gap-4">
+                    <div
+                      className={`grid h-12 w-12 shrink-0 place-items-center rounded-full bg-gradient-to-br ${item.tone} shadow-[0_12px_24px_rgba(0,0,0,0.18)]`}
+                    >
+                      {item.icon}
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-semibold tracking-tight text-[#f9eee9]">
+                        {item.title}
+                      </h3>
+                      <p className="mt-2 text-sm leading-7 text-white/68">
+                        {item.desc}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-12 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+              <div>
+                <h3 className="font-serif text-3xl font-semibold tracking-[-0.035em] text-[#fff8f5] md:text-4xl">
+                  Featured profiles
+                </h3>
+                <p className="mt-2 max-w-2xl text-sm leading-7 text-white/68 md:text-base">
+                  Curated examples - real matches live inside the app.
+                </p>
+              </div>
+              <Link
+                href="/matches"
+                className="inline-flex w-fit items-center gap-2 rounded-full border border-transparent bg-white/10 px-5 py-3 text-sm font-semibold text-white/90 backdrop-blur transition hover:bg-white/15"
+              >
+                Explore all
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+
+            <div id="profiles" className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+              {featuredProfiles.map((profile, i) => (
+                <motion.div
+                  key={profile.id}
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  transition={{ duration: 0.45, delay: i * 0.06 }}
+                  className="group rounded-[28px] border border-transparent bg-[rgba(41,28,23,0.55)] p-5 text-white shadow-[0_16px_36px_rgba(0,0,0,0.18)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:bg-[rgba(52,34,28,0.68)]"
+                >
+                  <div className="flex items-start gap-4">
+                    <div className="relative">
+                      <img
+                        src={profile.image}
+                        alt={profile.name}
+                        className="h-14 w-14 rounded-full object-cover"
+                      />
+                      <span className="absolute bottom-0.5 right-0.5 h-3 w-3 rounded-full border-2 border-[#2a1612] bg-[#33d17a]" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="truncate text-xl font-semibold tracking-tight text-[#fff6f1]">
+                        {profile.name}
+                      </div>
+                      <div className="mt-1 text-sm text-white/72">
+                        {profile.id === 1 && "28"}
+                        {profile.id === 2 && "30"}
+                        {profile.id === 3 && "27"}
+                        {profile.id === 4 && "29"} - {profile.profession}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="mt-5 inline-flex rounded-full bg-black/20 px-4 py-2 text-sm font-medium text-white/78">
+                    <MapPin className="mr-2 h-4 w-4 text-[#e4a07c]" />
+                    {profile.location}
+                  </div>
+
+                  <p className="mt-6 min-h-[3.5rem] text-[15px] leading-8 text-white/68">
+                    {profile.id === 1 && "Loves reading, coffee & weekend getaways."}
+                    {profile.id === 2 && "Enjoys meaningful conversations and travel."}
+                    {profile.id === 3 && "Passionate about design, art & mindful living."}
+                    {profile.id === 4 && "Into fitness, music & spontaneous plans."}
+                  </p>
+
+                  <div className="mt-6 flex items-center justify-end">
+                    <button
+                      type="button"
+                      className="grid h-10 w-10 place-items-center rounded-full border border-transparent bg-black/20 text-[#ff9b94] transition hover:bg-black/30"
+                      aria-label={`Shortlist ${profile.name}`}
+                    >
+                      <Heart className="h-5 w-5" />
+                    </button>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            <div id="join" className="mt-10 rounded-[32px] border border-transparent bg-black/20 px-6 py-5 text-white/84 backdrop-blur-xl md:px-8">
+              <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                <div>
+                  <div className="text-sm font-semibold uppercase tracking-[0.24em] text-white/52">
+                    Intent first
+                  </div>
+                  <div className="mt-2 text-lg font-semibold tracking-tight text-white">
+                    Join people who are serious about commitment.
+                  </div>
+                </div>
+                <div className="flex flex-col gap-3 sm:flex-row">
+                  <Link
+                    href={joinHref}
+                    className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#ff6a76] to-[#9e4fff] px-6 py-3 text-sm font-semibold text-white shadow-[0_16px_35px_rgba(255,106,118,0.22)] transition hover:scale-[1.02]"
                   >
-                     <div className="absolute top-6 left-6 text-5xl font-black text-gray-50">{wk.step}</div>
-                     <div className="w-20 h-20 rounded-[30px] bg-gray-50 flex items-center justify-center mb-8 shadow-sm border border-gray-100">
-                        {wk.icon}
-                     </div>
-                     <h3 className="text-xl font-extrabold mb-4 text-dark tracking-tight">{wk.title}</h3>
-                     <p className="text-xs text-gray-400 font-bold uppercase tracking-widest leading-loose">{wk.desc}</p>
-                  </motion.div>
-               ))}
-            </div>
-         </div>
-      </section>
-
-      {/* SECTION 3: Featured Profiles */}
-      <section id="profiles" className="py-24 relative z-10">
-         <div className="max-w-7xl mx-auto px-6">
-            <div className="flex justify-between items-end mb-16">
-               <div>
-                  <h2 className="text-4xl md:text-6xl font-extrabold mb-4 text-dark tracking-tighter">FEATURED <span className="text-secondary italic">PULSE</span></h2>
-                  <p className="text-gray-400 font-bold uppercase text-[10px] tracking-[0.3em] max-w-xl">Curated profiles with high compatibility scores.</p>
-               </div>
-               <Link href="/matches" className="hidden md:inline-flex btn-premium py-4 px-10 text-xs font-bold rounded-xl shadow-xl shadow-primary/20">Discover All</Link>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-               {recentJoined.map((profile, i) => (
-                  <motion.div 
-                     initial={{ opacity: 0, scale: 0.95 }}
-                     whileInView={{ opacity: 1, scale: 1 }}
-                     viewport={{ once: true }}
-                     transition={{ delay: i * 0.1 }}
-                     key={i} className="glass-outer p-8 group hover:-translate-y-3 transition-all duration-700 relative overflow-hidden flex flex-col items-center text-center border-gray-100 bg-white shadow-xl rounded-[2.5rem]"
+                    {isAuthed ? "Open dashboard" : "Join free"}
+                  </Link>
+                  <Link
+                    href="/login"
+                    className="inline-flex items-center justify-center rounded-full border border-transparent bg-white/10 px-6 py-3 text-sm font-semibold text-white/88 backdrop-blur transition hover:bg-white/15"
                   >
-                     <div className="absolute inset-0 bg-gradient-to-t from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                     <img src={profile.image} className="w-28 h-28 rounded-full object-cover border-4 border-gray-50 shadow-2xl mb-6 group-hover:scale-110 transition-transform duration-1000 grayscale hover:grayscale-0" alt="User" />
-                     <h3 className="text-xl font-extrabold mb-1 text-dark relative z-10 tracking-tight">{profile.name}</h3>
-                     <p className="text-primary font-bold text-[10px] uppercase mb-4 relative z-10 tracking-widest">{profile.profession}</p>
-                     <div className="w-full flex justify-between items-center bg-gray-50 py-3 px-5 rounded-xl border border-gray-100 relative z-10">
-                        <span className="text-[10px] font-bold uppercase text-gray-400 tracking-widest">{profile.location}</span>
-                        <Heart className="w-4 h-4 text-primary fill-primary opacity-20" />
-                     </div>
-                  </motion.div>
-               ))}
+                    Sign in
+                  </Link>
+                </div>
+              </div>
             </div>
-         </div>
+          </div>
+        </div>
       </section>
 
-      {/* Other sections remain unchanged... */}
-      <section className="py-24 relative z-10 bg-dark">
-         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-dark/50 pointer-events-none"></div>
-         <div className="max-w-6xl mx-auto px-6 relative z-10 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-            <motion.div initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
-               <h2 className="text-4xl md:text-6xl font-extrabold mb-8 text-white tracking-tighter uppercase">Why <span className="text-primary italic">Rishtawaala</span>?</h2>
-               <p className="text-gray-400 text-lg mb-10 leading-relaxed font-medium">We fusion advanced AI compatibility with sacred matchmaking values to ensure your resonance is authentic.</p>
-               <ul className="space-y-8">
-                  <li className="flex gap-6">
-                     <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center shrink-0 border border-primary/20"><Activity className="w-7 h-7 text-primary" /></div>
-                     <div><h4 className="font-extrabold text-xl mb-1 text-white uppercase tracking-tight">Sync Engine</h4><p className="text-sm text-gray-500 font-medium">Real-time profile depth analysis.</p></div>
-                  </li>
-                  <li className="flex gap-6">
-                     <div className="w-14 h-14 rounded-2xl bg-secondary/10 flex items-center justify-center shrink-0 border border-secondary/20"><ShieldCheck className="w-7 h-7 text-secondary" /></div>
-                     <div><h4 className="font-extrabold text-xl mb-1 text-white uppercase tracking-tight">Vetted Circles</h4><p className="text-sm text-gray-500 font-medium">100% ID-linked professional profiles.</p></div>
-                  </li>
-                  <li className="flex gap-6">
-                     <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center shrink-0 border border-primary/20"><Heart className="w-7 h-7 text-primary" /></div>
-                     <div><h4 className="font-extrabold text-xl mb-1 text-white uppercase tracking-tight">Privacy First</h4><p className="text-sm text-gray-500 font-medium">Encrypted heartbeat exchanges.</p></div>
-                  </li>
-               </ul>
-            </motion.div>
-            <motion.div initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}>
-               <div className="glass-outer p-3 border border-white/5 shadow-2xl overflow-hidden rounded-[3rem] bg-white/5 backdrop-blur-2xl">
-                  <img src="https://images.unsplash.com/photo-1515523110800-9415d13b84a8?q=80&w=800" alt="App interface" className="w-full rounded-[2.5rem] opacity-90 grayscale hover:grayscale-0 transition-all duration-1000" />
-               </div>
-            </motion.div>
-         </div>
-      </section>
-
-      {/* Success Stories */}
-      <section className="py-24 relative z-10 overflow-hidden bg-light">
-         <div className="max-w-5xl mx-auto px-6 relative z-10 text-center">
-            <h2 className="text-4xl md:text-6xl font-extrabold mb-20 text-dark tracking-tighter uppercase">SUCCESS <span className="text-secondary italic">ALUMNI</span></h2>
-            <AnimatePresence mode="wait">
-               <motion.div key={currentTestimonial} initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -50 }} transition={{ duration: 0.8 }} className="glass-outer p-12 md:p-20 relative border-gray-100 shadow-2xl bg-white rounded-[4rem]">
-                  <Quote className="absolute top-12 left-12 w-24 h-24 text-primary/5" />
-                  <img src={testimonials[currentTestimonial].img} className="w-40 h-40 rounded-full mx-auto mb-10 object-cover border-8 border-gray-50 shadow-2xl" alt="Couple" />
-                  <p className="text-2xl md:text-4xl font-extrabold italic leading-tight mb-10 text-dark tracking-tight">"{testimonials[currentTestimonial].quote}"</p>
-                  <h4 className="text-xl font-bold text-primary uppercase tracking-widest">— {testimonials[currentTestimonial].names}</h4>
-               </motion.div>
-            </AnimatePresence>
-            <div className="flex gap-4 justify-center mt-12">
-               {testimonials.map((_, i) => (
-                  <button key={i} onClick={() => setCurrentTestimonial(i)} className={`h-2.5 rounded-full transition-all duration-500 ${i === currentTestimonial ? 'bg-primary w-16' : 'bg-gray-100 w-4'}`} />
-               ))}
+      <footer className="border-t border-transparent py-10 text-white/70">
+        <div className="rw-container flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <div className="flex items-center gap-3">
+            <img
+              src="/logo.jpg"
+              alt="Rishtawaala"
+              className="h-9 w-9 rounded-xl object-cover ring-1 ring-transparent"
+            />
+            <div className="text-sm font-extrabold tracking-tight text-white">
+              Rishtawaala
             </div>
-         </div>
-      </section>
-
-      {/* Stats */}
-      <section id="stats" className="py-32 relative z-10 border-y border-gray-100 bg-white">
-         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
-            <div className="p-12 border-b-4 border-primary"><h3 className="text-7xl font-black text-dark mb-4 tracking-tighter">50K+</h3><p className="text-[10px] font-bold uppercase text-primary tracking-[0.4em]">Professionals Joined</p></div>
-            <div className="p-12 border-b-4 border-secondary"><h3 className="text-7xl font-black text-dark mb-4 tracking-tighter">10K+</h3><p className="text-[10px] font-bold uppercase text-secondary tracking-[0.4em]">Verified Resonance</p></div>
-            <div className="p-12 border-b-4 border-primary"><h3 className="text-7xl font-black text-dark mb-4 tracking-tighter">5K+</h3><p className="text-[10px] font-bold uppercase text-primary tracking-[0.4em]">Bonded Marriages</p></div>
-         </div>
-      </section>
-
-      <footer className="py-24 bg-dark relative z-10 w-full overflow-hidden">
-         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-16 relative z-10">
-            <div className="col-span-1 md:col-span-2">
-               <div className="flex items-center gap-4 mb-8">
-                  <img src="/logo.jpg" className="w-12 h-12 rounded-full border border-white/10 shadow-sm" alt="Logo"/>
-                  <span className="font-extrabold text-white tracking-tighter text-3xl">Rishtawaala</span>
-               </div>
-               <p className="text-gray-400 text-base max-w-sm leading-relaxed mb-10 font-medium">Elevating the sanctity of Indian marriage through precision data and professional vetted circles.</p>
-            </div>
-            <div>
-               <h4 className="text-white font-bold uppercase tracking-widest text-xs mb-8">Ecosystem</h4>
-               <ul className="space-y-4 text-[10px] font-bold uppercase tracking-widest text-gray-500">
-                  <li><Link href="/matches" className="hover:text-primary transition-colors">Pulse Search</Link></li>
-                  <li><Link href="/success-stories" className="hover:text-primary transition-colors">Testimonials</Link></li>
-                  <li><Link href="#plans" className="hover:text-primary transition-colors">Premium Tiers</Link></li>
-                  <li><Link href="#" className="hover:text-primary transition-colors">Ambassador Program</Link></li>
-               </ul>
-            </div>
-            <div>
-               <h4 className="text-white font-bold uppercase tracking-widest text-xs mb-8">Protocols</h4>
-               <ul className="space-y-4 text-[10px] font-bold uppercase tracking-widest text-gray-500">
-                  <li><Link href="#" className="hover:text-primary transition-colors">Privacy Directive</Link></li>
-                  <li><Link href="#" className="hover:text-primary transition-colors">Safety Standard</Link></li>
-                  <li><Link href="#" className="hover:text-primary transition-colors">Service Terms</Link></li>
-               </ul>
-            </div>
-         </div>
-         <div className="max-w-7xl mx-auto px-6 mt-20 pt-10 border-t border-white/5 text-center text-[10px] font-bold uppercase tracking-[0.5em] text-gray-600 relative z-10 w-full">
-            <p>© 2026 Rishtawaala Global • Verified professional network.</p>
-         </div>
+          </div>
+          <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold text-white/60">
+            <Link href="/matches" className="hover:text-white">
+              Matches
+            </Link>
+            <Link href="/success-stories" className="hover:text-white">
+              Success stories
+            </Link>
+            <Link href="/upgrade" className="hover:text-white">
+              Upgrade
+            </Link>
+          </div>
+          <div className="text-xs font-semibold text-white/50">
+            (c) {new Date().getFullYear()} Rishtawaala
+          </div>
+        </div>
       </footer>
-
+      </div>
     </main>
   );
 }

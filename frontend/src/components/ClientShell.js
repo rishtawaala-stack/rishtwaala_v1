@@ -28,7 +28,7 @@ export default function ClientShell({ children }) {
 
   return (
     <div className="min-h-screen bg-light text-dark selection:bg-rw-rose/30 selection:text-rw-text-deep relative overflow-x-hidden">
-      <FloatingHearts opacity={0.1} />
+      <FloatingHearts count={18} opacity={0.08} />
       <Toaster position="top-center" toastOptions={{
         style: {
           background: 'rgba(255, 255, 255, 0.8)',
