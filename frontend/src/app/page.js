@@ -67,7 +67,7 @@ export default function Home() {
         <img
           src="/background.png"
           alt=""
-          className="absolute inset-0 h-full w-full object-cover object-[center_28%] opacity-92 scale-[0.94]"
+          className="absolute inset-0 h-full w-full object-cover object-center opacity-100"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/55 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/20" />
@@ -197,7 +197,7 @@ export default function Home() {
 
           <div className="relative">
             <div className="absolute -inset-8 -z-10 rounded-[42px] bg-gradient-to-br from-[#ff8d93]/15 via-[#9e4fff]/10 to-transparent blur-[40px]" />
-            <div className="overflow-hidden rounded-[36px] border border-white/20 bg-[#43251f]/28 shadow-[0_24px_70px_rgba(0,0,0,0.18)] backdrop-blur-2xl">
+            <div className="overflow-hidden rounded-[36px] border border-white/20 bg-[#43251f]/20 shadow-[0_24px_70px_rgba(0,0,0,0.18)] backdrop-blur-2xl">
               <div className="relative min-h-[500px] p-4 md:p-6">
                 <div className="relative z-10 flex items-center justify-between text-white">
                   <div>
