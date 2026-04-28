@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Rishtawaala Admin - Moderation Desk</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface": "#1b1b24",
+                        "tertiary-fixed-dim": "#ffb695",
+                        "primary-container": "#4f46e5",
+                        "on-surface-sidebar-active": "#ffffff",
+                        "inverse-primary": "#c3c0ff",
+                        "on-primary-container": "#dad7ff",
+                        "surface-container-highest": "#e4e1ee",
+                        "on-tertiary-fixed": "#351000",
+                        "on-error": "#ffffff",
+                        "surface-container-high": "#eae6f4",
+                        "on-error-container": "#93000a",
+                        "on-primary": "#ffffff",
+                        "primary-fixed": "#e2dfff",
+                        "inverse-surface": "#302f39",
+                        "error": "#ef4444",
+                        "warning": "#f59e0b",
+                        "secondary-fixed": "#dae2fd",
+                        "tertiary-fixed": "#ffdbcc",
+                        "surface-container": "#f0ecf9",
+                        "outline": "#777587",
+                        "surface-tint": "#4d44e3",
+                        "on-surface-variant": "#464555",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "info": "#0ea5e9",
+                        "tertiary": "#7e3000",
+                        "on-secondary-fixed": "#131b2e",
+                        "success": "#10b981",
+                        "surface": "#ffffff",
+                        "surface-container-low": "#f5f2ff",
+                        "background": "#f8fafc",
+                        "on-secondary-fixed-variant": "#3f465c",
+                        "surface-sidebar": "#0f172a",
+                        "table-hover": "#f1f5f9",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "surface-bright": "#fcf8ff",
+                        "on-background": "#1b1b24",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "primary": "#3525cd",
+                        "on-secondary-container": "#5c647a",
+                        "on-surface-dim": "#64748b",
+                        "outline-variant": "#c7c4d8",
+                        "error-container": "#ffdad6",
+                        "surface-variant": "#e4e1ee",
+                        "on-tertiary-fixed-variant": "#7b2f00",
+                        "on-tertiary-container": "#ffd2be",
+                        "surface-dim": "#dcd8e5",
+                        "on-primary-fixed-variant": "#3323cc",
+                        "tertiary-container": "#a44100",
+                        "secondary-container": "#dae2fd",
+                        "border-subtle": "#e2e8f0",
+                        "inverse-on-surface": "#f3effc",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed": "#0f0069",
+                        "secondary": "#565e74",
+                        "on-surface-sidebar": "#94a3b8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "table-row-y": "8px",
+                        "container-max": "1440px",
+                        "gutter": "24px",
+                        "sidebar-width": "260px",
+                        "header-height": "64px",
+                        "base": "4px"
+                    },
+                    "fontFamily": {
+                        "h2": ["Plus Jakarta Sans"],
+                        "h3": ["Plus Jakarta Sans"],
+                        "table-header": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "h1": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "h2": ["20px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "h3": ["16px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "table-header": ["12px", { "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "1.2", "letterSpacing": "0.02em", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "h1": ["24px", { "lineHeight": "1.2", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md h-screen overflow-hidden flex">
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-0 h-full w-[260px] border-r border-slate-800 bg-slate-900 dark:bg-black z-50 flex flex-col py-6 font-['Plus_Jakarta_SANS'] text-[13px] tracking-tight">
+<div class="px-6 mb-8">
+<h1 class="text-lg font-extrabold tracking-tighter text-white">Rishtawaala</h1>
+<p class="text-slate-400 text-xs">Command Center</p>
+</div>
+<div class="flex-1 overflow-y-auto px-3 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition-all duration-200 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[20px]">vpn_key</span>
+<span>Login &amp; RBAC</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition-all duration-200 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition-all duration-200 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[20px]">group</span>
+<span>Users</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT bg-indigo-600/10 text-indigo-400 border-r-4 border-indigo-500 cursor-pointer active:opacity-80 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined text-[20px]">gavel</span>
+<span class="font-semibold">Moderation</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition-all duration-200 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[20px]">verified_user</span>
+<span>Verification</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition-all duration-200 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[20px]">security</span>
+<span>Safety</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition-all duration-200 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[20px]">payments</span>
+<span>Finance</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition-all duration-200 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[20px]">forum</span>
+<span>Communication</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition-all duration-200 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[20px]">trending_up</span>
+<span>Growth</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition-all duration-200 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[20px]">star</span>
+<span>Premium Services</span>
+</a>
+</div>
+<div class="px-3 mt-auto pt-4 border-t border-slate-800">
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition-all duration-200 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[20px]">settings_suggest</span>
+<span>Settings &amp; Audit</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 ml-[260px] flex flex-col h-screen overflow-hidden bg-background">
+<!-- TopNavBar -->
+<header class="sticky top-0 z-40 w-full h-16 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 flex items-center justify-between px-6 font-['Plus_Jakarta_SANS'] text-sm font-medium">
+<div class="flex items-center gap-4">
+<span class="text-base font-bold text-slate-900 dark:text-white">Rishtawaala Admin</span>
+<div class="h-4 w-px bg-slate-300 dark:bg-slate-700 mx-2"></div>
+<span class="text-on-surface-dim font-body-md text-body-md">Screening Queue</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden md:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[18px]">search</span>
+<input class="pl-9 pr-4 py-1.5 bg-slate-100 border-transparent rounded-full text-sm focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-colors w-64 text-on-surface" placeholder="Search queues..." type="text"/>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-900 rounded-full transition-colors duration-150">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-900 rounded-full transition-colors duration-150">
+<span class="material-symbols-outlined">help</span>
+</button>
+<button class="p-2 text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-900 rounded-full transition-colors duration-150">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="ml-2 h-8 w-8 rounded-full bg-indigo-100 flex items-center justify-center border border-indigo-200 overflow-hidden">
+<img alt="Administrator Profile" class="w-full h-full object-cover" data-alt="Professional headshot avatar of an administrator in a corporate setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuChX8_sZjL7oowwW1yYfnhw2f1y7BKIdxMzRII1Se9gDQNc8ciMgRvpc__YKIBm8rSumnrhfA6M8Dmv9RvH_GRJUbhIa3oIeJl4jcHKozwZqLLUqXZmB56i6Ko3etPiaVBpJxqH-HP7O-yqeAYnGQ28hlqTL2SWiJ0L8nHYlS-NcvH24wzyZiI8Jd_TjjEibKfpxQ6105VeDuDvzK3pO6tmmLhIkU1xAXDo6qvVu2T_gCo4YhUav3YpcJiP0bubyCTCQPkWMXeqMg4"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Moderation Split View -->
+<main class="flex-1 flex overflow-hidden p-gutter gap-gutter max-w-container-max mx-auto w-full">
+<!-- Left Side: Queue List -->
+<section class="w-1/3 flex flex-col bg-surface border border-border-subtle rounded-lg overflow-hidden flex-shrink-0">
+<!-- Queue Header -->
+<div class="p-4 border-b border-border-subtle flex justify-between items-center bg-surface-container-lowest">
+<div>
+<h2 class="font-h3 text-h3 text-on-surface">Pending Edits</h2>
+<p class="font-label-sm text-label-sm text-on-surface-dim mt-1">42 items in queue</p>
+</div>
+<div class="flex gap-2">
+<button class="px-3 py-1.5 text-xs font-semibold bg-surface-container hover:bg-surface-container-high text-on-surface rounded transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">filter_list</span> Filter
+                        </button>
+</div>
+</div>
+<!-- Bulk Actions -->
+<div class="px-4 py-2 bg-slate-50 border-b border-border-subtle flex items-center gap-3">
+<input class="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500" type="checkbox"/>
+<span class="text-xs font-medium text-slate-600">Select All</span>
+<div class="ml-auto flex gap-2">
+<button class="px-2 py-1 text-xs font-medium text-emerald-700 bg-emerald-100 hover:bg-emerald-200 rounded transition-colors" disabled="">Approve Selected</button>
+<button class="px-2 py-1 text-xs font-medium text-red-700 bg-red-100 hover:bg-red-200 rounded transition-colors" disabled="">Reject Selected</button>
+</div>
+</div>
+<!-- List Items -->
+<div class="flex-1 overflow-y-auto">
+<!-- Active Item -->
+<div class="p-4 border-b border-border-subtle bg-indigo-50/50 border-l-4 border-l-indigo-500 cursor-pointer">
+<div class="flex justify-between items-start mb-2">
+<div class="flex items-center gap-2">
+<input class="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500" type="checkbox"/>
+<span class="font-label-sm text-label-sm text-indigo-700">PROFILE_UPDATE</span>
+</div>
+<span class="text-[10px] font-medium text-slate-500 bg-white px-2 py-0.5 rounded border border-slate-200">2m ago</span>
+</div>
+<div class="pl-6">
+<h3 class="font-body-md text-body-md font-medium text-on-surface">Aarav Sharma</h3>
+<p class="text-xs text-on-surface-dim truncate mt-1">Modified: 'About Me', 'Occupation'</p>
+</div>
+</div>
+<!-- Inactive Items -->
+<div class="p-4 border-b border-border-subtle hover:bg-slate-50 cursor-pointer border-l-4 border-l-transparent transition-colors">
+<div class="flex justify-between items-start mb-2">
+<div class="flex items-center gap-2">
+<input class="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500" type="checkbox"/>
+<span class="font-label-sm text-label-sm text-slate-600">PHOTO_UPLOAD</span>
+</div>
+<span class="text-[10px] font-medium text-slate-500">15m ago</span>
+</div>
+<div class="pl-6">
+<h3 class="font-body-md text-body-md font-medium text-on-surface">Priya Patel</h3>
+<p class="text-xs text-on-surface-dim truncate mt-1">Added 2 new gallery photos</p>
+</div>
+</div>
+<div class="p-4 border-b border-border-subtle hover:bg-slate-50 cursor-pointer border-l-4 border-l-transparent transition-colors">
+<div class="flex justify-between items-start mb-2">
+<div class="flex items-center gap-2">
+<input class="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500" type="checkbox"/>
+<span class="font-label-sm text-label-sm text-slate-600">PROFILE_UPDATE</span>
+</div>
+<span class="text-[10px] font-medium text-slate-500">1h ago</span>
+</div>
+<div class="pl-6">
+<h3 class="font-body-md text-body-md font-medium text-on-surface">Rahul Gupta</h3>
+<p class="text-xs text-on-surface-dim truncate mt-1">Modified: 'Education', 'Income'</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Side: Comparison Viewer -->
+<section class="flex-1 flex flex-col bg-surface border border-border-subtle rounded-lg overflow-hidden">
+<!-- Viewer Header -->
+<div class="p-4 border-b border-border-subtle flex justify-between items-center bg-surface-container-lowest">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 rounded-full bg-slate-200 overflow-hidden">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="Portrait of a young Indian man smiling gently in a professional outdoor setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsR5O6B7n-lb2Vurp2_eG0qeO_ZKX8Sv2zmQy7dhImUdQr8SCq3E9Zdp4HgYxfGry7hlz9lqnEq4YEaAWspgl1sNW4Kapc5YEaaYZuQf4CP81rLAqUg-g1_oacg-bRJc92LqqN9n2kZirotL0-5X1ZYjTOPalk7P7YWuA3lVFMhbVfAPjMGSLJ0QBSXwTXYXYKdFcuiISanjAPT97K0uTQfKrGW5Z8bOJiexQler9ly0Xgf2nFZixkJ5Qi_Ww1HhTOXrQLotFSEJo"/>
+</div>
+<div>
+<h2 class="font-h3 text-h3 text-on-surface">Aarav Sharma</h2>
+<p class="font-label-sm text-label-sm text-on-surface-dim">User ID: USR-98245-IND</p>
+</div>
+<span class="ml-4 px-2.5 py-1 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800 border border-amber-200 uppercase tracking-wider">High Priority</span>
+</div>
+<div class="flex gap-2">
+<button class="p-2 text-slate-500 hover:bg-slate-100 rounded transition-colors" title="View Full Profile">
+<span class="material-symbols-outlined">open_in_new</span>
+</button>
+</div>
+</div>
+<!-- Comparison Content -->
+<div class="flex-1 overflow-y-auto p-6 bg-slate-50">
+<div class="max-w-4xl mx-auto space-y-6">
+<!-- Field Group 1 -->
+<div class="bg-white rounded-lg border border-border-subtle shadow-sm overflow-hidden">
+<div class="px-4 py-3 bg-slate-100 border-b border-border-subtle flex items-center justify-between">
+<h4 class="font-table-header text-table-header text-slate-700 uppercase tracking-wider">About Me</h4>
+<span class="text-xs text-slate-500">Edited 2 mins ago</span>
+</div>
+<div class="flex divide-x divide-border-subtle">
+<div class="flex-1 p-4 bg-red-50/30">
+<div class="text-xs font-semibold text-red-700 mb-2 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">history</span> Old Value</div>
+<p class="text-sm text-slate-700 line-through decoration-red-300">I am a software engineer living in Mumbai. I enjoy playing cricket and reading books on weekends. Looking for a simple partner.</p>
+</div>
+<div class="flex-1 p-4 bg-emerald-50/30">
+<div class="text-xs font-semibold text-emerald-700 mb-2 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">fiber_new</span> New Value</div>
+<p class="text-sm text-slate-900"><span class="bg-emerald-100 text-emerald-900 rounded px-1">Senior</span> software engineer living in Mumbai. I enjoy playing cricket, reading books, <span class="bg-emerald-100 text-emerald-900 rounded px-1">and travelling</span>. Looking for a <span class="bg-emerald-100 text-emerald-900 rounded px-1">like-minded, career-oriented</span> partner.</p>
+</div>
+</div>
+</div>
+<!-- Field Group 2 -->
+<div class="bg-white rounded-lg border border-border-subtle shadow-sm overflow-hidden">
+<div class="px-4 py-3 bg-slate-100 border-b border-border-subtle flex items-center justify-between">
+<h4 class="font-table-header text-table-header text-slate-700 uppercase tracking-wider">Occupation</h4>
+</div>
+<div class="flex divide-x divide-border-subtle">
+<div class="flex-1 p-4 bg-red-50/30">
+<div class="text-xs font-semibold text-red-700 mb-2 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">history</span> Old Value</div>
+<div class="text-sm text-slate-700 font-mono bg-white p-2 rounded border border-red-100">Software Engineer</div>
+</div>
+<div class="flex-1 p-4 bg-emerald-50/30">
+<div class="text-xs font-semibold text-emerald-700 mb-2 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">fiber_new</span> New Value</div>
+<div class="text-sm text-slate-900 font-mono bg-white p-2 rounded border border-emerald-200 shadow-sm ring-1 ring-emerald-500/20">Senior Technical Lead</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Bar -->
+<div class="p-4 border-t border-border-subtle bg-white flex justify-between items-center shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] z-10">
+<button class="px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded transition-colors">
+                        Skip for Now
+                    </button>
+<div class="flex gap-3">
+<button class="px-6 py-2 bg-red-50 text-red-700 border border-red-200 hover:bg-red-100 font-semibold rounded shadow-sm transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">close</span> Reject Changes
+                        </button>
+<button class="px-6 py-2 bg-indigo-600 text-white hover:bg-indigo-700 font-semibold rounded shadow-sm transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">check</span> Approve Changes
+                        </button>
+</div>
+</div>
+</section>
+</main>
+</div>
+</body></html>

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Home, Users, Heart, MessageCircle, User, LogOut, Bell } from "lucide-react";
+import { Home, Users, Heart, MessageCircle, User, LogOut, Bell, HelpCircle } from "lucide-react";
 import { motion } from "framer-motion";
 import useAuthStore from "@/store/useAuthStore";
 import useNotificationStore from "@/store/useNotificationStore";
@@ -33,6 +33,7 @@ function NavContent() {
   const navItems = [
     { name: "Dashboard", href: "/dashboard", icon: Home },
     { name: "Matches", href: "/matches", icon: Users },
+    { name: "Questionnaires", href: "/dashboard/questionnaires", icon: HelpCircle },
     { name: "Bond Section", href: "/bonds", icon: MessageCircle },
     { name: "Interested", href: "/interests/shortlist", icon: Heart },
     { name: "Requests", href: "/interests/requests", icon: Bell, badge: unreadCount },

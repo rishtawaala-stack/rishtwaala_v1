@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Settings &amp; Audit - Rishtawaala Admin</title>
+<!-- Google Fonts & Material Symbols -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Theme Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-surface": "#1b1b24",
+                    "tertiary-fixed-dim": "#ffb695",
+                    "primary-container": "#4f46e5",
+                    "on-surface-sidebar-active": "#ffffff",
+                    "inverse-primary": "#c3c0ff",
+                    "on-primary-container": "#dad7ff",
+                    "surface-container-highest": "#e4e1ee",
+                    "on-tertiary-fixed": "#351000",
+                    "on-error": "#ffffff",
+                    "surface-container-high": "#eae6f4",
+                    "on-error-container": "#93000a",
+                    "on-primary": "#ffffff",
+                    "primary-fixed": "#e2dfff",
+                    "inverse-surface": "#302f39",
+                    "error": "#ef4444",
+                    "warning": "#f59e0b",
+                    "secondary-fixed": "#dae2fd",
+                    "tertiary-fixed": "#ffdbcc",
+                    "surface-container": "#f0ecf9",
+                    "outline": "#777587",
+                    "surface-tint": "#4d44e3",
+                    "on-surface-variant": "#464555",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "info": "#0ea5e9",
+                    "tertiary": "#7e3000",
+                    "on-secondary-fixed": "#131b2e",
+                    "success": "#10b981",
+                    "surface": "#ffffff",
+                    "surface-container-low": "#f5f2ff",
+                    "background": "#f8fafc",
+                    "on-secondary-fixed-variant": "#3f465c",
+                    "surface-sidebar": "#0f172a",
+                    "table-hover": "#f1f5f9",
+                    "secondary-fixed-dim": "#bec6e0",
+                    "surface-bright": "#fcf8ff",
+                    "on-background": "#1b1b24",
+                    "primary-fixed-dim": "#c3c0ff",
+                    "primary": "#3525cd",
+                    "on-secondary-container": "#5c647a",
+                    "on-surface-dim": "#64748b",
+                    "outline-variant": "#c7c4d8",
+                    "error-container": "#ffdad6",
+                    "surface-variant": "#e4e1ee",
+                    "on-tertiary-fixed-variant": "#7b2f00",
+                    "on-tertiary-container": "#ffd2be",
+                    "surface-dim": "#dcd8e5",
+                    "on-primary-fixed-variant": "#3323cc",
+                    "tertiary-container": "#a44100",
+                    "secondary-container": "#dae2fd",
+                    "border-subtle": "#e2e8f0",
+                    "inverse-on-surface": "#f3effc",
+                    "on-secondary": "#ffffff",
+                    "on-primary-fixed": "#0f0069",
+                    "secondary": "#565e74",
+                    "on-surface-sidebar": "#94a3b8"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "table-row-y": "8px",
+                    "container-max": "1440px",
+                    "gutter": "24px",
+                    "sidebar-width": "260px",
+                    "header-height": "64px",
+                    "base": "4px"
+            },
+            "fontFamily": {
+                    "h2": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "h3": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "table-header": [
+                            "Inter"
+                    ],
+                    "label-sm": [
+                            "Inter"
+                    ],
+                    "body-md": [
+                            "Inter"
+                    ],
+                    "h1": [
+                            "Plus Jakarta Sans"
+                    ]
+            },
+            "fontSize": {
+                    "h2": [
+                            "20px",
+                            {
+                                    "lineHeight": "1.3",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "h3": [
+                            "16px",
+                            {
+                                    "lineHeight": "1.4",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "table-header": [
+                            "12px",
+                            {
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "label-sm": [
+                            "12px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "letterSpacing": "0.02em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-md": [
+                            "14px",
+                            {
+                                    "lineHeight": "1.5",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "h1": [
+                            "24px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "fontWeight": "700"
+                            }
+                    ]
+            }
+        },
+        },
+      }
+    </script>
+<style>
+        /* Custom scrollbar for data tables to maintain density */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #c7c4d8;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        /* Custom Toggle Switch CSS */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #4f46e5;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #4f46e5;
+        }
+        .toggle-checkbox:checked + .toggle-label:after {
+            transform: translateX(100%);
+            border-color: white;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md antialiased overflow-x-hidden">
+<!-- SideNavBar (Shared Component) -->
+<!-- Applying exact style keys from JSON -->
+<aside class="fixed left-0 top-0 h-full w-[260px] border-r border-slate-800 bg-slate-900 dark:bg-black flex flex-col py-6 z-50">
+<!-- Header / Brand -->
+<div class="px-6 mb-8 flex flex-col gap-1">
+<h1 class="text-lg font-extrabold tracking-tighter text-white">Rishtawaala</h1>
+<span class="font-['Plus_Jakarta_SANS'] text-[13px] tracking-tight text-slate-400">Command Center</span>
+</div>
+<!-- Navigation Tabs -->
+<nav class="flex-1 overflow-y-auto w-full font-['Plus_Jakarta_SANS'] text-[13px] tracking-tight">
+<ul class="flex flex-col w-full">
+<!-- Tab 0 -->
+<li class="w-full">
+<a class="flex items-center gap-3 px-6 py-3 text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition-all duration-200 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'wght' 300;">vpn_key</span>
+                        Login &amp; RBAC
+                    </a>
+</li>
+<!-- Tab 1 -->
+<li class="w-full">
+<a class="flex items-center gap-3 px-6 py-3 text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition-all duration-200 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'wght' 300;">dashboard</span>
+                        Dashboard
+                    </a>
+</li>
+<!-- Tab 2 -->
+<li class="w-full">
+<a class="flex items-center gap-3 px-6 py-3 text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition-all duration-200 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'wght' 300;">group</span>
+                        Users
+                    </a>
+</li>
+<!-- Tab 3 -->
+<li class="w-full">
+<a class="flex items-center gap-3 px-6 py-3 text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition-all duration-200 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'wght' 300;">gavel</span>
+                        Moderation
+                    </a>
+</li>
+<!-- Tab 4 -->
+<li class="w-full">
+<a class="flex items-center gap-3 px-6 py-3 text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition-all duration-200 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'wght' 300;">verified_user</span>
+                        Verification
+                    </a>
+</li>
+<!-- Tab 5 -->
+<li class="w-full">
+<a class="flex items-center gap-3 px-6 py-3 text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition-all duration-200 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'wght' 300;">security</span>
+                        Safety
+                    </a>
+</li>
+<!-- Tab 6 -->
+<li class="w-full">
+<a class="flex items-center gap-3 px-6 py-3 text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition-all duration-200 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'wght' 300;">payments</span>
+                        Finance
+                    </a>
+</li>
+<!-- Tab 7 -->
+<li class="w-full">
+<a class="flex items-center gap-3 px-6 py-3 text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition-all duration-200 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'wght' 300;">forum</span>
+                        Communication
+                    </a>
+</li>
+<!-- Tab 8 -->
+<li class="w-full">
+<a class="flex items-center gap-3 px-6 py-3 text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition-all duration-200 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'wght' 300;">trending_up</span>
+                        Growth
+                    </a>
+</li>
+<!-- Tab 9 -->
+<li class="w-full">
+<a class="flex items-center gap-3 px-6 py-3 text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition-all duration-200 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'wght' 300;">star</span>
+                        Premium Services
+                    </a>
+</li>
+<!-- Tab 10 (ACTIVE) - Settings & Audit -->
+<li class="w-full">
+<a class="flex items-center gap-3 px-6 py-3 bg-indigo-600/10 text-indigo-400 border-r-4 border-indigo-500 cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1, 'wght' 400;">settings_suggest</span>
+<span class="font-semibold">Settings &amp; Audit</span>
+</a>
+</li>
+</ul>
+</nav>
+</aside>
+<!-- TopNavBar (Shared Component) -->
+<!-- Applying exact style keys from JSON -->
+<header class="sticky top-0 z-40 h-16 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 flex items-center justify-between px-6 w-full ml-[260px] max-w-[calc(100%-260px)]">
+<!-- Left Side: Brand & Search -->
+<div class="flex items-center gap-6">
+<div class="text-base font-bold text-slate-900 dark:text-white font-['Plus_Jakarta_SANS']">Rishtawaala Admin</div>
+<!-- Search Bar -->
+<div class="relative hidden lg:flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-slate-400 text-[18px]">search</span>
+<input class="pl-9 pr-4 py-1.5 bg-slate-50 border border-slate-200 rounded-DEFAULT text-sm font-['Plus_Jakarta_SANS'] font-medium text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent w-64 transition-colors duration-150" placeholder="Global search..." type="text"/>
+</div>
+</div>
+<!-- Right Side: Actions & Profile -->
+<div class="flex items-center gap-2">
+<!-- Trailing Icons -->
+<button class="p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900 rounded-full transition-colors duration-150 flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<button class="p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900 rounded-full transition-colors duration-150 flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">help</span>
+</button>
+<button class="p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900 rounded-full transition-colors duration-150 flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+</button>
+<!-- Profile Image -->
+<div class="ml-4 h-8 w-8 rounded-full bg-slate-200 border border-slate-300 overflow-hidden cursor-pointer flex-shrink-0">
+<img alt="Administrator Profile" class="h-full w-full object-cover" data-alt="professional headshot of an administrator in a well-lit studio setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZLdDdFQhLVz-B0ZyR8M_Ot9nOi25TNiMglYjFtBIYkQvErME7Ynb60WorP0xgQ0JJQlzgvljQpVGGVNCwOL5dhzO92MwgQ8ckz0Dv2qoC8PeIP4XHd53yrP4A16gokWFY3jbZMIjDvLwHD-OL3D1Fw4OuRPy65dcHoQYwmrsdCTBKm4DAcMjB13wdTAU-oXwdzpODjTX6FAQFn2Y08oOfOkNjJsWoaqtjkTkDH3Lap7WMrJGEWScvFkxT9EmiRJsvarE03374Ca0"/>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-[260px] p-gutter max-w-container-max mx-auto flex flex-col gap-8 pb-12">
+<!-- Page Header -->
+<div class="flex items-end justify-between border-b border-border-subtle pb-4">
+<div>
+<h2 class="font-h1 text-h1 text-on-surface tracking-tight">Settings &amp; Audit</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Manage system-wide configurations and monitor administrative activity.</p>
+</div>
+<div class="flex gap-3">
+<button class="px-4 py-2 bg-surface border border-border-subtle text-on-surface font-label-sm text-label-sm rounded-DEFAULT hover:bg-surface-variant transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">download</span>
+                    Export Logs
+                </button>
+</div>
+</div>
+<!-- Section 1: Feature Flags (Bento Grid Layout) -->
+<section class="flex flex-col gap-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">toggle_on</span>
+<h3 class="font-h2 text-h2 text-on-surface">Feature Flags</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Flag Card 1 -->
+<div class="bg-surface border border-border-subtle rounded-lg p-5 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-16 h-16 bg-primary/5 rounded-bl-full -z-0"></div>
+<div class="z-10 flex justify-between items-start mb-4">
+<div class="flex flex-col gap-1">
+<h4 class="font-h3 text-h3 text-on-surface">Maintenance Mode</h4>
+<span class="font-label-sm text-label-sm text-warning bg-warning/10 px-2 py-0.5 rounded-full w-fit">Critical</span>
+</div>
+<!-- Custom Toggle UI -->
+<div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+<input class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-2 border-outline-variant appearance-none cursor-pointer z-10 top-0 left-0 transition-transform duration-200 ease-in-out" id="toggle1" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-5 rounded-full bg-surface-variant cursor-pointer border border-outline-variant transition-colors duration-200 ease-in-out" for="toggle1"></label>
+</div>
+</div>
+<p class="font-body-md text-[13px] leading-relaxed text-on-surface-variant z-10">Suspends all non-admin traffic and displays a maintenance screen to users.</p>
+</div>
+<!-- Flag Card 2 -->
+<div class="bg-surface border border-border-subtle rounded-lg p-5 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-16 h-16 bg-primary/5 rounded-bl-full -z-0"></div>
+<div class="z-10 flex justify-between items-start mb-4">
+<div class="flex flex-col gap-1">
+<h4 class="font-h3 text-h3 text-on-surface">New Registrations</h4>
+<span class="font-label-sm text-label-sm text-info bg-info/10 px-2 py-0.5 rounded-full w-fit">Standard</span>
+</div>
+<div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-2 border-primary appearance-none cursor-pointer z-10 top-0 right-0 transition-transform duration-200 ease-in-out" id="toggle2" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-5 rounded-full bg-primary cursor-pointer border border-primary transition-colors duration-200 ease-in-out" for="toggle2"></label>
+</div>
+</div>
+<p class="font-body-md text-[13px] leading-relaxed text-on-surface-variant z-10">Allows new users to create accounts. Disable to pause network growth temporarily.</p>
+</div>
+<!-- Flag Card 3 -->
+<div class="bg-surface border border-border-subtle rounded-lg p-5 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-16 h-16 bg-primary/5 rounded-bl-full -z-0"></div>
+<div class="z-10 flex justify-between items-start mb-4">
+<div class="flex flex-col gap-1">
+<h4 class="font-h3 text-h3 text-on-surface">AI Moderation</h4>
+<span class="font-label-sm text-label-sm text-success bg-success/10 px-2 py-0.5 rounded-full w-fit">Active</span>
+</div>
+<div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-2 border-primary appearance-none cursor-pointer z-10 top-0 right-0 transition-transform duration-200 ease-in-out" id="toggle3" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-5 rounded-full bg-primary cursor-pointer border border-primary transition-colors duration-200 ease-in-out" for="toggle3"></label>
+</div>
+</div>
+<p class="font-body-md text-[13px] leading-relaxed text-on-surface-variant z-10">Routes all newly uploaded images and text through automated safety filters.</p>
+</div>
+<!-- Flag Card 4 -->
+<div class="bg-surface border border-border-subtle rounded-lg p-5 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-16 h-16 bg-primary/5 rounded-bl-full -z-0"></div>
+<div class="z-10 flex justify-between items-start mb-4">
+<div class="flex flex-col gap-1">
+<h4 class="font-h3 text-h3 text-on-surface">Premium Beta</h4>
+<span class="font-label-sm text-label-sm text-secondary bg-surface-variant px-2 py-0.5 rounded-full w-fit">Testing</span>
+</div>
+<div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+<input class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-2 border-outline-variant appearance-none cursor-pointer z-10 top-0 left-0 transition-transform duration-200 ease-in-out" id="toggle4" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-5 rounded-full bg-surface-variant cursor-pointer border border-outline-variant transition-colors duration-200 ease-in-out" for="toggle4"></label>
+</div>
+</div>
+<p class="font-body-md text-[13px] leading-relaxed text-on-surface-variant z-10">Enables early access features for whitelisted internal testing accounts only.</p>
+</div>
+</div>
+</section>
+<!-- Section 2: Audit Log (Data Table) -->
+<section class="flex flex-col gap-4 flex-1">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">manage_search</span>
+<h3 class="font-h2 text-h2 text-on-surface">System Audit Log</h3>
+</div>
+<!-- Table Controls -->
+<div class="flex items-center gap-3">
+<div class="relative w-72">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">search</span>
+<input class="w-full pl-9 pr-4 py-2 bg-surface border border-border-subtle rounded-DEFAULT text-sm font-body-md text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all shadow-sm" placeholder="Search logs by user, action, or IP..." type="text"/>
+</div>
+<button class="p-2 border border-border-subtle rounded-DEFAULT bg-surface text-on-surface-variant hover:bg-surface-variant transition-colors shadow-sm flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+</button>
+</div>
+</div>
+<!-- Data Table Container -->
+<div class="bg-surface border border-border-subtle rounded-lg shadow-sm flex flex-col flex-1">
+<div class="overflow-x-auto rounded-t-lg">
+<table class="w-full text-left border-collapse min-w-[800px]">
+<thead class="bg-surface-container-high font-table-header text-table-header text-on-surface-variant uppercase tracking-wider sticky top-0 z-10">
+<tr>
+<th class="px-5 py-3 border-b border-border-subtle font-semibold w-40">Timestamp</th>
+<th class="px-5 py-3 border-b border-border-subtle font-semibold w-48">Administrator</th>
+<th class="px-5 py-3 border-b border-border-subtle font-semibold">Action Performed</th>
+<th class="px-5 py-3 border-b border-border-subtle font-semibold">Target Entity</th>
+<th class="px-5 py-3 border-b border-border-subtle font-semibold w-36">IP Address</th>
+<th class="px-5 py-3 border-b border-border-subtle font-semibold text-right w-32">Status</th>
+</tr>
+</thead>
+<tbody class="font-body-md text-body-md text-on-surface divide-y divide-border-subtle">
+<!-- Row 1 -->
+<tr class="hover:bg-table-hover transition-colors group">
+<td class="px-5 py-table-row-y whitespace-nowrap text-on-surface-variant text-[13px]">
+                                    Oct 24, 14:32:01
+                                </td>
+<td class="px-5 py-table-row-y">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-primary/10 text-primary flex items-center justify-center text-[11px] font-bold">SJ</div>
+<span class="font-medium text-sm">Sarah Jenkins</span>
+</div>
+</td>
+<td class="px-5 py-table-row-y">
+<span class="font-medium text-sm">Toggled Feature Flag</span>
+</td>
+<td class="px-5 py-table-row-y text-sm">
+<span class="bg-surface-variant px-2 py-0.5 rounded font-mono text-[12px] text-on-surface-variant">Flag: NEW_REGS</span>
+</td>
+<td class="px-5 py-table-row-y text-on-surface-variant text-[13px] font-mono">
+                                    192.168.1.45
+                                </td>
+<td class="px-5 py-table-row-y text-right">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[12px] font-semibold bg-success/10 text-success">
+                                        Success
+                                    </span>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-table-hover transition-colors group">
+<td class="px-5 py-table-row-y whitespace-nowrap text-on-surface-variant text-[13px]">
+                                    Oct 24, 13:15:44
+                                </td>
+<td class="px-5 py-table-row-y">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-info/10 text-info flex items-center justify-center text-[11px] font-bold">MR</div>
+<span class="font-medium text-sm">Marcus Reed</span>
+</div>
+</td>
+<td class="px-5 py-table-row-y">
+<span class="font-medium text-sm">Banned User Account</span>
+</td>
+<td class="px-5 py-table-row-y text-sm">
+<a class="text-primary hover:underline font-mono text-[12px]" href="#">USR-88932</a>
+</td>
+<td class="px-5 py-table-row-y text-on-surface-variant text-[13px] font-mono">
+                                    10.0.0.112
+                                </td>
+<td class="px-5 py-table-row-y text-right">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[12px] font-semibold bg-success/10 text-success">
+                                        Success
+                                    </span>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-table-hover transition-colors group">
+<td class="px-5 py-table-row-y whitespace-nowrap text-on-surface-variant text-[13px]">
+                                    Oct 24, 11:00:00
+                                </td>
+<td class="px-5 py-table-row-y">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-slate-200 text-slate-600 flex items-center justify-center text-[11px] font-bold">
+<span class="material-symbols-outlined text-[14px]">smart_toy</span>
+</div>
+<span class="font-medium text-sm">System CRON</span>
+</div>
+</td>
+<td class="px-5 py-table-row-y">
+<span class="font-medium text-sm">Database Backup</span>
+</td>
+<td class="px-5 py-table-row-y text-sm">
+<span class="text-on-surface-variant text-[13px]">Cluster Alpha (Daily)</span>
+</td>
+<td class="px-5 py-table-row-y text-on-surface-variant text-[13px] font-mono">
+                                    localhost
+                                </td>
+<td class="px-5 py-table-row-y text-right">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[12px] font-semibold bg-warning/10 text-warning">
+                                        Delayed
+                                    </span>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-table-hover transition-colors group">
+<td class="px-5 py-table-row-y whitespace-nowrap text-on-surface-variant text-[13px]">
+                                    Oct 24, 09:45:12
+                                </td>
+<td class="px-5 py-table-row-y">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-secondary/10 text-secondary flex items-center justify-center text-[11px] font-bold">AL</div>
+<span class="font-medium text-sm">Anna Lin</span>
+</div>
+</td>
+<td class="px-5 py-table-row-y">
+<span class="font-medium text-sm">Modified RBAC Policy</span>
+</td>
+<td class="px-5 py-table-row-y text-sm">
+<span class="bg-surface-variant px-2 py-0.5 rounded font-mono text-[12px] text-on-surface-variant">Role: Moderator</span>
+</td>
+<td class="px-5 py-table-row-y text-on-surface-variant text-[13px] font-mono">
+                                    172.16.4.22
+                                </td>
+<td class="px-5 py-table-row-y text-right">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[12px] font-semibold bg-error/10 text-error">
+                                        Failed
+                                    </span>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-table-hover transition-colors group">
+<td class="px-5 py-table-row-y whitespace-nowrap text-on-surface-variant text-[13px]">
+                                    Oct 23, 18:20:05
+                                </td>
+<td class="px-5 py-table-row-y">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-primary/10 text-primary flex items-center justify-center text-[11px] font-bold">SJ</div>
+<span class="font-medium text-sm">Sarah Jenkins</span>
+</div>
+</td>
+<td class="px-5 py-table-row-y">
+<span class="font-medium text-sm">Exported Financial Data</span>
+</td>
+<td class="px-5 py-table-row-y text-sm">
+<span class="text-on-surface-variant text-[13px]">Q3 Revenue Report.csv</span>
+</td>
+<td class="px-5 py-table-row-y text-on-surface-variant text-[13px] font-mono">
+                                    192.168.1.45
+                                </td>
+<td class="px-5 py-table-row-y text-right">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[12px] font-semibold bg-success/10 text-success">
+                                        Success
+                                    </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Pagination Footer -->
+<div class="bg-surface-container-low border-t border-border-subtle p-3 flex items-center justify-between rounded-b-lg">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Showing 1 to 5 of 2,491 entries</span>
+<div class="flex items-center gap-1">
+<button class="p-1 rounded text-on-surface-variant hover:bg-surface-variant transition-colors disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined text-[20px]">chevron_left</span>
+</button>
+<button class="w-8 h-8 rounded bg-primary text-on-primary font-semibold text-sm flex items-center justify-center">1</button>
+<button class="w-8 h-8 rounded text-on-surface hover:bg-surface-variant font-medium text-sm flex items-center justify-center transition-colors">2</button>
+<button class="w-8 h-8 rounded text-on-surface hover:bg-surface-variant font-medium text-sm flex items-center justify-center transition-colors">3</button>
+<span class="text-on-surface-variant px-1">...</span>
+<button class="p-1 rounded text-on-surface-variant hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-[20px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+</body></html>

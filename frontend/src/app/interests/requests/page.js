@@ -11,11 +11,14 @@ import Link from "next/link";
 import MatchMeter from "@/components/MatchMeter";
 import FloatingHearts from "@/components/FloatingHearts";
 
+import useAuthStore from "@/store/useAuthStore";
+
 /**
  * HEARTBEATS PAGE (Interests/Requests)
  */
 
 export default function HeartbeatsPage() {
+  const { user: currentUser } = useAuthStore();
   const [mounted, setMounted] = useState(false);
   const [activeTab, setActiveTab] = useState("inbound");
   const [inbound, setInbound] = useState([]);
@@ -152,29 +155,24 @@ export default function HeartbeatsPage() {
         {/* Matrometer Modal Integration */}
         <AnimatePresence>
           {selectedMatch && (
-            <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-dark/80 backdrop-blur-xl">
+            <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6 bg-dark/95 backdrop-blur-3xl overflow-y-auto">
                <motion.div 
                  initial={{ opacity: 0, scale: 0.9, y: 30 }}
                  animate={{ opacity: 1, scale: 1, y: 0 }}
                  exit={{ opacity: 0, scale: 0.9, y: 30 }}
-                 className="relative w-full max-w-lg glass-outer border-gray-100 bg-white p-12 rounded-[3.5rem] shadow-2xl overflow-hidden"
+                 className="relative w-full max-w-xl p-4 md:p-8 rounded-[5rem] overflow-visible"
                >
-                 <div className="absolute -top-32 -left-32 w-80 h-80 bg-primary/5 rounded-full blur-[100px]" />
                  <div className="relative z-10 flex flex-col items-center">
-                    <header className="w-full flex justify-between items-center mb-12">
-                       <h2 className="text-[10px] font-bold uppercase tracking-[0.3em] text-gray-400">Resonance Analysis</h2>
-                       <button onClick={() => setSelectedMatch(null)} className="p-3 hover:bg-gray-50 rounded-full text-gray-400 hover:text-dark transition-all">
-                          <X className="w-7 h-7" />
-                       </button>
-                    </header>
-
-                    <MatchMeter score={selectedMatch.match_score || 85} size="lg" animate={false} />
-
-                    <div className="mt-12 p-8 rounded-[2rem] bg-gray-50 border border-gray-100 text-center w-full">
-                       <p className="text-[11px] text-gray-500 font-bold uppercase tracking-widest leading-loose">
-                          Detailed Sync Report: {selectedMatch.from_profile?.full_name}
-                       </p>
-                    </div>
+                    <MatchMeter 
+                      profileA={currentUser} 
+                      profileB={selectedMatch.from_profile} 
+                      onSendRequest={() => {
+                        handleAction(selectedMatch.id, 'accepted');
+                        setSelectedMatch(null);
+                      }}
+                      status="pending_acceptance"
+                      onClose={() => setSelectedMatch(null)}
+                    />
                  </div>
                </motion.div>
             </div>
@@ -182,6 +180,7 @@ export default function HeartbeatsPage() {
         </AnimatePresence>
       </main>
     </div>
+
   );
 }
 

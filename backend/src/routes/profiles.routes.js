@@ -141,6 +141,83 @@ router.patch("/me", authMiddleware, async (req, res, next) => {
   }
 });
 
+// --- Questionnaire System ---
+
+// Get questions targeted at me
+router.get("/my-questions", authMiddleware, async (req, res, next) => {
+  try {
+    const userId = req.auth.userId;
+
+    // 1. Fetch IDs of questions specifically targeted at this user
+    const { data: targets, error: targetError } = await supabase
+      .from("admin_question_targets")
+      .select("question_id")
+      .eq("user_id", userId);
+
+    if (targetError) throw targetError;
+    const targetedQuestionIds = targets?.map(t => t.question_id) || [];
+
+    // 2. Fetch questions: (is_all_users = true) OR (id is in targetedQuestionIds)
+    let query = supabase
+      .from("admin_questions")
+      .select("id, question_text, created_at");
+
+    if (targetedQuestionIds.length > 0) {
+      query = query.or(`is_all_users.eq.true,id.in.(${targetedQuestionIds.join(",")})`);
+    } else {
+      query = query.eq("is_all_users", true);
+    }
+
+    const { data: questions, error: qError } = await query.order("created_at", { ascending: false });
+    if (qError) throw qError;
+
+    // 3. Filter out already answered questions
+    const { data: answered, error: ansError } = await supabase
+      .from("admin_question_answers")
+      .select("question_id")
+      .eq("user_id", userId);
+
+    if (ansError) throw ansError;
+
+    const answeredIds = answered?.map(a => a.question_id) || [];
+    const pendingQuestions = questions.filter(q => !answeredIds.includes(q.id));
+
+    return sendSuccess(res, pendingQuestions);
+  } catch (err) {
+    console.error("Fetch questions error details:", err);
+    return next(new ApiError(500, "SERVER_ERROR", "Failed to fetch questionnaires: " + (err.message || "Unknown error")));
+  }
+});
+
+// Answer a question
+router.post("/my-questions/:id/answer", authMiddleware, async (req, res, next) => {
+  try {
+    const { id: questionId } = req.params;
+    const { answer_text } = req.body;
+
+    if (!answer_text) {
+      return next(new ApiError(400, "VALIDATION_ERROR", "Answer text is required"));
+    }
+
+    const { data, error } = await supabase
+      .from("admin_question_answers")
+      .upsert({
+        question_id: questionId,
+        user_id: req.auth.userId,
+        answer_text
+      })
+      .select()
+      .single();
+
+    if (error) throw error;
+
+    return sendSuccess(res, data, "Answer submitted successfully.");
+  } catch (err) {
+    console.error("Answer submit error:", err);
+    return next(new ApiError(500, "SERVER_ERROR", "Failed to submit answer"));
+  }
+});
+
 // View another user's profile
 router.get("/:profileId", authMiddleware, async (req, res, next) => {
   try {

@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Safety Operations - Rishtawaala Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface": "#1b1b24",
+                        "tertiary-fixed-dim": "#ffb695",
+                        "primary-container": "#4f46e5",
+                        "on-surface-sidebar-active": "#ffffff",
+                        "inverse-primary": "#c3c0ff",
+                        "on-primary-container": "#dad7ff",
+                        "surface-container-highest": "#e4e1ee",
+                        "on-tertiary-fixed": "#351000",
+                        "on-error": "#ffffff",
+                        "surface-container-high": "#eae6f4",
+                        "on-error-container": "#93000a",
+                        "on-primary": "#ffffff",
+                        "primary-fixed": "#e2dfff",
+                        "inverse-surface": "#302f39",
+                        "error": "#ef4444",
+                        "warning": "#f59e0b",
+                        "secondary-fixed": "#dae2fd",
+                        "tertiary-fixed": "#ffdbcc",
+                        "surface-container": "#f0ecf9",
+                        "outline": "#777587",
+                        "surface-tint": "#4d44e3",
+                        "on-surface-variant": "#464555",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "info": "#0ea5e9",
+                        "tertiary": "#7e3000",
+                        "on-secondary-fixed": "#131b2e",
+                        "success": "#10b981",
+                        "surface": "#ffffff",
+                        "surface-container-low": "#f5f2ff",
+                        "background": "#f8fafc",
+                        "on-secondary-fixed-variant": "#3f465c",
+                        "surface-sidebar": "#0f172a",
+                        "table-hover": "#f1f5f9",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "surface-bright": "#fcf8ff",
+                        "on-background": "#1b1b24",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "primary": "#3525cd",
+                        "on-secondary-container": "#5c647a",
+                        "on-surface-dim": "#64748b",
+                        "outline-variant": "#c7c4d8",
+                        "error-container": "#ffdad6",
+                        "surface-variant": "#e4e1ee",
+                        "on-tertiary-fixed-variant": "#7b2f00",
+                        "on-tertiary-container": "#ffd2be",
+                        "surface-dim": "#dcd8e5",
+                        "on-primary-fixed-variant": "#3323cc",
+                        "tertiary-container": "#a44100",
+                        "secondary-container": "#dae2fd",
+                        "border-subtle": "#e2e8f0",
+                        "inverse-on-surface": "#f3effc",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed": "#0f0069",
+                        "secondary": "#565e74",
+                        "on-surface-sidebar": "#94a3b8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "table-row-y": "8px",
+                        "container-max": "1440px",
+                        "gutter": "24px",
+                        "sidebar-width": "260px",
+                        "header-height": "64px",
+                        "base": "4px"
+                    },
+                    "fontFamily": {
+                        "h2": ["Plus Jakarta Sans"],
+                        "h3": ["Plus Jakarta Sans"],
+                        "table-header": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "h1": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "h2": ["20px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "h3": ["16px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                        "table-header": ["12px", {"fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "1.2", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "h1": ["24px", {"lineHeight": "1.2", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md antialiased overflow-hidden flex h-screen">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full w-[260px] border-r border-slate-800 bg-slate-900 dark:bg-black flex flex-col py-6 z-50">
+<!-- Header -->
+<div class="px-6 mb-8 flex flex-col">
+<span class="text-lg font-extrabold tracking-tighter text-white">Rishtawaala</span>
+<span class="font-['Plus_Jakarta_SANS'] text-[13px] tracking-tight text-slate-400">Command Center</span>
+</div>
+<!-- Navigation Tabs -->
+<nav class="flex-1 overflow-y-auto px-4 space-y-1 font-['Plus_Jakarta_SANS'] text-[13px] tracking-tight">
+<!-- Inactive Tab -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition-all duration-200 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[20px]">vpn_key</span>
+<span>Login &amp; RBAC</span>
+</a>
+<!-- Inactive Tab -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition-all duration-200 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span>Dashboard</span>
+</a>
+<!-- Inactive Tab -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition-all duration-200 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[20px]">group</span>
+<span>Users</span>
+</a>
+<!-- Inactive Tab -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition-all duration-200 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[20px]">gavel</span>
+<span>Moderation</span>
+</a>
+<!-- Inactive Tab -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition-all duration-200 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[20px]">verified_user</span>
+<span>Verification</span>
+</a>
+<!-- Active Tab: Safety -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT bg-indigo-600/10 text-indigo-400 border-r-4 border-indigo-500 cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[20px]">security</span>
+<span class="font-semibold">Safety</span>
+</a>
+<!-- Inactive Tab -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition-all duration-200 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[20px]">payments</span>
+<span>Finance</span>
+</a>
+<!-- Inactive Tab -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition-all duration-200 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[20px]">forum</span>
+<span>Communication</span>
+</a>
+<!-- Inactive Tab -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition-all duration-200 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[20px]">trending_up</span>
+<span>Growth</span>
+</a>
+<!-- Inactive Tab -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition-all duration-200 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[20px]">star</span>
+<span>Premium Services</span>
+</a>
+<!-- Inactive Tab -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition-all duration-200 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[20px]">settings_suggest</span>
+<span>Settings &amp; Audit</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content Wrapper -->
+<div class="flex-1 flex flex-col ml-sidebar-width h-full bg-background relative overflow-hidden">
+<!-- TopNavBar -->
+<header class="sticky top-0 z-40 w-full h-header-height border-b border-slate-200 bg-white flex items-center justify-between px-6 transition-colors duration-150 shadow-sm flex-shrink-0">
+<!-- Left Area (Search Placeholder per structural necessity) -->
+<div class="flex items-center gap-2 text-slate-500 hover:bg-slate-50 px-2 py-1 rounded-DEFAULT cursor-text border border-border-subtle bg-background/50 w-64">
+<span class="material-symbols-outlined text-[18px]">search</span>
+<span class="font-['Plus_Jakarta_SANS'] text-sm font-medium text-slate-400">Search reports...</span>
+</div>
+<!-- Right Area -->
+<div class="flex items-center gap-6">
+<span class="text-base font-bold text-slate-900 font-['Plus_Jakarta_SANS'] hidden md:block">Rishtawaala Admin</span>
+<div class="flex items-center gap-2 text-indigo-600">
+<button class="p-2 hover:bg-slate-50 rounded-DEFAULT transition-colors flex items-center justify-center relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="p-2 hover:bg-slate-50 rounded-DEFAULT transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined">help</span>
+</button>
+<button class="p-2 hover:bg-slate-50 rounded-DEFAULT transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="ml-2 pl-4 border-l border-border-subtle flex items-center">
+<img alt="Administrator Profile" class="w-8 h-8 rounded-full border border-border-subtle object-cover" data-alt="professional headshot of an administrator on neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgcs-Q4zJXBI2Ik2uZncck4FZ-orGeoX8NG3RCXNe92tmuV4QAvEJ9NtM18cTum6sY8wlII59uHLwBhk5HoJoF3wfI_bOpyXG9G_8agwb8suEEl_poF_dC8WIo6QHSxYdhPopXAklRxO04gjoYLiU4yqxCGPpdaWxggDqB6IrU29toMAGpt4HkRPP4iRcv7Y-9LvtgNzcBL55YQEyEoOQLXRjUzHf40g8ZcB4jyCsPhc1vsRrM2iJV-JmIRXG6TK7glkzdOJOHYac"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Page Canvas -->
+<main class="flex-1 overflow-y-auto p-gutter relative">
+<div class="max-w-container-max mx-auto space-y-8 pb-12">
+<!-- Page Header -->
+<div class="flex items-end justify-between border-b border-border-subtle pb-4">
+<div>
+<h1 class="font-h1 text-h1 text-on-surface mb-2">Safety Operations</h1>
+<p class="font-body-md text-on-surface-dim">Monitor and action user-submitted reports and automated AI flags.</p>
+</div>
+<div class="flex gap-4">
+<div class="text-right">
+<span class="block font-label-sm text-on-surface-dim uppercase tracking-wider mb-1">Critical Queue</span>
+<span class="font-h2 text-h2 text-error">24</span>
+</div>
+<div class="w-px h-10 bg-border-subtle self-center"></div>
+<div class="text-right">
+<span class="block font-label-sm text-on-surface-dim uppercase tracking-wider mb-1">Pending Review</span>
+<span class="font-h2 text-h2 text-on-surface">142</span>
+</div>
+</div>
+</div>
+<!-- Fake Profile AI Flags (Bento Grid) -->
+<section>
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-warning icon-fill">smart_toy</span>
+<h2 class="font-h2 text-h2 text-on-surface">Fake Profile AI Flags</h2>
+<span class="ml-2 bg-error-container text-on-error-container text-[11px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wide">High Priority</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Card 1 -->
+<div class="bg-surface border border-border-subtle rounded-DEFAULT p-5 shadow-sm hover:border-warning/50 transition-colors">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-3">
+<img class="w-12 h-12 rounded-full object-cover border border-border-subtle" data-alt="close up of a generic male face looking forward in bright lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBi6PNGBkeZXAnDzVz_Yv5xAFwRYCmFU_3PeFNCl1SRXOMMG-4ArTRlraKAJrxkZYDVLcdoBgK1uR26HsmtICmsbaPgnKPJM2S6GlaOnTV6LVHSSnWQfro-ZUMI6AscOkMosUr3-XWjc_b3PkysjWxoBpvoWWgBHqBrHz52BghANVUPzHLdNSStqe_08LaZvZ33aNu5qY89hClN1aFPmTVMB2Q2ywYqh0YZ23x-t_Ire-SZ2rkdYB8hduILeCe8doqWrRbnRveTedw"/>
+<div>
+<div class="font-h3 text-h3 text-on-surface">@amit_shah99</div>
+<div class="font-label-sm text-on-surface-dim">ID: #USR-8821</div>
+</div>
+</div>
+<span class="bg-warning/10 text-warning font-label-sm px-2 py-1 rounded-DEFAULT border border-warning/20">98% Match</span>
+</div>
+<div class="mb-4">
+<p class="font-label-sm text-on-surface-variant uppercase mb-1">Detection Reason</p>
+<p class="font-body-md text-on-surface">Reverse image search indicates stock photography source.</p>
+</div>
+<div class="flex gap-2">
+<button class="flex-1 bg-error text-on-error font-label-sm py-2 rounded-DEFAULT hover:bg-error/90 transition-colors">Suspend</button>
+<button class="flex-1 bg-surface-variant text-on-surface-variant font-label-sm py-2 rounded-DEFAULT hover:bg-surface-dim transition-colors border border-border-subtle">Review</button>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface border border-border-subtle rounded-DEFAULT p-5 shadow-sm hover:border-warning/50 transition-colors">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-full bg-surface-variant border border-border-subtle flex items-center justify-center text-on-surface-variant font-h3">PK</div>
+<div>
+<div class="font-h3 text-h3 text-on-surface">@priya_k_love</div>
+<div class="font-label-sm text-on-surface-dim">ID: #USR-9102</div>
+</div>
+</div>
+<span class="bg-error/10 text-error font-label-sm px-2 py-1 rounded-DEFAULT border border-error/20">Critical</span>
+</div>
+<div class="mb-4">
+<p class="font-label-sm text-on-surface-variant uppercase mb-1">Detection Reason</p>
+<p class="font-body-md text-on-surface">Rapid connection requests (&gt;500/hr) with identical copy-paste messaging.</p>
+</div>
+<div class="flex gap-2">
+<button class="flex-1 bg-error text-on-error font-label-sm py-2 rounded-DEFAULT hover:bg-error/90 transition-colors">Suspend</button>
+<button class="flex-1 bg-surface-variant text-on-surface-variant font-label-sm py-2 rounded-DEFAULT hover:bg-surface-dim transition-colors border border-border-subtle">Review</button>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface border border-border-subtle rounded-DEFAULT p-5 shadow-sm hover:border-warning/50 transition-colors">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-3">
+<img class="w-12 h-12 rounded-full object-cover border border-border-subtle" data-alt="portrait of a young woman with blurry background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1b-nAV86cEivBKZrBh5ISxRje3KZlAgkbSDrdijhM_c4U8I5Xo3If6XEsPVnS94uutxRNiURDBm5B7ok95dxvclTO0xNM3ZnhIpR7bWTphcnyKULoiQrB4OXOLZG9TzP3NXgfxEfNYgvOe9O_rvhXvFj7xOrnBHDCko0VrEZL0MGzeeN4T6VadGXS3h1QQWIlNE5o52p37YEWOQIQzDBLwT_PmGFXlMVBB_QtY3BdiqwOrfkfzyYUuDlxDRNesairIFRy9wUAR9A"/>
+<div>
+<div class="font-h3 text-h3 text-on-surface">@rajesh_uk</div>
+<div class="font-label-sm text-on-surface-dim">ID: #USR-7743</div>
+</div>
+</div>
+<span class="bg-warning/10 text-warning font-label-sm px-2 py-1 rounded-DEFAULT border border-warning/20">85% Match</span>
+</div>
+<div class="mb-4">
+<p class="font-label-sm text-on-surface-variant uppercase mb-1">Detection Reason</p>
+<p class="font-body-md text-on-surface">Location mismatch: IP in Nigeria, Profile claims London, UK.</p>
+</div>
+<div class="flex gap-2">
+<button class="flex-1 bg-error text-on-error font-label-sm py-2 rounded-DEFAULT hover:bg-error/90 transition-colors">Suspend</button>
+<button class="flex-1 bg-surface-variant text-on-surface-variant font-label-sm py-2 rounded-DEFAULT hover:bg-surface-dim transition-colors border border-border-subtle">Review</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Abuse Reports List -->
+<section>
+<div class="flex items-center justify-between mb-4 mt-8">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-dim">flag</span>
+<h2 class="font-h2 text-h2 text-on-surface">User-Submitted Reports</h2>
+</div>
+<div class="flex gap-2">
+<select class="bg-surface border border-border-subtle text-on-surface text-sm rounded-DEFAULT px-3 py-1.5 focus:ring-2 focus:ring-primary focus:border-primary outline-none">
+<option>Status: Pending</option>
+<option>Status: Reviewed</option>
+<option>Status: Dismissed</option>
+</select>
+<select class="bg-surface border border-border-subtle text-on-surface text-sm rounded-DEFAULT px-3 py-1.5 focus:ring-2 focus:ring-primary focus:border-primary outline-none">
+<option>Sort: Highest Severity</option>
+<option>Sort: Newest First</option>
+<option>Sort: Oldest First</option>
+</select>
+</div>
+</div>
+<div class="bg-surface border border-border-subtle rounded-DEFAULT overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-slate-100 border-b border-border-subtle">
+<th class="py-3 px-4 font-table-header text-table-header text-on-surface-dim uppercase tracking-wider w-24">Report ID</th>
+<th class="py-3 px-4 font-table-header text-table-header text-on-surface-dim uppercase tracking-wider">Reported User</th>
+<th class="py-3 px-4 font-table-header text-table-header text-on-surface-dim uppercase tracking-wider">Reporter</th>
+<th class="py-3 px-4 font-table-header text-table-header text-on-surface-dim uppercase tracking-wider">Category</th>
+<th class="py-3 px-4 font-table-header text-table-header text-on-surface-dim uppercase tracking-wider">Severity</th>
+<th class="py-3 px-4 font-table-header text-table-header text-on-surface-dim uppercase tracking-wider text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-subtle">
+<!-- Row 1 -->
+<tr class="hover:bg-table-hover transition-colors group">
+<td class="py-table-row-y px-4 font-body-md text-on-surface-dim">#REP-1029</td>
+<td class="py-table-row-y px-4">
+<div class="font-body-md font-medium text-on-surface">@vikram_m</div>
+</td>
+<td class="py-table-row-y px-4 font-body-md text-on-surface-dim">@sneha_p</td>
+<td class="py-table-row-y px-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                                            Harassment
+                                        </span>
+</td>
+<td class="py-table-row-y px-4">
+<div class="flex items-center gap-1 text-error">
+<span class="material-symbols-outlined text-[16px] icon-fill">warning</span>
+<span class="font-label-sm">High</span>
+</div>
+</td>
+<td class="py-table-row-y px-4 text-right">
+<button class="bg-primary text-on-primary font-label-sm px-4 py-1.5 rounded-DEFAULT opacity-0 group-hover:opacity-100 transition-opacity focus:opacity-100">Review</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-table-hover transition-colors group">
+<td class="py-table-row-y px-4 font-body-md text-on-surface-dim">#REP-1028</td>
+<td class="py-table-row-y px-4">
+<div class="font-body-md font-medium text-on-surface">@investment_guru</div>
+</td>
+<td class="py-table-row-y px-4 font-body-md text-on-surface-dim">@rahul_dev</td>
+<td class="py-table-row-y px-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-800">
+                                            Scam / Spam
+                                        </span>
+</td>
+<td class="py-table-row-y px-4">
+<div class="flex items-center gap-1 text-warning">
+<span class="material-symbols-outlined text-[16px] icon-fill">warning</span>
+<span class="font-label-sm">Medium</span>
+</div>
+</td>
+<td class="py-table-row-y px-4 text-right">
+<button class="bg-primary text-on-primary font-label-sm px-4 py-1.5 rounded-DEFAULT opacity-0 group-hover:opacity-100 transition-opacity focus:opacity-100">Review</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-table-hover transition-colors group">
+<td class="py-table-row-y px-4 font-body-md text-on-surface-dim">#REP-1027</td>
+<td class="py-table-row-y px-4">
+<div class="font-body-md font-medium text-on-surface">@anonymous_user11</div>
+</td>
+<td class="py-table-row-y px-4 font-body-md text-on-surface-dim">@priyanka_s</td>
+<td class="py-table-row-y px-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                            Inappropriate Content
+                                        </span>
+</td>
+<td class="py-table-row-y px-4">
+<div class="flex items-center gap-1 text-on-surface-dim">
+<span class="material-symbols-outlined text-[16px]">info</span>
+<span class="font-label-sm">Low</span>
+</div>
+</td>
+<td class="py-table-row-y px-4 text-right">
+<button class="bg-primary text-on-primary font-label-sm px-4 py-1.5 rounded-DEFAULT opacity-0 group-hover:opacity-100 transition-opacity focus:opacity-100">Review</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-table-hover transition-colors group">
+<td class="py-table-row-y px-4 font-body-md text-on-surface-dim">#REP-1026</td>
+<td class="py-table-row-y px-4">
+<div class="font-body-md font-medium text-on-surface">@karan_singh_88</div>
+</td>
+<td class="py-table-row-y px-4 font-body-md text-on-surface-dim">@megha_a</td>
+<td class="py-table-row-y px-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                                            Harassment
+                                        </span>
+</td>
+<td class="py-table-row-y px-4">
+<div class="flex items-center gap-1 text-error">
+<span class="material-symbols-outlined text-[16px] icon-fill">warning</span>
+<span class="font-label-sm">High</span>
+</div>
+</td>
+<td class="py-table-row-y px-4 text-right">
+<button class="bg-primary text-on-primary font-label-sm px-4 py-1.5 rounded-DEFAULT opacity-0 group-hover:opacity-100 transition-opacity focus:opacity-100">Review</button>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-table-hover transition-colors group">
+<td class="py-table-row-y px-4 font-body-md text-on-surface-dim">#REP-1025</td>
+<td class="py-table-row-y px-4">
+<div class="font-body-md font-medium text-on-surface">@crypto_king_xx</div>
+</td>
+<td class="py-table-row-y px-4 font-body-md text-on-surface-dim">@arjun_k</td>
+<td class="py-table-row-y px-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-800">
+                                            Scam / Spam
+                                        </span>
+</td>
+<td class="py-table-row-y px-4">
+<div class="flex items-center gap-1 text-error">
+<span class="material-symbols-outlined text-[16px] icon-fill">warning</span>
+<span class="font-label-sm">High</span>
+</div>
+</td>
+<td class="py-table-row-y px-4 text-right">
+<button class="bg-primary text-on-primary font-label-sm px-4 py-1.5 rounded-DEFAULT opacity-0 group-hover:opacity-100 transition-opacity focus:opacity-100">Review</button>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- Pagination -->
+<div class="bg-surface border-t border-border-subtle p-4 flex items-center justify-between">
+<span class="font-body-md text-on-surface-dim text-sm">Showing 1 to 5 of 142 reports</span>
+<div class="flex gap-1">
+<button class="px-3 py-1 border border-border-subtle rounded-DEFAULT text-on-surface-dim hover:bg-slate-50 disabled:opacity-50 text-sm font-medium" disabled="">Previous</button>
+<button class="px-3 py-1 border border-primary bg-primary/5 text-primary rounded-DEFAULT text-sm font-medium">1</button>
+<button class="px-3 py-1 border border-border-subtle rounded-DEFAULT text-on-surface-dim hover:bg-slate-50 text-sm font-medium">2</button>
+<button class="px-3 py-1 border border-border-subtle rounded-DEFAULT text-on-surface-dim hover:bg-slate-50 text-sm font-medium">3</button>
+<span class="px-3 py-1 text-on-surface-dim text-sm">...</span>
+<button class="px-3 py-1 border border-border-subtle rounded-DEFAULT text-on-surface-dim hover:bg-slate-50 text-sm font-medium">Next</button>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+</div>
+</body></html>

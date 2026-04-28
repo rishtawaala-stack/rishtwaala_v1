@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Rishtawaala Admin - Premium Services</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-surface": "#1b1b24",
+                    "tertiary-fixed-dim": "#ffb695",
+                    "primary-container": "#4f46e5",
+                    "on-surface-sidebar-active": "#ffffff",
+                    "inverse-primary": "#c3c0ff",
+                    "on-primary-container": "#dad7ff",
+                    "surface-container-highest": "#e4e1ee",
+                    "on-tertiary-fixed": "#351000",
+                    "on-error": "#ffffff",
+                    "surface-container-high": "#eae6f4",
+                    "on-error-container": "#93000a",
+                    "on-primary": "#ffffff",
+                    "primary-fixed": "#e2dfff",
+                    "inverse-surface": "#302f39",
+                    "error": "#ef4444",
+                    "warning": "#f59e0b",
+                    "secondary-fixed": "#dae2fd",
+                    "tertiary-fixed": "#ffdbcc",
+                    "surface-container": "#f0ecf9",
+                    "outline": "#777587",
+                    "surface-tint": "#4d44e3",
+                    "on-surface-variant": "#464555",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "info": "#0ea5e9",
+                    "tertiary": "#7e3000",
+                    "on-secondary-fixed": "#131b2e",
+                    "success": "#10b981",
+                    "surface": "#ffffff",
+                    "surface-container-low": "#f5f2ff",
+                    "background": "#f8fafc",
+                    "on-secondary-fixed-variant": "#3f465c",
+                    "surface-sidebar": "#0f172a",
+                    "table-hover": "#f1f5f9",
+                    "secondary-fixed-dim": "#bec6e0",
+                    "surface-bright": "#fcf8ff",
+                    "on-background": "#1b1b24",
+                    "primary-fixed-dim": "#c3c0ff",
+                    "primary": "#3525cd",
+                    "on-secondary-container": "#5c647a",
+                    "on-surface-dim": "#64748b",
+                    "outline-variant": "#c7c4d8",
+                    "error-container": "#ffdad6",
+                    "surface-variant": "#e4e1ee",
+                    "on-tertiary-fixed-variant": "#7b2f00",
+                    "on-tertiary-container": "#ffd2be",
+                    "surface-dim": "#dcd8e5",
+                    "on-primary-fixed-variant": "#3323cc",
+                    "tertiary-container": "#a44100",
+                    "secondary-container": "#dae2fd",
+                    "border-subtle": "#e2e8f0",
+                    "inverse-on-surface": "#f3effc",
+                    "on-secondary": "#ffffff",
+                    "on-primary-fixed": "#0f0069",
+                    "secondary": "#565e74",
+                    "on-surface-sidebar": "#94a3b8"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "table-row-y": "8px",
+                    "container-max": "1440px",
+                    "gutter": "24px",
+                    "sidebar-width": "260px",
+                    "header-height": "64px",
+                    "base": "4px"
+            },
+            "fontFamily": {
+                    "h2": ["Plus Jakarta Sans"],
+                    "h3": ["Plus Jakarta Sans"],
+                    "table-header": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "h1": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "h2": ["20px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "h3": ["16px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                    "table-header": ["12px", {"fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "1.2", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "h1": ["24px", {"lineHeight": "1.2", "fontWeight": "700"}]
+            }
+          }
+        }
+      }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md antialiased flex min-h-screen">
+<!-- SideNavBar -->
+<nav class="bg-slate-900 dark:bg-black fixed left-0 top-0 h-full w-[260px] border-r border-slate-800 flex flex-col py-6 z-50">
+<div class="px-6 mb-8">
+<h1 class="text-lg font-extrabold tracking-tighter text-white">Rishtawaala</h1>
+<p class="text-slate-400 font-label-sm text-label-sm mt-1 uppercase tracking-wider">Command Center</p>
+</div>
+<div class="flex-1 overflow-y-auto">
+<ul class="flex flex-col gap-1">
+<!-- Inactive Tab -->
+<li>
+<a class="flex items-center gap-3 px-6 py-2.5 text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition-all duration-200 ease-in-out cursor-pointer active:opacity-80 font-['Plus_Jakarta_SANS'] text-[13px] tracking-tight border-r-4 border-transparent" href="#">
+<span class="material-symbols-outlined text-[20px]">vpn_key</span>
+<span>Login &amp; RBAC</span>
+</a>
+</li>
+<!-- Inactive Tab -->
+<li>
+<a class="flex items-center gap-3 px-6 py-2.5 text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition-all duration-200 ease-in-out cursor-pointer active:opacity-80 font-['Plus_Jakarta_SANS'] text-[13px] tracking-tight border-r-4 border-transparent" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span>Dashboard</span>
+</a>
+</li>
+<!-- Inactive Tab -->
+<li>
+<a class="flex items-center gap-3 px-6 py-2.5 text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition-all duration-200 ease-in-out cursor-pointer active:opacity-80 font-['Plus_Jakarta_SANS'] text-[13px] tracking-tight border-r-4 border-transparent" href="#">
+<span class="material-symbols-outlined text-[20px]">group</span>
+<span>Users</span>
+</a>
+</li>
+<!-- Inactive Tab -->
+<li>
+<a class="flex items-center gap-3 px-6 py-2.5 text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition-all duration-200 ease-in-out cursor-pointer active:opacity-80 font-['Plus_Jakarta_SANS'] text-[13px] tracking-tight border-r-4 border-transparent" href="#">
+<span class="material-symbols-outlined text-[20px]">gavel</span>
+<span>Moderation</span>
+</a>
+</li>
+<!-- Inactive Tab -->
+<li>
+<a class="flex items-center gap-3 px-6 py-2.5 text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition-all duration-200 ease-in-out cursor-pointer active:opacity-80 font-['Plus_Jakarta_SANS'] text-[13px] tracking-tight border-r-4 border-transparent" href="#">
+<span class="material-symbols-outlined text-[20px]">verified_user</span>
+<span>Verification</span>
+</a>
+</li>
+<!-- Inactive Tab -->
+<li>
+<a class="flex items-center gap-3 px-6 py-2.5 text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition-all duration-200 ease-in-out cursor-pointer active:opacity-80 font-['Plus_Jakarta_SANS'] text-[13px] tracking-tight border-r-4 border-transparent" href="#">
+<span class="material-symbols-outlined text-[20px]">security</span>
+<span>Safety</span>
+</a>
+</li>
+<!-- Inactive Tab -->
+<li>
+<a class="flex items-center gap-3 px-6 py-2.5 text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition-all duration-200 ease-in-out cursor-pointer active:opacity-80 font-['Plus_Jakarta_SANS'] text-[13px] tracking-tight border-r-4 border-transparent" href="#">
+<span class="material-symbols-outlined text-[20px]">payments</span>
+<span>Finance</span>
+</a>
+</li>
+<!-- Inactive Tab -->
+<li>
+<a class="flex items-center gap-3 px-6 py-2.5 text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition-all duration-200 ease-in-out cursor-pointer active:opacity-80 font-['Plus_Jakarta_SANS'] text-[13px] tracking-tight border-r-4 border-transparent" href="#">
+<span class="material-symbols-outlined text-[20px]">forum</span>
+<span>Communication</span>
+</a>
+</li>
+<!-- Inactive Tab -->
+<li>
+<a class="flex items-center gap-3 px-6 py-2.5 text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition-all duration-200 ease-in-out cursor-pointer active:opacity-80 font-['Plus_Jakarta_SANS'] text-[13px] tracking-tight border-r-4 border-transparent" href="#">
+<span class="material-symbols-outlined text-[20px]">trending_up</span>
+<span>Growth</span>
+</a>
+</li>
+<!-- Active Tab -->
+<li>
+<a class="flex items-center gap-3 px-6 py-2.5 bg-indigo-600/10 text-indigo-400 border-r-4 border-indigo-500 cursor-pointer active:opacity-80 font-['Plus_Jakarta_SANS'] text-[13px] tracking-tight transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-semibold">Premium Services</span>
+</a>
+</li>
+<!-- Inactive Tab -->
+<li>
+<a class="flex items-center gap-3 px-6 py-2.5 text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition-all duration-200 ease-in-out cursor-pointer active:opacity-80 font-['Plus_Jakarta_SANS'] text-[13px] tracking-tight border-r-4 border-transparent" href="#">
+<span class="material-symbols-outlined text-[20px]">settings_suggest</span>
+<span>Settings &amp; Audit</span>
+</a>
+</li>
+</ul>
+</div>
+<div class="px-6 mt-auto flex items-center gap-3 border-t border-slate-800 pt-6">
+<img alt="Admin Avatar" class="w-8 h-8 rounded-full border border-slate-700" data-alt="professional headshot of an administrator in studio lighting against neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMeje3jF8LxBP9ZtHzwZv2CNygYYriZ3TSszP02CaxEJcS_HrrGJPumgMInGC_kneiMbZWtV60KNUaPoVHv59b2kBIh5cSq9KUYeS6_QlnoFaCP6dTbLZnfNfl4f_XdjXcmb2xpCbtb-VBklYarHO9J8pvCGPZeS0gPogUXrhYH_JbP4vjmUZf0W5GJ13CBWdD64DbXCeJ_K47AuSvt3kMJczNDLb003_spVTwx2n0kgTt2hHsSBVd5TqN-jJUomkceyPqElXKebk"/>
+<div class="flex flex-col">
+<span class="text-white font-label-sm text-label-sm leading-none">System Admin</span>
+<span class="text-slate-500 text-[11px] mt-1">Lvl 4 Clearance</span>
+</div>
+</div>
+</nav>
+<!-- Main Content Wrapper -->
+<div class="flex-1 ml-[260px] flex flex-col min-w-0">
+<!-- TopNavBar -->
+<header class="sticky top-0 z-40 w-full h-16 bg-white dark:bg-slate-950 flex items-center justify-between px-6 border-b border-slate-200 dark:border-slate-800">
+<div class="flex items-center">
+<span class="text-base font-bold text-slate-900 dark:text-white font-['Plus_Jakarta_SANS']">Rishtawaala Admin</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative max-w-md w-64 hidden lg:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">search</span>
+<input class="w-full pl-9 pr-4 py-1.5 bg-surface-container-low border border-border-subtle rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all" placeholder="Global search..." type="text"/>
+</div>
+<div class="flex items-center gap-1 border-l border-border-subtle pl-4 ml-2">
+<button class="p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors duration-150 rounded-full relative">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors duration-150 rounded-full">
+<span class="material-symbols-outlined text-[20px]">help</span>
+</button>
+<button class="p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors duration-150 rounded-full">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Page Canvas -->
+<main class="p-gutter flex-1 overflow-x-hidden flex flex-col gap-6 bg-background">
+<!-- Page Header -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div>
+<h1 class="font-h1 text-h1 text-on-surface">Premium Services Management</h1>
+<p class="text-on-surface-dim mt-1">Assign relationship managers and manage profile visibility boosts.</p>
+</div>
+<div class="flex items-center gap-3">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-surface border border-border-subtle rounded-full text-sm font-medium text-on-surface-variant">
+<span class="w-2 h-2 rounded-full bg-success"></span>
+                        System Operational
+                    </span>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start">
+<!-- Left Column: RM Assignment (Span 8) -->
+<div class="xl:col-span-8 flex flex-col gap-6">
+<!-- Section Header -->
+<div class="flex items-center justify-between">
+<h2 class="font-h2 text-h2 text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">group_add</span>
+                            RM Assignment Matrix
+                        </h2>
+<div class="flex gap-2">
+<button class="px-3 py-1.5 text-sm font-medium bg-surface border border-border-subtle rounded hover:bg-table-hover transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+                                Filter
+                            </button>
+</div>
+</div>
+<!-- Drag & Drop Workspace -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<!-- Unassigned Pool Column -->
+<div class="bg-surface border border-border-subtle rounded-lg flex flex-col h-[600px]">
+<div class="p-4 border-b border-border-subtle bg-surface-container-low rounded-t-lg">
+<h3 class="font-h3 text-h3 text-on-surface flex items-center justify-between">
+                                    Unassigned Platinum
+                                    <span class="bg-primary/10 text-primary px-2 py-0.5 rounded-full text-xs font-bold">24</span>
+</h3>
+<div class="mt-3 relative">
+<span class="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm">search</span>
+<input class="w-full pl-8 pr-3 py-1.5 bg-surface border border-border-subtle rounded text-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none" placeholder="Search ID or Name" type="text"/>
+</div>
+</div>
+<div class="p-3 flex-1 overflow-y-auto flex flex-col gap-2 bg-background/50">
+<!-- Draggable Card 1 -->
+<div class="bg-surface border border-border-subtle rounded p-3 cursor-grab hover:border-primary hover:shadow-sm transition-all group flex flex-col gap-2 relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-slate-300 group-hover:bg-primary transition-colors"></div>
+<div class="flex items-center justify-between pl-2">
+<div class="flex items-center gap-2">
+<img alt="User" class="w-8 h-8 rounded-full bg-surface-variant" data-alt="professional portrait of a young south asian man smiling gently" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGR1ZLBbBtjhiS7TS6Vm7TvLcPV41VWvz2xzaq_cRPWxn7Eda01qK86ZsZyxGsfTgQ3tUjQYo8KTN58euJRymtSyd79d-iLnUkXoaWLKrPcUFRHMRG9xRoBuAgZ2A0os_ktkOK8y71YyOdt8NjUzYgrgmXwAVgFAKmTtf97zulpymyihLOy0HDb9YtQq8ygo_Q6N1WFbRP7hbtcJh2mwwXA3WI8tuiMmRgrFPOio5ZE5nryX4hzstEjIyhIRbX5rwvvvxZVywPGc0"/>
+<div>
+<div class="font-medium text-sm text-on-surface leading-tight">Aarav Patel</div>
+<div class="text-xs text-on-surface-dim font-mono mt-0.5">PTL-8821-X</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-slate-300 group-hover:text-primary cursor-grab text-[18px]">drag_indicator</span>
+</div>
+<div class="flex items-center gap-2 pl-2 mt-1">
+<span class="px-1.5 py-0.5 bg-warning/10 text-warning-700 border border-warning/20 rounded text-[10px] font-semibold uppercase tracking-wider">High Priority</span>
+<span class="text-xs text-on-surface-dim flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">schedule</span> 2d wait</span>
+</div>
+</div>
+<!-- Draggable Card 2 -->
+<div class="bg-surface border border-border-subtle rounded p-3 cursor-grab hover:border-primary hover:shadow-sm transition-all group flex flex-col gap-2 relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-slate-300 group-hover:bg-primary transition-colors"></div>
+<div class="flex items-center justify-between pl-2">
+<div class="flex items-center gap-2">
+<img alt="User" class="w-8 h-8 rounded-full bg-surface-variant" data-alt="professional portrait of a young south asian woman with natural makeup" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAh1PG2waVPEqrHd23_USNyfYfvyZIXgIWPndJ_p2GxNXR_7YyK4-K_eJDa3O5OQBGQRUilbz5Xq4MroZ7Ooo88PcLo6DvtkxkVxV6ceBylkZlBNLi6Z6Sl3ZJZUk1sdYhuS_LY0vVlgwqT1qbYC20lZjxvwH7e-6NWFGRpuHxkx8869m1p82RKExsWy7rMBwmrbnhT70caCnNEX1wgw6WqoQqfZGA3JklhfVf2AMDaskjZhX-AOQuHCZIJqGY21c-M_bqQ_3KTLk4"/>
+<div>
+<div class="font-medium text-sm text-on-surface leading-tight">Diya Sharma</div>
+<div class="text-xs text-on-surface-dim font-mono mt-0.5">PTL-9044-Y</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-slate-300 group-hover:text-primary cursor-grab text-[18px]">drag_indicator</span>
+</div>
+</div>
+<!-- Draggable Card 3 -->
+<div class="bg-surface border border-border-subtle rounded p-3 cursor-grab hover:border-primary hover:shadow-sm transition-all group flex flex-col gap-2 relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-slate-300 group-hover:bg-primary transition-colors"></div>
+<div class="flex items-center justify-between pl-2">
+<div class="flex items-center gap-2">
+<img alt="User" class="w-8 h-8 rounded-full bg-surface-variant" data-alt="professional portrait of a middle-aged south asian man in business attire" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWP4E9u9Hom4ytnscndLCtJfi8LFHg9LPKMMEioLH3dl9wV5FYGsd3fqFovlWCvPbQSN1G--hgTd_sQUxBmtOimmwoRkGpJKK1IV_djVYO5osBwVDd-CHqSXTCm5-acx9suOHBlABKiUyVGLHawyY8Gop4zipPxH30OT4bbcH1qAOtMVaQ40c8hqxBqxK7VOWAcQ8mfiDJ-St0_pGgkrpQSgZivpyKHKp9tYfsqUwfFNUGNqNJrZaxH0ub0T-NcTvr2iVCcKcC9eU"/>
+<div>
+<div class="font-medium text-sm text-on-surface leading-tight">Vikram Singh</div>
+<div class="text-xs text-on-surface-dim font-mono mt-0.5">PTL-7112-Z</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-slate-300 group-hover:text-primary cursor-grab text-[18px]">drag_indicator</span>
+</div>
+<div class="flex items-center gap-2 pl-2 mt-1">
+<span class="text-xs text-on-surface-dim flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">schedule</span> 5h wait</span>
+</div>
+</div>
+</div>
+</div>
+<!-- RM Columns (Span 2) -->
+<div class="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
+<!-- RM Drop Zone 1 -->
+<div class="bg-surface-container-low border border-border-subtle rounded-lg flex flex-col h-[600px]">
+<div class="p-4 border-b border-border-subtle flex flex-col gap-3 bg-surface rounded-t-lg">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-3">
+<div class="relative">
+<img alt="RM" class="w-10 h-10 rounded-full border-2 border-surface" data-alt="professional portrait of a friendly female relationship manager" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDY7A-sP2HYlcAkltfBMdG47KLWyaSNs9u4ff1YGXCIcxJVGbVaHxez60oaOR5dWD6FFr1nJ-foOUenff7pAy3MHaRHNLFkvAuTy_IaIUdCZNZV5I2BBhT4S6Jl-Akwmn2jcUhQUGvqJ3Nc6Gwphy8ILGtn9616apN0ZqVZ_A1k1YXhLUth1Yd8_QAacUPcHmDkQAAtYlScbhEVyScIP1rMxud5lUc2BB043a6-8KJgqx7G0-e2vFpgGY3sStSR1glvgsEzph--0j8"/>
+<span class="absolute bottom-0 right-0 w-3 h-3 bg-success border-2 border-surface rounded-full"></span>
+</div>
+<div>
+<h4 class="font-medium text-sm text-on-surface">Meera Kapoor</h4>
+<p class="text-xs text-on-surface-dim">Senior RM · Mumbai</p>
+</div>
+</div>
+<button class="text-slate-400 hover:text-primary"><span class="material-symbols-outlined text-[20px]">more_vert</span></button>
+</div>
+<!-- Capacity Bar -->
+<div>
+<div class="flex justify-between text-xs mb-1">
+<span class="text-on-surface-variant font-medium">Capacity</span>
+<span class="text-on-surface-dim">18 / 25</span>
+</div>
+<div class="w-full bg-surface-dim h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 72%"></div>
+</div>
+</div>
+</div>
+<!-- Drop Area -->
+<div class="p-3 flex-1 overflow-y-auto flex flex-col gap-2 border-2 border-dashed border-transparent hover:border-primary/30 hover:bg-primary/5 transition-colors m-1 rounded-lg">
+<!-- Assigned Card -->
+<div class="bg-surface border border-border-subtle rounded p-2.5 flex items-center justify-between group">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold text-xs">S</div>
+<div>
+<div class="font-medium text-xs text-on-surface">Sanya M.</div>
+<div class="text-[10px] text-on-surface-dim font-mono">PTL-4412</div>
+</div>
+</div>
+<button class="opacity-0 group-hover:opacity-100 text-error hover:bg-error/10 p-1 rounded transition-all"><span class="material-symbols-outlined text-[16px]">close</span></button>
+</div>
+<div class="bg-surface border border-border-subtle rounded p-2.5 flex items-center justify-between group">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-xs">R</div>
+<div>
+<div class="font-medium text-xs text-on-surface">Rohan K.</div>
+<div class="text-[10px] text-on-surface-dim font-mono">PTL-2290</div>
+</div>
+</div>
+<button class="opacity-0 group-hover:opacity-100 text-error hover:bg-error/10 p-1 rounded transition-all"><span class="material-symbols-outlined text-[16px]">close</span></button>
+</div>
+</div>
+</div>
+<!-- RM Drop Zone 2 -->
+<div class="bg-surface-container-low border border-border-subtle rounded-lg flex flex-col h-[600px]">
+<div class="p-4 border-b border-border-subtle flex flex-col gap-3 bg-surface rounded-t-lg">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-3">
+<div class="relative">
+<img alt="RM" class="w-10 h-10 rounded-full border-2 border-surface" data-alt="professional portrait of a male relationship manager wearing glasses" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKHUDFyZbVNTmtXqWlYlXkc2HmLwUMWO-n4qm2rkrCD9nmZuNeO-CMaftOTqN7wBEsMAYI2-YjfBuvrSS8hJPdbS4YkdJAc0jFKYNSvvmMeiCcQutdRziIsDGr6r4UNigpGenSFT6rc4kGAC3DcXkrCs-MxbBuoY7DUohlbeYpj1Ku13M-G18ZSXLHa3lgYcU-FGpGhXJz-SDDLDABAz3nt-z7jBb9mew4o7EF1G4T0H_LxsW4mrIY-33jhMArqVMlCIZF6ZmKiBA"/>
+<span class="absolute bottom-0 right-0 w-3 h-3 bg-warning border-2 border-surface rounded-full"></span>
+</div>
+<div>
+<h4 class="font-medium text-sm text-on-surface">Kabir Das</h4>
+<p class="text-xs text-on-surface-dim">RM · Delhi NCR</p>
+</div>
+</div>
+<button class="text-slate-400 hover:text-primary"><span class="material-symbols-outlined text-[20px]">more_vert</span></button>
+</div>
+<!-- Capacity Bar -->
+<div>
+<div class="flex justify-between text-xs mb-1">
+<span class="text-on-surface-variant font-medium">Capacity</span>
+<span class="text-warning-700 font-bold">24 / 25</span>
+</div>
+<div class="w-full bg-surface-dim h-1.5 rounded-full overflow-hidden">
+<div class="bg-warning h-full rounded-full" style="width: 96%"></div>
+</div>
+</div>
+</div>
+<!-- Drop Area -->
+<div class="p-3 flex-1 overflow-y-auto flex flex-col gap-2 border-2 border-dashed border-transparent hover:border-primary/30 hover:bg-primary/5 transition-colors m-1 rounded-lg">
+<div class="text-center py-8 text-on-surface-dim text-sm flex flex-col items-center gap-2">
+<span class="material-symbols-outlined text-[32px] text-surface-dim">pan_tool_alt</span>
+<span>Near capacity. Drop to reassign.</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Profile Boost Management (Span 4) -->
+<div class="xl:col-span-4 flex flex-col gap-6">
+<div class="bg-surface border border-border-subtle rounded-xl overflow-hidden shadow-sm">
+<!-- Header Gradient -->
+<div class="h-2 w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"></div>
+<div class="p-6 flex flex-col gap-6">
+<div>
+<h2 class="font-h2 text-h2 text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-purple-600">rocket_launch</span>
+                                    Award Profile Boost
+                                </h2>
+<p class="text-sm text-on-surface-dim mt-1">Manually grant visibility multipliers to specific profiles for remediation or promotion.</p>
+</div>
+<!-- Target User Selection -->
+<div class="flex flex-col gap-2">
+<label class="font-label-sm text-label-sm text-on-surface uppercase tracking-wider">Target Profile ID</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">person_search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-background border border-border-subtle rounded-lg text-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" placeholder="e.g. USR-4921" type="text"/>
+</div>
+</div>
+<!-- Boost Configuration Grid -->
+<div class="flex flex-col gap-3">
+<label class="font-label-sm text-label-sm text-on-surface uppercase tracking-wider">Select Multiplier Tier</label>
+<div class="grid grid-cols-2 gap-3">
+<!-- Option 1 -->
+<label class="relative flex flex-col gap-1 p-3 border border-border-subtle rounded-lg cursor-pointer hover:bg-surface-container-low transition-colors has-[:checked]:border-primary has-[:checked]:bg-primary/5 has-[:checked]:ring-1 has-[:checked]:ring-primary">
+<input checked="" class="sr-only" name="boost_tier" type="radio"/>
+<div class="flex items-center justify-between">
+<span class="font-bold text-lg text-on-surface">2x</span>
+<span class="material-symbols-outlined text-primary text-[20px] hidden [.has-[:checked]_&amp;]:block">check_circle</span>
+</div>
+<span class="text-xs text-on-surface-dim">Standard Exposure</span>
+</label>
+<!-- Option 2 -->
+<label class="relative flex flex-col gap-1 p-3 border border-border-subtle rounded-lg cursor-pointer hover:bg-surface-container-low transition-colors has-[:checked]:border-purple-500 has-[:checked]:bg-purple-50 has-[:checked]:ring-1 has-[:checked]:ring-purple-500">
+<input class="sr-only" name="boost_tier" type="radio"/>
+<div class="flex items-center justify-between">
+<span class="font-bold text-lg text-on-surface text-purple-700">5x</span>
+<span class="material-symbols-outlined text-purple-600 text-[20px] hidden [.has-[:checked]_&amp;]:block">check_circle</span>
+</div>
+<span class="text-xs text-on-surface-dim">High Visibility</span>
+</label>
+</div>
+</div>
+<!-- Duration & Reason -->
+<div class="grid grid-cols-2 gap-4">
+<div class="flex flex-col gap-2">
+<label class="font-label-sm text-label-sm text-on-surface uppercase tracking-wider">Duration</label>
+<select class="w-full px-3 py-2 bg-background border border-border-subtle rounded-lg text-sm focus:border-primary outline-none appearance-none">
+<option>24 Hours</option>
+<option>48 Hours</option>
+<option>7 Days</option>
+</select>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-sm text-label-sm text-on-surface uppercase tracking-wider">Context</label>
+<select class="w-full px-3 py-2 bg-background border border-border-subtle rounded-lg text-sm focus:border-primary outline-none appearance-none">
+<option>Service Recovery</option>
+<option>Promo Campaign</option>
+<option>Editorial Choice</option>
+</select>
+</div>
+</div>
+<button class="w-full mt-2 bg-primary hover:bg-primary-fixed-variant text-white font-semibold py-2.5 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-sm">
+<span class="material-symbols-outlined text-[20px]">flash_on</span>
+                                Activate Profile Boost
+                            </button>
+</div>
+<!-- Recent Activity List below form -->
+<div class="border-t border-border-subtle bg-surface-container-low p-4">
+<h3 class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-3">Recent Manual Boosts</h3>
+<ul class="flex flex-col gap-0 divide-y divide-border-subtle">
+<li class="py-2 flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-sm font-medium text-on-surface">USR-1102</span>
+<span class="text-xs text-on-surface-dim">Service Recovery · By SysAdmin</span>
+</div>
+<span class="px-2 py-0.5 bg-purple-100 text-purple-700 rounded text-xs font-bold">5x</span>
+</li>
+<li class="py-2 flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-sm font-medium text-on-surface">USR-8441</span>
+<span class="text-xs text-on-surface-dim">Promo Campaign · By SysAdmin</span>
+</div>
+<span class="px-2 py-0.5 bg-indigo-100 text-indigo-700 rounded text-xs font-bold">2x</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

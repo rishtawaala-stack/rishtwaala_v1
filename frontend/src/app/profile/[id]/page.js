@@ -10,9 +10,11 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import MatchMeter from "@/components/MatchMeter";
 import FloatingHearts from "@/components/FloatingHearts";
+import useAuthStore from "@/store/useAuthStore";
 
 export default function ViewProfilePage({ params }) {
   const profileId = params.id;
+  const { user: currentUser } = useAuthStore();
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   
@@ -20,10 +22,7 @@ export default function ViewProfilePage({ params }) {
   const [status, setStatus] = useState(null); 
   const [conversationId, setConversationId] = useState(null);
   
-  const [aiScore, setAiScore] = useState(null);
-  const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [showMatrometer, setShowMatrometer] = useState(false);
-
   const [isProcessing, setIsProcessing] = useState(false);
 
   const router = useRouter();
@@ -52,7 +51,6 @@ export default function ViewProfilePage({ params }) {
 
       if (out) {
         if (out.type === 'like' || out.status === 'pending') {
-           // Standardized behavior: If a like was sent, we show it here
            setStatus('sent');
         } else if (out.type === 'shortlist') setStatus('shortlisted');
         else if (out.type === 'accepted' || out.status === 'accepted') {
@@ -89,10 +87,9 @@ export default function ViewProfilePage({ params }) {
       const res = await api.post('/interests', { to_profile_id: profileId, type });
       
       if (res.data?.success) {
-        // PER OBJECTIVE: If request success, instantly change state to 'connected' (Green/Disabled)
         if (type === 'like') {
-          setStatus('connected');
-          toast.success("Connected! ✨", { id: tid });
+          setStatus('sent');
+          toast.success("Request Sent! ✨", { id: tid });
         } else {
           setStatus('shortlisted');
           toast.success("Interested! 💖", { id: tid });
@@ -170,9 +167,8 @@ export default function ViewProfilePage({ params }) {
                      <button 
                        onClick={() => {
                          if (status === 'connected' && conversationId) router.push(`/bonds?id=${conversationId}`);
-                         else handleAction('like');
+                         else setShowMatrometer(true); // Forced via Matrometer
                        }}
-                       disabled={isProcessing || status === 'connected' || status === 'pending_acceptance' || status === 'sent'}
                        className={`flex-1 py-6 rounded-[2.5rem] border-4 font-black uppercase tracking-[0.2em] text-[10px] shadow-2xl transition-all active:scale-95 flex items-center justify-center gap-3 ${
                          status === 'connected'
                            ? 'bg-green-500 border-green-400 text-white shadow-green-500/20'
@@ -181,16 +177,14 @@ export default function ViewProfilePage({ params }) {
                              : 'btn-premium border-white/20'
                        }`}
                      >
-                        {isProcessing ? (
-                          <Loader2 className="w-5 h-5 animate-spin" />
-                        ) : status === 'connected' ? (
+                        {status === 'connected' ? (
                           'Connected'
                         ) : status === 'sent' ? (
                           'Request Sent'
                         ) : status === 'pending_acceptance' ? (
                           'Response Pending'
                         ) : (
-                          'Send Connection Request'
+                          'View Compatibility to Connect'
                         )}
                      </button>
                   </div>
@@ -208,7 +202,7 @@ export default function ViewProfilePage({ params }) {
                   <div className="w-24 h-24 rounded-full bg-slate-800 flex items-center justify-center border-8 border-rw-rose/20 group-hover:scale-110 group-hover:border-rw-rose/40 transition-all duration-700 shadow-[0_0_50px_rgba(255,31,113,0.3)]">
                      <Zap className="w-10 h-10 text-rw-rose animate-pulse" />
                   </div>
-                  <span className="block text-lg font-black uppercase tracking-widest text-white">View Compatibility</span>
+                  <span className="block text-lg font-black uppercase tracking-widest text-white">Unlock Match Insights</span>
                </button>
             </motion.div>
           </div>
@@ -272,21 +266,24 @@ export default function ViewProfilePage({ params }) {
 
       <AnimatePresence>
         {showMatrometer && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-slate-950/80 backdrop-blur-xl">
-             <motion.div initial={{ opacity: 0, scale: 0.9, y: 50 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.9, y: 50 }} className="relative w-full max-w-lg glass-outer border-white/20 bg-slate-900/80 p-12 rounded-[5rem] overflow-hidden shadow-2xl">
-                <header className="flex justify-between items-center mb-12">
-                   <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-white/50">Compatibility Dashboard</h2>
-                   <button onClick={() => setShowMatrometer(false)} className="text-white/30 hover:text-white transition-all"><ArrowLeft className="w-6 h-6 rotate-90" /></button>
-                </header>
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6 bg-dark/95 backdrop-blur-3xl overflow-y-auto">
+             <motion.div initial={{ opacity: 0, scale: 0.9, y: 50 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.9, y: 50 }} className="relative w-full max-w-xl p-4 md:p-8 rounded-[5rem] overflow-visible">
                 <div className="flex flex-col items-center">
-                   <MatchMeter score={aiScore || 85} size="lg" animate={false} />
-                   <p className="mt-12 text-[11px] text-white/40 uppercase tracking-widest font-black text-center leading-loose">Synchronizing pulse... 1.5M parameters analyzed for deep resonance.</p>
+                   <MatchMeter 
+                    profileA={currentUser} 
+                    profileB={profile} 
+                    onSendRequest={() => handleAction('like')}
+                    isProcessingRequest={isProcessing}
+                    status={status}
+                    onClose={() => setShowMatrometer(false)}
+                   />
                 </div>
              </motion.div>
           </div>
         )}
       </AnimatePresence>
     </div>
+
   );
 }
 

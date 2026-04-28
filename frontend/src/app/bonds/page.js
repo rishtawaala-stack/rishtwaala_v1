@@ -10,6 +10,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 import useAuthStore from "@/store/useAuthStore";
 import toast from "react-hot-toast";
 import FloatingHearts from "@/components/FloatingHearts";
+import VibeMatchBanner from "@/components/VibeMatchBanner";
+import VibeAnalysisModal from "@/components/VibeAnalysisModal";
 
 function BondsContent() {
   const [activeChat, setActiveChat] = useState(null);
@@ -19,6 +21,8 @@ function BondsContent() {
   const [loading, setLoading] = useState(true);
   const [isUnlocked, setIsUnlocked] = useState(false);
   const [isShared, setIsShared] = useState(false);
+  const [isVibeModalOpen, setIsVibeModalOpen] = useState(false);
+  const [vibeScore, setVibeScore] = useState(0);
   const [chatSearch, setChatSearch] = useState("");
   const endOfMessagesRef = useRef(null);
   const router = useRouter();
@@ -118,9 +122,30 @@ function BondsContent() {
             type: msgType
           };
         }));
-
+        
+        const formattedMsgs = data.map(m => ({
+            id: m.id,
+            sender: String(m.sender_id).toLowerCase().trim() === String(user?.profileId || "").toLowerCase().trim() ? "me" : "them",
+            text: m.content,
+            type: m.type
+        }));
+        calculateVibeScore(formattedMsgs);
       }
     } catch (err) { }
+  };
+
+  const calculateVibeScore = (msgs) => {
+    if (!msgs || msgs.length === 0) return;
+    const textMsgs = msgs.filter(m => m.type === 'text' || !m.type);
+    const countScore = Math.min(40, textMsgs.length * 2);
+    const myMsgs = textMsgs.filter(m => m.sender === 'me').length;
+    const theirMsgs = textMsgs.filter(m => m.sender === 'them').length;
+    const balance = Math.min(myMsgs, theirMsgs) / Math.max(1, Math.max(myMsgs, theirMsgs));
+    const balanceScore = balance * 20;
+    const avgLength = textMsgs.reduce((acc, m) => acc + (m.text?.length || 0), 0) / Math.max(1, textMsgs.length);
+    const lengthScore = Math.min(20, avgLength / 5);
+    const total = Math.round(countScore + balanceScore + lengthScore + 20); // Base resonance
+    setVibeScore(Math.min(100, total));
   };
 
   const handleShareContact = async () => {
@@ -132,8 +157,8 @@ function BondsContent() {
     }
   };
 
-  const startKundaliMatch = () => {
-    router.push(`/kundali-match/${user?.profileId}/${activeChat.profileId}`);
+  const openVibeAnalysis = () => {
+    setIsVibeModalOpen(true);
   };
 
   const handleSend = async (e) => {
@@ -267,44 +292,26 @@ function BondsContent() {
                 </div>
               </header>
 
-              {/* Engagement Banner */}
+              {/* Vibe Match Banner */}
               {isUnlocked && (
-                <motion.div 
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="mx-8 mt-6 p-5 bg-gradient-to-r from-[#AC002F]/5 to-[#7B2FF7]/5 border border-primary/10 rounded-3xl flex items-center justify-between shadow-xl shadow-primary/5 relative z-20"
-                >
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-[#AC002F] shadow-sm transform -rotate-3">
-                      <Heart className="w-6 h-6 fill-current" />
-                    </div>
-                    <div>
-                      <h4 className="text-sm font-black text-dark tracking-tight leading-tight">Your bond is blossoming! ✨</h4>
-                      <p className="text-[10px] text-gray-500 font-bold uppercase tracking-widest mt-1">Contact sharing & Kundali match unlocked</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <button 
-                      onClick={startKundaliMatch}
-                      className="px-5 py-2.5 bg-white text-dark text-[10px] font-black rounded-xl border border-gray-100 hover:shadow-lg transition-all active:scale-95 flex items-center gap-2 uppercase tracking-wider"
-                    >
-                      <Sparkles className="w-3.5 h-3.5 text-yellow-500" /> Match Kundali
-                    </button>
-                    {!isShared ? (
-                      <button 
-                        onClick={handleShareContact}
-                        className="px-5 py-2.5 bg-[#AC002F] text-white text-[10px] font-black rounded-xl shadow-lg shadow-primary/20 hover:scale-105 transition-all active:scale-95 flex items-center gap-2 uppercase tracking-wider"
-                      >
-                        <Phone className="w-3.5 h-3.5" /> Share Contact
-                      </button>
-                    ) : (
-                      <div className="px-5 py-2.5 bg-green-500 text-white text-[10px] font-black rounded-xl flex items-center gap-2 uppercase tracking-wider">
-                         <ShieldCheck className="w-3.5 h-3.5" /> Shared
-                      </div>
-                    )}
-                  </div>
-                </motion.div>
+                <div className="px-8 mt-6">
+                  <VibeMatchBanner 
+                    score={vibeScore}
+                    isContactShared={isShared}
+                    onShareContact={handleShareContact}
+                    onVibeMatch={openVibeAnalysis}
+                    otherName={activeChat.name}
+                  />
+                </div>
               )}
+
+              <VibeAnalysisModal 
+                isOpen={isVibeModalOpen}
+                onClose={() => setIsVibeModalOpen(false)}
+                score={vibeScore}
+                otherName={activeChat.name}
+                messages={messages}
+              />
 
               {/* Bubbles */}
               <div className="flex-1 overflow-y-auto p-6 md:p-10 custom-scrollbar space-y-6">
@@ -323,24 +330,7 @@ function BondsContent() {
                   messages.map((msg) => {
                     const isMe = msg.sender === "me";
 
-                    if (msg.type === 'engagement_unlocked') {
-                      return (
-                        <div key={msg.id} className="flex justify-center my-8">
-                           <motion.div 
-                             initial={{ scale: 0.9, opacity: 0 }}
-                             animate={{ scale: 1, opacity: 1 }}
-                             className="bg-white border border-primary/20 px-8 py-4 rounded-[2rem] shadow-xl shadow-primary/5 flex items-center gap-4 max-w-md text-center"
-                           >
-                             <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary shrink-0">
-                               <Rocket className="w-5 h-5" />
-                             </div>
-                             <p className="text-[11px] font-black text-dark uppercase tracking-wide leading-relaxed">
-                               {msg.text}
-                             </p>
-                           </motion.div>
-                        </div>
-                      );
-                    }
+                    if (msg.type === 'engagement_unlocked') return null;
 
                     if (msg.type === 'contact_share_request') {
                       return (
